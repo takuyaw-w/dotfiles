@@ -1,0 +1,13 @@
+[include]
+	path = ~/.gitconfig.local
+[push]
+	default = current
+[core]
+	autocrlf = false
+	ignorecase = false
+	editor = vim
+	quotepath = false
+[color]
+	ui = true
+[credential]
+	helper = cache --timeout=86400
