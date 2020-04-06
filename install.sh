@@ -133,6 +133,19 @@ sudo apt install -y build-essential
 sudo apt install -y virtualenv
 # virtualenvwrapper
 sudo apt install -y virtualenvwrapper
+# nvm
+git clone https://github.com/nvm-sh/nvm.git .nvm
+cd ~/.nvm
+git checkout v0.35.3
+source nvm.sh
+(
+  cd "$NVM_DIR"
+  git fetch --tags origin
+  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+) && \. "$NVM_DIR/nvm.sh"
+# nodejs
+nvm install --lts --latest-npm
+nvm alias default lts/*
 # powerline
 sudo apt install -y powerline
 # fonts
