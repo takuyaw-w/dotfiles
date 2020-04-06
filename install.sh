@@ -27,6 +27,12 @@ esac
 
 # 初期設定
 
+# 一旦いろいろアップデート
+sudo apt update
+sudo apt -y upgrade
+sudo apt -y dist-upgrade
+sudo snap refresh
+
 # ディレクトリ名を日本語表記から英語表記に変更
 env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
 
@@ -48,21 +54,33 @@ source ~/.zshrc
 
 # アプリケーションのインストール
 
-# curl
-sudo apt install -y curl
-# vscode
+# vscodeのリポジトリ登録
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
 sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-sudo apt install -y apt-transport-https
+# 各PPA
+sudo add-apt-repository -y ppa:lazygit-team/release
+sudo add-apt-repository -y ppa:gerardpuig/ppa
+sudo add-apt-repository -y ppa:git-core/ppa
+
+# update
 sudo apt update
-sudo apt install -y code
+sudo apt -y upgrade
+sudo apt -y dist-upgrade
+sudo snap refresh
+
+# curl
+sudo apt install -y curl
 # tree
 sudo apt install -y tree
+# apt-transport-https
+sudo apt install -y apt-transport-https
+# vscode
+sudo apt install -y code
 # docker
 sudo snap install -y docker
 # go language
-sudo snap install go --classic
+sudo snap install -y go --classic
 # Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # deno
@@ -72,15 +90,9 @@ sudo apt install -y git-lfs
 # git-flow
 sudo apt install -y git-flow
 # lazygit
-sudo add-apt-repository ppa:lazygit-team/release
-sudo apt update
 sudo apt install -y lazygit
 # libreoffice
 sudo snap install -y libreoffice
-# fonts
-sudo apt install -y fonts-roboto
-sudo apt install -y fonts-noto
-sudo apt install -y fonts-ricty-diminished
 # gnome-tweaks
 sudo apt install -y gnome-tweaks
 # gimp
@@ -92,17 +104,11 @@ sudo apt install -y zsh
 # byobu
 sudo apt install -y byobu
 # ghq
-export PATH="$PATH:/snap/bin"
 go get github.com/x-motemen/ghq
 # peco
 sudo apt install -y peco
-# ubuntu-cleaner
-sudo add-apt-repository -y ppa:gerardpuig/ppa
-sudo apt update
+# ubuntu-cleanerx
 sudo apt install -y ubuntu-cleaner
-# ppa:git-core
-sudo add-apt-repository -y ppa:git-core/ppa
-sudo apt update
 # chromium
 sudo snap install -y chromium
 # build-essential
@@ -113,5 +119,8 @@ sudo apt install -y virtualenv
 sudo apt install -y virtualenvwrapper
 # powerline
 sudo apt install -y powerline
-# fonts-powerline
+# fonts
 sudo apt install -y fonts-powerline
+sudo apt install -y fonts-roboto
+sudo apt install -y fonts-noto
+sudo apt install -y fonts-ricty-diminished
