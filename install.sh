@@ -1,7 +1,7 @@
 #!bin/bash
 
 # 初期設定
-# wget -q -O - http://.../settings.sh | sh
+# wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh | sh
 cat <<INTRO
        __      __  _____ __             ____                    __                __       
   ____/ /___  / /_/ __(_) /__  _____   / __/___  _____   __  __/ /_  __  ______  / /___  __
@@ -46,9 +46,10 @@ git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 # dotfiles clone
 git clone https://github.com/takuyaw-w/dotfiles.git
 # リポジトリの中の.zshrcなどのシンボリックリンクを貼る
-ln -sfv ~/dotfiles/.zshrc
-ln -sfv ~/dotfiles/.gitconfig
-ln -sfv ~/dotfiles/.bashrc
+ln -sfv ~/dotfiles/.zshrc .zshrc
+ln -sfv ~/dotfiles/.gitconfig .gitconfig
+ln -sfv ~/dotfiles/.bashrc . bashrc
+ln -sfv ~/dotfiles/settings.json .config/Code/User
 
 source ~/.zshrc
 
