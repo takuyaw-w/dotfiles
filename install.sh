@@ -61,10 +61,10 @@ git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 # dotfiles clone
 git clone https://github.com/takuyaw-w/dotfiles.git
 # リポジトリの中の.zshrcなどのシンボリックリンクを貼る
-ln -sfv ~/dotfiles/.zshrc .zshrc
-ln -sfv ~/dotfiles/.gitconfig .gitconfig
-ln -sfv ~/dotfiles/.bashrc . bashrc
-ln -sfv ~/dotfiles/settings.json .config/Code/User
+ln -sfv ~/dotfiles/.zshrc ~/.zshrc
+ln -sfv ~/dotfiles/.gitconfig ~/.gitconfig
+ln -sfv ~/dotfiles/.bashrc ~/.bashrc
+ln -sfv ~/dotfiles/settings.json ~/.config/Code/User
 
 source ~/.zshrc
 
