@@ -64,7 +64,6 @@ git clone https://github.com/takuyaw-w/dotfiles.git
 ln -sfv ~/dotfiles/.zshrc ~/.zshrc
 ln -sfv ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sfv ~/dotfiles/.bashrc ~/.bashrc
-ln -sfv ~/dotfiles/settings.json ~/.config/Code/User
 
 source ~/.zshrc
 
