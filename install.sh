@@ -24,8 +24,6 @@ env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
 
 # 最初に必要なものをインストール。
 
-sudo apt install -y git
-
 GIT_CONFIG_LOCAL=~/.gitconfig.local
 if [ ! -e $GIT_CONFIG_LOCAL ]; then
 	echo -n "git config user.email?> "
@@ -34,11 +32,11 @@ if [ ! -e $GIT_CONFIG_LOCAL ]; then
 	echo -n "git config user.name?> "
 	read GIT_AUTHOR_NAME
 
-	cat << EOF > $GIT_CONFIG_LOCAL
+	cat << GITCONFIG > $GIT_CONFIG_LOCAL
 [user]
     name = $GIT_AUTHOR_NAME
     email = $GIT_AUTHOR_EMAIL
-EOF
+GITCONFIG
 fi
 
 # アプリケーションのインストール
@@ -48,16 +46,12 @@ sudo add-apt-repository -y ppa:lazygit-team/release
 sudo add-apt-repository -y ppa:gerardpuig/ppa
 sudo add-apt-repository -y ppa:git-core/ppa
 
+# git
+sudo apt install -y git
 # curl
 sudo apt install -y curl
 # tree
 sudo apt install -y tree
-# vscode
-sudo snap install code --classic
-# docker
-sudo snap install docker
-# go language
-sudo snap install go --classic
 # Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # deno
@@ -68,14 +62,8 @@ sudo apt install -y git-lfs
 sudo apt install -y git-flow
 # lazygit
 sudo apt install -y lazygit
-# libreoffice
-sudo snap install libreoffice
 # gnome-tweaks
 sudo apt install -y gnome-tweaks
-# gimp
-sudo snap install gimp
-# thunderbird
-sudo snap install thunderbird
 # zsh
 sudo apt install -y zsh
 # byobu
@@ -86,8 +74,6 @@ go get github.com/x-motemen/ghq
 sudo apt install -y peco
 # ubuntu-cleanerx
 sudo apt install -y ubuntu-cleaner
-# chromium
-sudo snap install chromium
 # build-essential
 sudo apt install -y build-essential
 # virtualenv
@@ -114,6 +100,20 @@ sudo apt install -y fonts-powerline
 sudo apt install -y fonts-roboto
 sudo apt install -y fonts-noto
 sudo apt install -y fonts-ricty-diminished
+# libreoffice
+sudo snap install libreoffice
+# gimp
+sudo snap install gimp
+# thunderbird
+sudo snap install thunderbird
+# chromium
+sudo snap install chromium
+# vscode
+sudo snap install code --classic
+# docker
+sudo snap install docker
+# go language
+sudo snap install go --classic
 
 # oh-my-zsh clone
 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
