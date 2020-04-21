@@ -11,20 +11,6 @@ cat <<INTRO
                                                                                            
 INTRO
 
-echo "Executing this shell script will perform the initial configuration and application installation."
-
-read -p "OK? [Y/n]: " ANSWER
-
-case "$ANSWER" in
-    "" | "yes" | "Yes" | "y" | "Y")
-        echo "Let's go."
-        ;;
-    * )
-        echo "Cancel."
-        exit 0
-        ;;
-esac
-
 # 初期設定
 
 # 一旦いろいろアップデート
@@ -55,18 +41,6 @@ if [ ! -e $GIT_CONFIG_LOCAL ]; then
 EOF
 fi
 
-# oh-my-zsh clone
-git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-
-# dotfiles clone
-git clone https://github.com/takuyaw-w/dotfiles.git
-# リポジトリの中の.zshrcなどのシンボリックリンクを貼る
-ln -sfv ~/dotfiles/.zshrc ~/.zshrc
-ln -sfv ~/dotfiles/.gitconfig ~/.gitconfig
-ln -sfv ~/dotfiles/.bashrc ~/.bashrc
-
-source ~/.zshrc
-
 # アプリケーションのインストール
 
 # 各PPA
@@ -79,7 +53,7 @@ sudo apt install -y curl
 # tree
 sudo apt install -y tree
 # vscode
-sudo apt install -y code
+sudo snap install code --classic
 # docker
 sudo snap install docker
 # go language
@@ -140,3 +114,17 @@ sudo apt install -y fonts-powerline
 sudo apt install -y fonts-roboto
 sudo apt install -y fonts-noto
 sudo apt install -y fonts-ricty-diminished
+
+# oh-my-zsh clone
+git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+
+# dotfiles clone
+git clone https://github.com/takuyaw-w/dotfiles.git
+# リポジトリの中の.zshrcなどのシンボリックリンクを貼る
+ln -sfv ~/dotfiles/.zshrc ~/.zshrc
+ln -sfv ~/dotfiles/.gitconfig ~/.gitconfig
+ln -sfv ~/dotfiles/.bashrc ~/.bashrc
+
+chsh -s $(which zsh)
+
+exec $SHELl

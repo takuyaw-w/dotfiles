@@ -5,4 +5,4 @@ my dotfiles for ubuntu.
 
 対象はubuntu 日本語REMIXです。
 
-`wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh`
+`wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh` | sh
