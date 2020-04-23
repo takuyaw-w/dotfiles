@@ -127,4 +127,4 @@ ln -sfv ~/dotfiles/.bashrc ~/.bashrc
 
 chsh -s $(which zsh)
 
-exec $SHELl
+exec $SHELl -l

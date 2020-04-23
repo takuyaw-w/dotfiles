@@ -103,6 +103,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias allupdate="sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove && sudo snap refresh"
 prompt_context () {}
 
 # ctrl+]
@@ -116,3 +117,11 @@ function peco-src () {
 }
 zle -N peco-src
 bindkey '^]' peco-src
+
+function nvm-update () {
+  (
+  cd "$NVM_DIR"
+  git fetch --tags origin
+  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+  ) && \. "$NVM_DIR/nvm.sh"
+}
