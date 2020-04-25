@@ -8,16 +8,17 @@ cat <<INTRO
  / __  / __ \/ __/ /_/ / / _ \/ ___/  / /_/ __ \/ ___/  / / / / __ \/ / / / __ \/ __/ / / /
 / /_/ / /_/ / /_/ __/ / /  __(__  )  / __/ /_/ / /     / /_/ / /_/ / /_/ / / / / /_/ /_/ / 
 \__,_/\____/\__/_/ /_/_/\___/____/  /_/  \____/_/      \__,_/_.___/\__,_/_/ /_/\__/\__,_(_)
-                                                                                           
 INTRO
 
 # 初期設定
+sudo -v &> /dev/null
 
 # 一旦いろいろアップデート
 sudo apt update
 sudo apt -y upgrade
 sudo apt -y dist-upgrade
 sudo snap refresh
+sudo apt autoremove
 
 # ディレクトリ名を日本語表記から英語表記に変更
 env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
@@ -46,6 +47,23 @@ sudo add-apt-repository -y ppa:lazygit-team/release
 sudo add-apt-repository -y ppa:gerardpuig/ppa
 sudo add-apt-repository -y ppa:git-core/ppa
 
+# libreoffice
+sudo snap install libreoffice
+# gimp
+sudo snap install gimp
+# thunderbird
+sudo snap install thunderbird
+# chromium
+sudo snap install chromium
+# vscode
+sudo snap install code --classic
+# docker
+sudo snap install docker
+# go language
+sudo snap install go --classic
+
+# vim
+sudo apt install -y vim
 # git
 sudo apt install -y git
 # curl
@@ -100,20 +118,6 @@ sudo apt install -y fonts-powerline
 sudo apt install -y fonts-roboto
 sudo apt install -y fonts-noto
 sudo apt install -y fonts-ricty-diminished
-# libreoffice
-sudo snap install libreoffice
-# gimp
-sudo snap install gimp
-# thunderbird
-sudo snap install thunderbird
-# chromium
-sudo snap install chromium
-# vscode
-sudo snap install code --classic
-# docker
-sudo snap install docker
-# go language
-sudo snap install go --classic
 
 # oh-my-zsh clone
 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
