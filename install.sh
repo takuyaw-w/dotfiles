@@ -61,6 +61,8 @@ sudo snap install code --classic
 sudo snap install docker
 # go language
 sudo snap install go --classic
+# Hugo
+sudo snap install hugo
 
 # vim
 sudo apt install -y vim
