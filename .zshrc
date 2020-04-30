@@ -103,7 +103,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias allupdate="sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove && sudo snap refresh"
+alias allupdate="sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove -y && sudo snap refresh"
 prompt_context () {}
 
 # ctrl+]
