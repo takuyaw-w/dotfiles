@@ -153,6 +153,7 @@ ln -sfv ~/dotfiles/.zshrc ~/.zshrc
 ln -sfv ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sfv ~/dotfiles/.bashrc ~/.bashrc
 ln -sfv ~/dotfiles/vim/.vimrc ~/.vimrc
+ln -sfv ~/dotfiles/vim/dein.toml ~/.vim/dein.toml
 
 chsh -s $(which zsh)
 
