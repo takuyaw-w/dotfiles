@@ -21,7 +21,7 @@ sudo snap refresh
 sudo apt autoremove
 
 # ディレクトリ名を日本語表記から英語表記に変更
-env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
+# env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
 
 # 最初に必要なものをインストール。
 
@@ -53,12 +53,6 @@ sudo snap install libreoffice
 sudo snap install gimp
 # thunderbird
 sudo snap install thunderbird
-# chromium
-sudo snap install chromium
-# vscode
-sudo snap install code --classic
-# docker
-sudo snap install docker
 # go language
 sudo snap install go --classic
 # Hugo
@@ -92,8 +86,6 @@ sudo apt install -y byobu
 go get github.com/x-motemen/ghq
 # peco
 sudo apt install -y peco
-# ubuntu-cleanerx
-sudo apt install -y ubuntu-cleaner
 # build-essential
 sudo apt install -y build-essential
 # virtualenv
@@ -134,3 +126,4 @@ ln -sfv ~/dotfiles/.bashrc ~/.bashrc
 chsh -s $(which zsh)
 
 exec $SHELl -l
+
