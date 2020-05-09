@@ -152,6 +152,7 @@ git clone https://github.com/takuyaw-w/dotfiles.git
 ln -sfv ~/dotfiles/.zshrc ~/.zshrc
 ln -sfv ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sfv ~/dotfiles/.bashrc ~/.bashrc
+ln -sfv ~/dotfiles/vim/.vimrc ~/.vimrc
 
 chsh -s $(which zsh)
 
