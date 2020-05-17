@@ -58,7 +58,7 @@ echo install gimp
 sudo snap install gimp
 # thunderbird
 echo install thunderbird
-sudo snap install thunderbird
+sudo snap install thunderbird --beta
 # Hugo
 echo hugo
 sudo snap install hugo
