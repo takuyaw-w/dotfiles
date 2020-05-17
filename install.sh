@@ -25,20 +25,20 @@ sudo apt autoremove
 
 # 最初に必要なものをインストール。
 
-GIT_CONFIG_LOCAL=~/.gitconfig.local
-if [ ! -e $GIT_CONFIG_LOCAL ]; then
-	echo -n "git config user.email?> "
-	read GIT_AUTHOR_EMAIL
+# GIT_CONFIG_LOCAL=~/.gitconfig.local
+# if [ ! -e $GIT_CONFIG_LOCAL ]; then
+# 	echo -n "git config user.email?> "
+# 	read GIT_AUTHOR_EMAIL
 
-	echo -n "git config user.name?> "
-	read GIT_AUTHOR_NAME
+# 	echo -n "git config user.name?> "
+# 	read GIT_AUTHOR_NAME
 
-	cat << GITCONFIG > $GIT_CONFIG_LOCAL
-[user]
-    name = $GIT_AUTHOR_NAME
-    email = $GIT_AUTHOR_EMAIL
-GITCONFIG
-fi
+# 	cat << GITCONFIG > $GIT_CONFIG_LOCAL
+# [user]
+#     name = $GIT_AUTHOR_NAME
+#     email = $GIT_AUTHOR_EMAIL
+# GITCONFIG
+# fi
 
 # アプリケーションのインストール
 
@@ -59,9 +59,6 @@ sudo snap install gimp
 # thunderbird
 echo install thunderbird
 sudo snap install thunderbird
-# go language
-echo golang
-sudo snap install go --classic
 # Hugo
 echo hugo
 sudo snap install hugo
@@ -102,6 +99,11 @@ sudo apt install -y zsh
 # byobu
 echo install byobu
 sudo apt install -y byobu
+# go language
+echo golang
+wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
 # ghq
 echo install ghq
 go get github.com/x-motemen/ghq
@@ -158,4 +160,3 @@ ln -sfv ~/dotfiles/vim/dein.toml ~/.vim/dein.toml
 chsh -s $(which zsh)
 
 exec $SHELl -l
-
