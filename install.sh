@@ -44,10 +44,10 @@ sudo apt autoremove
 
 # 各PPA
 echo add-apt-repository lazygit
-sudo add-apt-repository -y ppa:lazygit-team/release
-echo gerardpuig
+sudo add-apt-repositadd-apt-repositoryory -y ppa:lazygit-team/release
+echo add-apt-repository gerardpuig
 sudo add-apt-repository -y ppa:gerardpuig/ppa
-echo git-core
+echo add-apt-repository git-core
 sudo add-apt-repository -y ppa:git-core/ppa
 
 # libreoffice
@@ -63,6 +63,15 @@ sudo snap install thunderbird --beta
 echo hugo
 sudo snap install hugo
 
+# TODO: ubuntu 20.04 focal fossa
+# docker
+echo install docker
+sudo apt install -y docker.io
+sudo systemctl enable --now docker
+sudo usermod -aG docker $(whoami)
+# docker-compose
+echo install docker-compose
+sudo apt install -y docker-compose
 # vim
 echo install vim
 sudo apt install -y vim
