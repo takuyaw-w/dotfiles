@@ -1,3 +1,5 @@
+![CI](https://github.com/takuyaw-w/dotfiles/workflows/CI/badge.svg)
+
 # dotfiles
 my dotfiles for ubuntu.
 
