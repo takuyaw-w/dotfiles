@@ -66,24 +66,24 @@ sudo snap install hugo
 # TODO: ubuntu 20.04 focal fossa
 # docker
 echo install docker
-sudo apt install -y docker.io
+sudo apt-get install -y docker.io
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$(whoami)"
 # docker-compose
 echo install docker-compose
-sudo apt install -y docker-compose
+sudo apt-get install -y docker-compose
 # vim
 echo install vim
-sudo apt install -y vim
+sudo apt-get install -y vim
 # git
 echo install git
-sudo apt install -y git
+sudo apt-get install -y git
 # curl
 echo install curl
-sudo apt install -y curl
+sudo apt-get install -y curl
 # tree
 echo install tree
-sudo apt install -y tree
+sudo apt-get install -y tree
 # Rust
 echo install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -92,22 +92,22 @@ echo install deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
 # git-lfs
 echo install git-lfs
-sudo apt install -y git-lfs
+sudo apt-get install -y git-lfs
 # git-flow
 echo install git-flow
-sudo apt install -y git-flow
+sudo apt-get install -y git-flow
 # lazygit
 echo install lazygit
-sudo apt install -y lazygit
+sudo apt-get install -y lazygit
 # gnome-tweaks
 # echo install gnome-tweaks
-# sudo apt install -y gnome-tweaks
+# sudo apt-get install -y gnome-tweaks
 # zsh
 echo install zsh
-sudo apt install -y zsh
+sudo apt-get install -y zsh
 # byobu
 echo install byobu
-sudo apt install -y byobu
+sudo apt-get install -y byobu
 # go language
 echo golang
 #wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
@@ -118,16 +118,16 @@ echo golang
 #go get github.com/x-motemen/ghq
 # peco
 echo install peco
-sudo apt install -y peco
+sudo apt-get install -y peco
 # build-essential
 echo install build-essential
-sudo apt install -y build-essential
+sudo apt-get install -y build-essential
 # virtualenv
 echo install virtualenv
-sudo apt install -y virtualenv
+sudo apt-get install -y virtualenv
 # virtualenvwrapper
 echo install virtualenvwrapper
-sudo apt install -y virtualenvwrapper
+sudo apt-get install -y virtualenvwrapper
 # nvm
 echo install nvm
 export NVM_DIR="$HOME/.nvm"
@@ -146,12 +146,12 @@ nvm install --lts --latest-npm
 nvm alias default lts/*
 # powerline
 echo install fonts
-sudo apt install -y powerline
+sudo apt-get install -y powerline
 # fonts
-sudo apt install -y fonts-powerline
-sudo apt install -y fonts-roboto
-sudo apt install -y fonts-noto
-sudo apt install -y fonts-ricty-diminished
+sudo apt-get install -y fonts-powerline
+sudo apt-get install -y fonts-roboto
+sudo apt-get install -y fonts-noto
+sudo apt-get install -y fonts-ricty-diminished
 
 # oh-my-zsh clone
 echo clone oh-my-zsh
