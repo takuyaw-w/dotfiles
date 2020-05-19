@@ -1,4 +1,4 @@
-![CI](https://github.com/takuyaw-w/dotfiles/workflows/CI/badge.svg)
+![CI](https://github.com/takuyaw-w/dotfiles/workflows/CI/badge.svg?branch=master)
 
 # dotfiles
 my dotfiles for ubuntu.
