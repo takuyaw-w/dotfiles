@@ -110,12 +110,12 @@ echo install byobu
 sudo apt install -y byobu
 # go language
 echo golang
-wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
-tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
-export PATH=$PATH:/usr/local/go/bin
+#wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
+#tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
+#export PATH=$PATH:/usr/local/go/bin
 # ghq
-echo install ghq
-go get github.com/x-motemen/ghq
+#echo install ghq
+#go get github.com/x-motemen/ghq
 # peco
 echo install peco
 sudo apt install -y peco
