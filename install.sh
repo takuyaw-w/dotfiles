@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 # 初期設定
-# wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh | sh
+# wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh | bash
 cat <<INTRO
        __      __  _____ __             ____                    __                __       
   ____/ /___  / /_/ __(_) /__  _____   / __/___  _____   __  __/ /_  __  ______  / /___  __
@@ -14,11 +14,11 @@ INTRO
 sudo -v &> /dev/null
 
 # 一旦いろいろアップデート
-sudo apt update
-sudo apt -y upgrade
-sudo apt -y dist-upgrade
+sudo apt-get update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
 sudo snap refresh
-sudo apt autoremove
+sudo apt-get autoremove
 
 # ディレクトリ名を日本語表記から英語表記に変更
 # env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
