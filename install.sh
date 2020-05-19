@@ -100,8 +100,8 @@ sudo apt install -y git-flow
 echo install lazygit
 sudo apt install -y lazygit
 # gnome-tweaks
-echo install gnome-tweaks
-sudo apt install -y gnome-tweaks
+# echo install gnome-tweaks
+# sudo apt install -y gnome-tweaks
 # zsh
 echo install zsh
 sudo apt install -y zsh
