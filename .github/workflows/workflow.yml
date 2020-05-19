@@ -11,5 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:latest
     steps:
-    - name: Run a one-line script
-      run: wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh | sh
+      - name: required packages
+        run: apt-get update && apt-get install -y wget sudo
+      - name: Run a one-line script
+        run: wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh | sh
