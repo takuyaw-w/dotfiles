@@ -1,4 +1,4 @@
-#!bin/env bash
+#!/bin/env bash
 
 # 初期設定
 # wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh | sh
@@ -68,7 +68,7 @@ sudo snap install hugo
 echo install docker
 sudo apt install -y docker.io
 sudo systemctl enable --now docker
-sudo usermod -aG docker $(whoami)
+sudo usermod -aG docker "$(whoami)"
 # docker-compose
 echo install docker-compose
 sudo apt install -y docker-compose
@@ -130,6 +130,7 @@ echo install virtualenvwrapper
 sudo apt install -y virtualenvwrapper
 # nvm
 echo install nvm
+export NVM_DIR="$HOME/.nvm"
 git clone https://github.com/nvm-sh/nvm.git .nvm
 cd ~/.nvm
 git checkout v0.35.3
@@ -166,6 +167,6 @@ ln -sfv ~/dotfiles/.bashrc ~/.bashrc
 ln -sfv ~/dotfiles/vim/.vimrc ~/.vimrc
 ln -sfv ~/dotfiles/vim/dein.toml ~/.vim/dein.toml
 
-chsh -s $(which zsh)
+chsh -s "$(which zsh)"
 
 exec $SHELl -l
