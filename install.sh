@@ -13,11 +13,10 @@ INTRO
 sudo -v &> /dev/null
 
 # 一旦いろいろアップデート
-sudo apt-get update
-sudo apt-get -y upgrade
-sudo apt-get -y dist-upgrade
-# sudo snap refresh
-sudo apt-get autoremove
+sudo apt update
+sudo apt -y upgrade
+sudo apt -y dist-upgrade
+sudo apt autoremove
 
 # ディレクトリ名を日本語表記から英語表記に変更
 env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
@@ -50,6 +49,14 @@ fi
 ln -sfv ~/dotfiles/vim/dein.toml ~/.vim/dein.toml
 
 # アプリケーションのインストール
+export ZSH=$HOME/.oh-my-zsh
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$PATH:/usr/local/go/bin"
 
 # 各PPA
 echo add-apt-repository lazygit
@@ -64,32 +71,32 @@ echo add-apt-repository mozillateam/ppa
 sudo add-apt-repository -y ppa:mozillateam/ppa
 
 echo install libreoffice
-sudo apt-get install -y libreoffice
+sudo apt install -y libreoffice
 echo install thunderbird
-sudo apt-get install -y thunderbird
+sudo apt install -y thunderbird
 echo install gimp
-sudo apt-get install -y gimp
+sudo apt install -y gimp
 # TODO: ubuntu 20.04 focal fossa
 # docker
 echo install docker
-sudo apt-get install -y docker.io
+sudo apt install -y docker.io
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$(whoami)"
 # docker-compose
 echo install docker-compose
-sudo apt-get install -y docker-compose
+sudo apt install -y docker-compose
 # vim
 echo install vim
-sudo apt-get install -y vim
+sudo apt install -y vim
 # git
 echo install git
-sudo apt-get install -y git
+sudo apt install -y git
 # curl
 echo install curl
-sudo apt-get install -y curl
+sudo apt install -y curl
 # tree
 echo install tree
-sudo apt-get install -y tree
+sudo apt install -y tree
 # Rust
 echo install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -98,27 +105,26 @@ echo install deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
 # git-lfs
 echo install git-lfs
-sudo apt-get install -y git-lfs
+sudo apt install -y git-lfs
 # git-flow
 echo install git-flow
-sudo apt-get install -y git-flow
+sudo apt install -y git-flow
 # lazygit
 echo install lazygit
-sudo apt-get install -y lazygit
+sudo apt install -y lazygit
 # gnome-tweaks
 echo install gnome-tweaks
-sudo apt-get install -y gnome-tweaks
+sudo apt install -y gnome-tweaks
 # zsh
 echo install zsh
-sudo apt-get install -y zsh
+sudo apt install -y zsh
 # byobu
 echo install byobu
-sudo apt-get install -y byobu
+sudo apt install -y byobu
 # go language
 echo golang
 wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
-export PATH=$PATH:/usr/local/go/bin
 # ghq
 echo install ghq
 go get github.com/x-motemen/ghq
@@ -128,19 +134,18 @@ cd hugo
 go install --tags extended
 # peco
 echo install peco
-sudo apt-get install -y peco
+sudo apt install -y peco
 # build-essential
 echo install build-essential
-sudo apt-get install -y build-essential
+sudo apt install -y build-essential
 # virtualenv
 echo install virtualenv
-sudo apt-get install -y virtualenv
+sudo apt install -y virtualenv
 # virtualenvwrapper
 echo install virtualenvwrapper
-sudo apt-get install -y virtualenvwrapper
+sudo apt install -y virtualenvwrapper
 # nvm
 echo install nvm
-export NVM_DIR="$HOME/.nvm"
 git clone https://github.com/nvm-sh/nvm.git .nvm
 cd ~/.nvm
 git checkout v0.35.3
@@ -156,12 +161,12 @@ nvm install --lts --latest-npm
 nvm alias default lts/*
 # powerline
 echo install fonts
-sudo apt-get install -y powerline
+sudo apt install -y powerline
 # fonts
-sudo apt-get install -y fonts-powerline
-sudo apt-get install -y fonts-roboto
-sudo apt-get install -y fonts-noto
-sudo apt-get install -y fonts-ricty-diminished
+sudo apt install -y fonts-powerline
+sudo apt install -y fonts-roboto
+sudo apt install -y fonts-noto
+sudo apt install -y fonts-ricty-diminished
 # google chrome
 sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
