@@ -80,7 +80,6 @@ echo install thunderbird
 sudo apt install -y thunderbird
 echo install gimp
 sudo apt install -y gimp
-# TODO: ubuntu 20.04 focal fossa
 # docker
 echo install docker
 sudo apt install -y docker.io
