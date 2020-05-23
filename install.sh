@@ -76,7 +76,8 @@ sudo apt update
 sudo apt -y upgrade
 sudo apt -y dist-upgrade
 
-echo install libreoffice
+echo install libreofficeexport PATH="$GOPATH/bin:$PATH"
+
 sudo apt install -y libreoffice
 echo install thunderbird
 sudo apt install -y thunderbird
@@ -137,7 +138,7 @@ echo install ghq
 go get github.com/x-motemen/ghq
 # hugo
 git clone https://github.com/gohugoio/hugo.git
-cd hugo
+cd ~/hugo
 go install --tags extended
 # peco
 echo install peco
