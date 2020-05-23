@@ -118,9 +118,9 @@ sudo apt install -y gnome-tweaks
 # zsh
 echo install zsh
 sudo apt install -y zsh
-# byobu
-echo install byobu
-sudo apt install -y byobu
+# tmux
+echo install tmux
+sudo apt install -y tmux
 # go language
 echo golang
 wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
