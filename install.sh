@@ -70,6 +70,10 @@ sudo add-apt-repository -y ppa:otto-kesselgulasch/gimp
 echo add-apt-repository mozillateam/ppa
 sudo add-apt-repository -y ppa:mozillateam/ppa
 
+sudo apt update
+sudo apt -y upgrade
+sudo apt -y dist-upgrade
+
 echo install libreoffice
 sudo apt install -y libreoffice
 echo install thunderbird
