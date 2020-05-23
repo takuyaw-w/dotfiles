@@ -39,6 +39,16 @@ if [ ! -e $GIT_CONFIG_LOCAL ]; then
 GITCONFIG
 fi
 
+# リポジトリの中の.zshrcなどのシンボリックリンクを貼る
+ln -sfv ~/dotfiles/.zshrc ~/.zshrc
+ln -sfv ~/dotfiles/.gitconfig ~/.gitconfig
+ln -sfv ~/dotfiles/.bashrc ~/.bashrc
+ln -sfv ~/dotfiles/vim/.vimrc ~/.vimrc
+if [ ! -e ~/.vim ]; then
+  mkdir .vim
+fi
+ln -sfv ~/dotfiles/vim/dein.toml ~/.vim/dein.toml
+
 # アプリケーションのインストール
 
 # 各PPA
@@ -162,16 +172,6 @@ sudo apt install google-chrome-stable
 # oh-my-zsh clone
 echo clone oh-my-zsh
 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-
-# dotfiles clone
-echo clone dotfile
-git clone https://github.com/takuyaw-w/dotfiles.git
-# リポジトリの中の.zshrcなどのシンボリックリンクを貼る
-ln -sfv ~/dotfiles/.zshrc ~/.zshrc
-ln -sfv ~/dotfiles/.gitconfig ~/.gitconfig
-ln -sfv ~/dotfiles/.bashrc ~/.bashrc
-ln -sfv ~/dotfiles/vim/.vimrc ~/.vimrc
-ln -sfv ~/dotfiles/vim/dein.toml ~/.vim/dein.toml
 
 chsh -s "$(which zsh)"
 
