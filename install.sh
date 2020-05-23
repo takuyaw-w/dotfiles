@@ -69,6 +69,8 @@ echo add-apt-repository ppa:otto-kesselgulasch/gimp
 sudo add-apt-repository -y ppa:otto-kesselgulasch/gimp
 echo add-apt-repository mozillateam/ppa
 sudo add-apt-repository -y ppa:mozillateam/ppa
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
 sudo apt update
 sudo apt -y upgrade
@@ -128,6 +130,8 @@ sudo apt install -y tmux
 echo golang
 wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+mkdir ~/go
 # ghq
 echo install ghq
 go get github.com/x-motemen/ghq
@@ -171,11 +175,7 @@ sudo apt install -y fonts-roboto
 sudo apt install -y fonts-noto
 sudo apt install -y fonts-ricty-diminished
 # google chrome
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo apt update
 sudo apt install google-chrome-stable
-
 
 # oh-my-zsh clone
 echo clone oh-my-zsh
