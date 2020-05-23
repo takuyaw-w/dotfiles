@@ -1,7 +1,6 @@
 #!/bin/env bash
 
 # 初期設定
-# wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh | bash
 cat <<INTRO
        __      __  _____ __             ____                    __                __       
   ____/ /___  / /_/ __(_) /__  _____   / __/___  _____   __  __/ /_  __  ______  / /___  __
@@ -17,52 +16,49 @@ sudo -v &> /dev/null
 sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
-sudo snap refresh
+# sudo snap refresh
 sudo apt-get autoremove
 
 # ディレクトリ名を日本語表記から英語表記に変更
-# env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
+env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
 
 # 最初に必要なものをインストール。
 
-# GIT_CONFIG_LOCAL=~/.gitconfig.local
-# if [ ! -e $GIT_CONFIG_LOCAL ]; then
-# 	echo -n "git config user.email?> "
-# 	read GIT_AUTHOR_EMAIL
+GIT_CONFIG_LOCAL=~/.gitconfig.local
+if [ ! -e $GIT_CONFIG_LOCAL ]; then
+	echo -n "git config user.email?> "
+	read GIT_AUTHOR_EMAIL
 
-# 	echo -n "git config user.name?> "
-# 	read GIT_AUTHOR_NAME
+	echo -n "git config user.name?> "
+	read GIT_AUTHOR_NAME
 
-# 	cat << GITCONFIG > $GIT_CONFIG_LOCAL
-# [user]
-#     name = $GIT_AUTHOR_NAME
-#     email = $GIT_AUTHOR_EMAIL
-# GITCONFIG
-# fi
+	cat << GITCONFIG > $GIT_CONFIG_LOCAL
+[user]
+    name = $GIT_AUTHOR_NAME
+    email = $GIT_AUTHOR_EMAIL
+GITCONFIG
+fi
 
 # アプリケーションのインストール
 
 # 各PPA
 echo add-apt-repository lazygit
 sudo add-apt-repositadd-apt-repositoryory -y ppa:lazygit-team/release
-echo add-apt-repository gerardpuig
-sudo add-apt-repository -y ppa:gerardpuig/ppa
 echo add-apt-repository git-core
 sudo add-apt-repository -y ppa:git-core/ppa
+echo add-apt-repository libreoffice-6-4
+sudo add-apt-repository -y ppa:libreoffice/libreoffice-6-4
+echo add-apt-repository ppa:otto-kesselgulasch/gimp
+sudo add-apt-repository -y ppa:otto-kesselgulasch/gimp
+echo add-apt-repository mozillateam/ppa
+sudo add-apt-repository -y ppa:mozillateam/ppa
 
-# libreoffice
 echo install libreoffice
-sudo snap install libreoffice
-# gimp
-echo install gimp
-sudo snap install gimp
-# thunderbird
+sudo apt-get install -y libreoffice
 echo install thunderbird
-sudo snap install thunderbird --beta
-# Hugo
-echo hugo
-sudo snap install hugo
-
+sudo apt-get install -y thunderbird
+echo install gimp
+sudo apt-get install -y gimp
 # TODO: ubuntu 20.04 focal fossa
 # docker
 echo install docker
@@ -100,8 +96,8 @@ sudo apt-get install -y git-flow
 echo install lazygit
 sudo apt-get install -y lazygit
 # gnome-tweaks
-# echo install gnome-tweaks
-# sudo apt-get install -y gnome-tweaks
+echo install gnome-tweaks
+sudo apt-get install -y gnome-tweaks
 # zsh
 echo install zsh
 sudo apt-get install -y zsh
@@ -110,12 +106,16 @@ echo install byobu
 sudo apt-get install -y byobu
 # go language
 echo golang
-#wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
-#tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
-#export PATH=$PATH:/usr/local/go/bin
+wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
 # ghq
-#echo install ghq
-#go get github.com/x-motemen/ghq
+echo install ghq
+go get github.com/x-motemen/ghq
+# hugo
+git clone https://github.com/gohugoio/hugo.git
+cd hugo
+go install --tags extended
 # peco
 echo install peco
 sudo apt-get install -y peco
