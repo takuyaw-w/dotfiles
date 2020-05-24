@@ -104,6 +104,7 @@ sudo apt install -y tree
 # Rust
 echo install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
 # deno
 echo install deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
@@ -117,8 +118,8 @@ sudo apt install -y git-flow
 echo install lazygit
 sudo apt install -y lazygit
 # gnome-tweaks
-echo install gnome-tweaks
-sudo apt install -y gnome-tweaks
+# echo install gnome-tweaks
+# sudo apt install -y gnome-tweaks
 # zsh
 echo install zsh
 sudo apt install -y zsh
@@ -128,7 +129,7 @@ sudo apt install -y tmux
 # go language
 echo golang
 wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
-tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 mkdir $HOME/.go
 # ghq
