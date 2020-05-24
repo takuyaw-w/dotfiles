@@ -53,10 +53,9 @@ export ZSH=$HOME/.oh-my-zsh
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
-export GOPATH="$HOME/go"
+export GOPATH="$HOME/.go"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$PATH:/usr/local/go/bin"
 
 # 各PPA
 echo add-apt-repository lazygit
@@ -76,8 +75,7 @@ sudo apt update
 sudo apt -y upgrade
 sudo apt -y dist-upgrade
 
-echo install libreofficeexport PATH="$GOPATH/bin:$PATH"
-
+echo install libreoffice
 sudo apt install -y libreoffice
 echo install thunderbird
 sudo apt install -y thunderbird
@@ -132,7 +130,7 @@ echo golang
 wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
-mkdir ~/go
+mkdir ~/.go
 # ghq
 echo install ghq
 go get github.com/x-motemen/ghq
