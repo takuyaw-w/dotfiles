@@ -130,14 +130,15 @@ echo golang
 wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
-mkdir ~/.go
+mkdir $HOME/.go
 # ghq
 echo install ghq
 go get github.com/x-motemen/ghq
 # hugo
-git clone https://github.com/gohugoio/hugo.git
-cd ~/hugo
+ghq get https://github.com/gohugoio/hugo.git
+cd $HOME/.ghq/github.com/gohugoio/hugo
 go install --tags extended
+cd ~
 # peco
 echo install peco
 sudo apt install -y peco
