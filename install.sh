@@ -72,6 +72,7 @@ echo add-apt-repository ppa:otto-kesselgulasch/gimp
 sudo add-apt-repository -y ppa:otto-kesselgulasch/gimp
 echo add-apt-repository mozillateam/ppa
 sudo add-apt-repository -y ppa:mozillateam/ppa
+echo google-chrome repository
 sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
