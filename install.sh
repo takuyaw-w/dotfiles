@@ -50,10 +50,14 @@ ln -sfv ~/dotfiles/vim/dein.toml ~/.vim/dein.toml
 
 # アプリケーションのインストール
 export ZSH=$HOME/.oh-my-zsh
+echo $ZSH
 export DENO_INSTALL="$HOME/.deno"
+echo $DENO_INSTALL
 export PATH="$DENO_INSTALL/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
+echo $NVM_DIR
 export GOPATH="$HOME/.go"
+echo $GOPATH
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
