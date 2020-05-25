@@ -108,7 +108,7 @@ echo install tree
 sudo apt install -y tree
 # Rust
 echo install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile default --default-toolchain stable -y
 source $HOME/.cargo/env
 # deno
 echo install deno
@@ -122,9 +122,6 @@ sudo apt install -y git-flow
 # lazygit
 echo install lazygit
 sudo apt install -y lazygit
-# gnome-tweaks
-# echo install gnome-tweaks
-# sudo apt install -y gnome-tweaks
 # zsh
 echo install zsh
 sudo apt install -y zsh
@@ -136,6 +133,7 @@ echo golang
 wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
+sudo rm -rf go1.14.3.linux-amd64.tar.gz
 mkdir $HOME/.go
 # ghq
 echo install ghq
