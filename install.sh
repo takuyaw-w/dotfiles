@@ -179,7 +179,7 @@ sudo apt install -y fonts-roboto
 sudo apt install -y fonts-noto
 sudo apt install -y fonts-ricty-diminished
 # google chrome
-sudo apt install google-chrome-stable
+sudo apt install -y google-chrome-stable
 
 # oh-my-zsh clone
 echo clone oh-my-zsh
