@@ -75,11 +75,19 @@ sudo add-apt-repository -y ppa:mozillateam/ppa
 echo google-chrome repository
 sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+echo visual-studio-code repository
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
 sudo apt update
 sudo apt -y upgrade
 sudo apt -y dist-upgrade
 
+echo install apt-transport-https
+sudo apt install -y apt-transport-https
+echo install code
+sudp apt install -y code
 echo install libreoffice
 sudo apt install -y libreoffice
 echo install thunderbird
