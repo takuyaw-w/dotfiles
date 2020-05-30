@@ -12,5 +12,5 @@
 [credential]
 	helper = cache --timeout=86400
 [ghq]
-	root = /home/takuya/.go/src
-	root = /home/takuya/.ghq
+	root = /home/takuya/go/src
+	root = /home/takuya/ghq
