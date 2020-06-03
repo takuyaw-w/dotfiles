@@ -153,10 +153,10 @@ source $HOME/.cargo/env
 
 # go language
 echo golang
-wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.44.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.14.4.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
-sudo rm -rf go1.14.3.linux-amd64.tar.gz
+sudo rm -rf go1.14.4.linux-amd64.tar.gz
 mkdir $HOME/go
 
 # deno
