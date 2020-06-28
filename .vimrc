@@ -163,4 +163,3 @@ endif
 " }}}
 
 set helplang=ja
-
