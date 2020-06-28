@@ -16,7 +16,7 @@ function backup_and_link() {
   fi
 
   local file_list
-  file_list=$(command find "$link_src_file" -name "_install.sh" -type f 2>/dev/null)
+  file_list=$(command find "$link_src_file" -name "_install.sh" -type f 2> /dev/null)
   if [[ -n "$file_list" ]]; then
     if [[ -e "$f_filepath" ]]; then
       command cp -r "$f_filepath" "$backupdir"
@@ -39,9 +39,8 @@ function link_config_dir() {
   mkdir_not_exist "$dest_dir"
 
   local dotfiles_dir=$1
-  for f in "$dotfiles_dir"/.config/??*
-  do
-    backup_and_link "$f" "$dest_dir" "$backup_dir"
+  for f in "$dotfiles_dir"/.config/??*; do
+    backup_and_link "$f" "$dest_dir" "$backupdir"
   done
 }
 
