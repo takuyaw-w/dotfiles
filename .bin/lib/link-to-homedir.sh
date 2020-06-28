@@ -69,4 +69,4 @@ info_message "Start link to homedir."
 
 link_to_homedir
 
-info_success "Link to homedir done."
+complete_message "Link to homedir done."
