@@ -27,4 +27,3 @@ elif builtin command -v "$(echo -ne "${command_history}" | cut -d ' ' -f 1)" > /
 else
   (echo -ne "${input}" | bat --color=always --wrap never --style=plain || echo -ne "${input}") 2>/dev/null
 fi
-
