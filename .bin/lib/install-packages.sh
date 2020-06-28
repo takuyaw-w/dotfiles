@@ -44,4 +44,3 @@ rustup component add rust-analysis rust-src rustfmt clippy
 # for yay
 
 complete_message "Install packages done."
-
