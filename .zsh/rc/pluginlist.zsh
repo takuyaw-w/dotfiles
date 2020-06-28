@@ -116,35 +116,35 @@ zinit light caarlos0/zsh-git-sync
 #--------------------------------#
 # fzf
 #--------------------------------#
-zinit ice wait'0b' lucid from"gh-r" as"program" atload"source $ZHOMEDIR/rc/pluginconfig/fzf_atload.zsh"
-zinit load junegunn/fzf-bin
-zinit ice wait'0a' lucid
-zinit snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
-zinit ice wait'1a' lucid atload"source $ZHOMEDIR/rc/pluginconfig/fzf_completion.zsh_atload.zsh"
-zinit snippet https://github.com/junegunn/fzf/blob/master/shell/completion.zsh
+# zinit ice wait'0b' lucid from"gh-r" as"program" atload"source $ZHOMEDIR/rc/pluginconfig/fzf_atload.zsh"
+# zinit load junegunn/fzf-bin
+# zinit ice wait'0a' lucid
+# zinit snippet https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
+# zinit ice wait'1a' lucid atload"source $ZHOMEDIR/rc/pluginconfig/fzf_completion.zsh_atload.zsh"
+# zinit snippet https://github.com/junegunn/fzf/blob/master/shell/completion.zsh
 
-zinit ice wait'1' lucid pick"fzf-extras.zsh" atload"source $ZHOMEDIR/rc/pluginconfig/fzf-extras_atload.zsh"
-zinit light atweiden/fzf-extras # fzf
+# zinit ice wait'1' lucid pick"fzf-extras.zsh" atload"source $ZHOMEDIR/rc/pluginconfig/fzf-extras_atload.zsh"
+# zinit light atweiden/fzf-extras # fzf
 
-# after zsh-autocomplete & fzf_completion.zsh
-zinit ice wait'1c' lucid atinit"source $ZHOMEDIR/rc/pluginconfig/fz_atinit.zsh"
-zinit light changyuheng/fz
+# # after zsh-autocomplete & fzf_completion.zsh
+# zinit ice wait'1c' lucid atinit"source $ZHOMEDIR/rc/pluginconfig/fz_atinit.zsh"
+# zinit light changyuheng/fz
 
-zinit ice wait'0c' lucid pick"fzf-finder.plugin.zsh" atinit"source $ZHOMEDIR/rc/pluginconfig/zsh-plugin-fzf-finder_atinit.zsh"
-zinit light leophys/zsh-plugin-fzf-finder
+# zinit ice wait'0c' lucid pick"fzf-finder.plugin.zsh" atinit"source $ZHOMEDIR/rc/pluginconfig/zsh-plugin-fzf-finder_atinit.zsh"
+# zinit light leophys/zsh-plugin-fzf-finder
 
-zinit ice wait'0c' lucid atinit"source $ZHOMEDIR/rc/pluginconfig/fzf-mark_atinit.zsh"
-zinit light urbainvaes/fzf-marks
+# zinit ice wait'0c' lucid atinit"source $ZHOMEDIR/rc/pluginconfig/fzf-mark_atinit.zsh"
+# zinit light urbainvaes/fzf-marks
 
-zinit ice wait'1c' lucid atinit"source $ZHOMEDIR/rc/pluginconfig/fzf-zsh-completions_atinit.zsh"
-zinit light chitoku-k/fzf-zsh-completions
+# zinit ice wait'1c' lucid atinit"source $ZHOMEDIR/rc/pluginconfig/fzf-zsh-completions_atinit.zsh"
+# zinit light chitoku-k/fzf-zsh-completions
 
-zinit ice wait'2' lucid atinit"source $ZHOMEDIR/rc/pluginconfig/zsh-fzf-widgets_atinit.zsh"
-zinit light amaya382/zsh-fzf-widgets
+# zinit ice wait'2' lucid atinit"source $ZHOMEDIR/rc/pluginconfig/zsh-fzf-widgets_atinit.zsh"
+# zinit light amaya382/zsh-fzf-widgets
 
-# after load fzf-zsh-completions
-zinit ice wait'1' lucid atinit"FZF_PREVIEW_DISABLE_DEFAULT_BINDKEY=1" atload"source $ZHOMEDIR/rc/pluginconfig/fzf-preview_atload.zsh"
-zinit light yuki-ycino/fzf-preview.zsh
+# # after load fzf-zsh-completions
+# zinit ice wait'1' lucid atinit"FZF_PREVIEW_DISABLE_DEFAULT_BINDKEY=1" atload"source $ZHOMEDIR/rc/pluginconfig/fzf-preview_atload.zsh"
+# zinit light yuki-ycino/fzf-preview.zsh
 
 
 #--------------------------------#
@@ -160,28 +160,28 @@ zinit light t413/zsh-background-notify
 #--------------------------------#
 # enhancive command
 #--------------------------------#
-zinit ice wait'1' lucid from"gh-r" as"program" mv"exa* -> exa" atload"alias ls=exa"
-zinit light ogham/exa
+# zinit ice wait'1' lucid from"gh-r" as"program" mv"exa* -> exa" atload"alias ls=exa"
+# zinit light ogham/exa
 
-zinit ice wait'1' lucid from"gh-r" as'program' pick'ripgrep*/rg' blockf nocompletions atclone'chown -R $(id -nu):$(id -ng) .; zinit creinstall -q BurntSushi/ripgrep' atpull'%atclone'
-zinit light BurntSushi/ripgrep
+# zinit ice wait'1' lucid from"gh-r" as'program' pick'ripgrep*/rg' blockf nocompletions atclone'chown -R $(id -nu):$(id -ng) .; zinit creinstall -q BurntSushi/ripgrep' atpull'%atclone'
+# zinit light BurntSushi/ripgrep
 
-zinit ice wait'1' lucid from"gh-r" as'program' pick'fd*/fd' blockf nocompletions atclone'chown -R $(id -nu):$(id -ng) .; zinit creinstall -q sharkdp/fd' atpull'%atclone'
-zinit light sharkdp/fd
+# zinit ice wait'1' lucid from"gh-r" as'program' pick'fd*/fd' blockf nocompletions atclone'chown -R $(id -nu):$(id -ng) .; zinit creinstall -q sharkdp/fd' atpull'%atclone'
+# zinit light sharkdp/fd
 
-zinit ice wait'1' lucid from"gh-r" as"program" pick"bat/bat" mv"bat* -> bat"
-zinit light sharkdp/bat
+# zinit ice wait'1' lucid from"gh-r" as"program" pick"bat/bat" mv"bat* -> bat"
+# zinit light sharkdp/bat
 
-zinit ice wait'1' lucid from"gh-r" as"program" pick"rip*/rip" atload"alias rm=rip"
-zinit light nivekuil/rip
+# zinit ice wait'1' lucid from"gh-r" as"program" pick"rip*/rip" atload"alias rm=rip"
+# zinit light nivekuil/rip
 
-zinit ice wait'1' lucid from"gh-r" as"program" pick"tldr"
-zinit light dbrgn/tealdeer
-zinit ice wait'1' lucid as"completion" mv'zsh_tealdeer -> _tldr'
-zinit snippet https://github.com/dbrgn/tealdeer/blob/master/zsh_tealdeer
+# zinit ice wait'1' lucid from"gh-r" as"program" pick"tldr"
+# zinit light dbrgn/tealdeer
+# zinit ice wait'1' lucid as"completion" mv'zsh_tealdeer -> _tldr'
+# zinit snippet https://github.com/dbrgn/tealdeer/blob/master/zsh_tealdeer
 
-zinit ice wait'1' lucid from"gh-r" as"program" bpick'*lnx*'
-zinit light dalance/procs
+# zinit ice wait'1' lucid from"gh-r" as"program" bpick'*lnx*'
+# zinit light dalance/procs
 
 
 #--------------------------------#
@@ -189,12 +189,12 @@ zinit light dalance/procs
 #--------------------------------#
 
 # neovim
-zinit ice wait'0' lucid from'gh-r' ver'nightly' as'program' pick'nvim*/bin/nvim' atclone'echo "" > ._zinit/is_release' atpull'%atclone' run-atpull
-zinit light neovim/neovim
-zinit id-as=node as='monitor|command' extract nocompletions \
-    dlink=node-v'%VERSION%'-linux-x64.tar.gz \
-    pick'node*/bin/*' \
-    for https://nodejs.org/download/release/latest/
+# zinit ice wait'0' lucid from'gh-r' ver'nightly' as'program' pick'nvim*/bin/nvim' atclone'echo "" > ._zinit/is_release' atpull'%atclone' run-atpull
+# zinit light neovim/neovim
+# zinit id-as=node as='monitor|command' extract nocompletions \
+#     dlink=node-v'%VERSION%'-linux-x64.tar.gz \
+#     pick'node*/bin/*' \
+#     for https://nodejs.org/download/release/latest/
 
 # tmux
 if ldconfig -p | grep -q 'libevent-' && ldconfig -p | grep -q 'libncurses'; then
@@ -253,4 +253,3 @@ zinit light "$HOME/.zsh/rc/myplugins/mru.zsh"
 # local plugins
 #==============================================================#
 [ -f "$HOME/.zshrc.plugin.local" ] && source "$HOME/.zshrc.plugin.local"
-
