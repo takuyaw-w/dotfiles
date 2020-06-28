@@ -48,9 +48,20 @@ autoload -Uz smart-insert-last-word
 # [a-zA-Z], /, \ のうち少なくとも1文字を含む長さ2以上の単語
 zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zle -N insert-last-word smart-insert-last-word
-function _insert-last-word() { smart-insert-last-word; ARG=-2 }
-zle -N _insert-last-word
-bindkey '^]' _insert-last-word
+# function _insert-last-word() { smart-insert-last-word; ARG=-2 }
+# zle -N _insert-last-word
+# bindkey '^]' _insert-last-word
+# peco - ctrl+]
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+bindkey '^]' peco-src
 function insert-next-word() { zle insert-last-word -- 1 -1; ARG=-2 }
 zle -N insert-next-word
 bindkey '^_' insert-next-word
