@@ -59,7 +59,7 @@ function link_to_homedir() {
     for f in "$dotfiles_dir"/.??*; do
       local f_filename
       f_filename=$(basename "$f")
-      [[ "$f_filename" == ".editorconfig" ]] continue
+      [[ "$f_filename" == ".editorconfig" ]] && continue
       [[ "$f_filename" == ".config" ]] && link_config_dir "$dotfiles_dir" && continue
       backup_and_link "$f" "$HOME" "$backupdir"
     done
