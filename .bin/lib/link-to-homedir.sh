@@ -59,6 +59,7 @@ function link_to_homedir() {
       local f_filename
       f_filename=$(basename "$f")
       [[ "$f_filename" == ".editorconfig" ]] && continue
+      [[ "$f_filename" == ".git" ]] && continue
       [[ "$f_filename" == ".config" ]] && link_config_dir "$dotfiles_dir" && continue
       backup_and_link "$f" "$HOME" "$backupdir"
     done

@@ -43,5 +43,6 @@ rustup install stable
 rustup component add rust-analysis rust-src rustfmt clippy
 
 # for yay
+yay -S --noconfirm --needed ghq
 
 complete_message "Install packages done."
