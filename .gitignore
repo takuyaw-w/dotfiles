@@ -108,6 +108,7 @@
 
 ## git
 !/.gitignore_global
+!/.gitconfig
 !/.gitconfig_shared
 !/.githooks/
 !/.githooks/**

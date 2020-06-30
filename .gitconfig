@@ -1,5 +1,7 @@
 [include]
 	path = ~/.gitconfig.local
+[core]
+	excludesfile = ~/.gitignore_global
 [push]
 	default = current
 [core]
