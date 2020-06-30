@@ -23,6 +23,10 @@ source "$ZRCDIR/option.zsh"
 
 source "$ZRCDIR/completion.zsh"
 
+# Prompt Configuration
+
+source "$ZRCDIR/prompt.zsh"
+
 # Function
 
 source "$ZRCDIR/function.zsh"
@@ -32,6 +36,8 @@ source "$ZRCDIR/function.zsh"
 source "$ZRCDIR/alias.zsh"
 
 # BindKeys
+
+source "$ZRCDIR/bindkey.zsh"
 
 # Plugins
 
