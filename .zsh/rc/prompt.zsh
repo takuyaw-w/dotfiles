@@ -57,8 +57,8 @@ function __show_status() {
 
 
 # 左プロンプト
-PROMPT='[%n@%m:%.$(rprompt-git-current-branch)]${WINDOW:+"[$WINDOW]"}$(__show_status)%# '
-
+PROMPT='[%n@%m:%.]${WINDOW:+"[$WINDOW]"}$(__show_status)%# '
+RPROMPT='$(rprompt-git-current-branch)'
 ## <エスケープシーケンス>
 ## prompt_bang が有効な場合、!=現在の履歴イベント番号, !!='!' (リテラル)
 # ${WINDOW:+"[$WINDOW]"} = screen 実行時にスクリーン番号を表示 (prompt_subst が必要)
