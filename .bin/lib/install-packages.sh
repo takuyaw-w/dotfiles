@@ -21,7 +21,7 @@ sudo pacman -S --noconfirm --needed sqlite
 sudo pacman -S --noconfirm --needed gettext
 sudo pacman -S --noconfirm --needed procps
 sudo pacman -S --noconfirm --needed jq
-sudo pacman -S --noconfirm --needed code
+sudo pacman -S --noconfirm --needed nvm
 sudo pacman -S --noconfirm --needed chromium
 sudo pacman -S --noconfirm --needed docker
 sudo pacman -S --noconfirm --needed rustup
@@ -44,5 +44,6 @@ rustup component add rust-analysis rust-src rustfmt clippy
 
 # for yay
 yay -S --noconfirm --needed ghq
+yay -S --noconfirm --needed vscodium-bin
 
 complete_message "Install packages done."
