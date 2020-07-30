@@ -1,7 +1,12 @@
 # dotfiles
 
-my dotfiles for ubuntu.
+my dotfiles for Manjaro Linux.
 
 ## usage
 
-`wget -qO- https://raw.githubusercontent.com/takuyaw-w/dotfiles/master/install.sh | bash`
+```
+git clone https://github.com/takuyaw-w/dotfiles.git
+
+~/dotfiles/.bin/install.sh
+```
+
