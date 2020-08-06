@@ -1,6 +1,18 @@
 # Aliases
 
-alias ls="ls --color=auto"
+# ls command
+if command "exa" -v > /dev/null 2>&1; then
+  alias ls="exa"
+  alias tree="exa -T"
+else
+  alias ls="ls --color=auto"
+fi
+
+# cat command
+if command "bat" -v > /dev/null 2>&1; then
+  alias cat="bat"
+fi
+
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 
