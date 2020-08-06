@@ -3,6 +3,7 @@
 # ls command
 if command "exa" -v > /dev/null 2>&1; then
   alias ls="exa"
+  alias ll="exa -hal --git --time-style=long-iso --group-directories-first"
   alias tree="exa -T"
 else
   alias ls="ls --color=auto"
