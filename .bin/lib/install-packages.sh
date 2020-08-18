@@ -44,6 +44,6 @@ rustup component add rust-analysis rust-src rustfmt clippy
 
 # for yay
 yay -S --noconfirm --needed ghq
-yay -S --noconfirm --needed vscodium-bin
+yay -S --noconfirm --needed visual-studio-code-bin
 
 complete_message "Install packages done."
