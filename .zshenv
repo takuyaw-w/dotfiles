@@ -55,4 +55,5 @@ fi
 export GOPATH=$HOME/.go
 export GHQ_ROOT=$GOPATH/src
 source /usr/share/nvm/init-nvm.sh
+eval "$(gh completion -s zsh)"
 
