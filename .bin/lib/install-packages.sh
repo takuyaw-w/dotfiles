@@ -24,13 +24,13 @@ sudo pacman -S --noconfirm --needed jq
 sudo pacman -S --noconfirm --needed nvm
 sudo pacman -S --noconfirm --needed chromium
 sudo pacman -S --noconfirm --needed docker
+sudo pacman -S --noconfirm --needed docker-compose
 sudo pacman -S --noconfirm --needed rustup
 sudo pacman -S --noconfirm --needed clang
 sudo pacman -S --noconfirm --needed gcc
 sudo pacman -S --noconfirm --needed gdb
 sudo pacman -S --noconfirm --needed make
 sudo pacman -S --noconfirm --needed cmake
-sudo pacman -S --noconfirm --needed docker
 sudo pacman -S --noconfirm --needed exa
 sudo pacman -S --noconfirm --needed bat
 sudo pacman -S --noconfirm --needed ripgrep
