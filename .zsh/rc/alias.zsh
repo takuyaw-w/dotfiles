@@ -1,5 +1,7 @@
 # Aliases
 
+alias open=xdg-open
+
 # ls command
 if command "exa" -v > /dev/null 2>&1; then
   alias ls="exa"
