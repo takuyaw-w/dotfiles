@@ -36,6 +36,7 @@ sudo pacman -S --noconfirm --needed bat
 sudo pacman -S --noconfirm --needed ripgrep
 sudo pacman -S --noconfirm --needed go
 sudo pacman -S --noconfirm --needed fzf
+sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed yay
 
 # for rust
@@ -44,6 +45,7 @@ rustup component add rust-analysis rust-src rustfmt clippy
 
 # for yay
 yay -S --noconfirm --needed ghq-bin
+yay -S --noconfirm --needed peco-bin
 yay -S --noconfirm --needed visual-studio-code-bin
 yay -S --noconfirm --needed lazygit
 

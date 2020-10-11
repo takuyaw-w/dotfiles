@@ -19,6 +19,4 @@ if [ ! -e $GIT_CONFIG_LOCAL ]; then
 GITCONFIG
 fi
 
-git config --global pull.rebase false
-
 complete_message "git configuration is done."
