@@ -38,6 +38,7 @@ sudo pacman -S --noconfirm --needed go
 sudo pacman -S --noconfirm --needed fzf
 sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed yay
+sudo pacman -S --noconfirm --needed alacritty
 
 # for rust
 rustup install stable
