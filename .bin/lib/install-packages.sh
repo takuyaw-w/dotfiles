@@ -48,6 +48,6 @@ rustup component add rust-analysis rust-src rustfmt clippy
 yay -S --noconfirm --needed ghq-bin
 yay -S --noconfirm --needed peco-bin
 yay -S --noconfirm --needed visual-studio-code-bin
-yay -S --noconfirm --needed lazygit
+yay -S --noconfirm --needed gitui-bin
 
 complete_message "Install packages done."
