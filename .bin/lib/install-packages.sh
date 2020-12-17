@@ -5,6 +5,7 @@ source $(dirname "${BASH_SOURCE[0]:-$0}")/utilfuncs.sh
 info_message "Start install the packages."
 
 # for pacman
+sudo pacman -S --noconfirm --needed base-devel
 sudo pacman -S --noconfirm --needed zsh
 sudo pacman -S --noconfirm --needed git
 sudo pacman -S --noconfirm --needed vim
@@ -21,7 +22,6 @@ sudo pacman -S --noconfirm --needed sqlite
 sudo pacman -S --noconfirm --needed gettext
 sudo pacman -S --noconfirm --needed procps
 sudo pacman -S --noconfirm --needed jq
-sudo pacman -S --noconfirm --needed nvm
 sudo pacman -S --noconfirm --needed chromium
 sudo pacman -S --noconfirm --needed docker
 sudo pacman -S --noconfirm --needed docker-compose
@@ -49,5 +49,6 @@ yay -S --noconfirm --needed ghq-bin
 yay -S --noconfirm --needed peco-bin
 yay -S --noconfirm --needed visual-studio-code-bin
 yay -S --noconfirm --needed gitui-bin
+yay -S --noconfirm --needed asdf-vms
 
 complete_message "Install packages done."

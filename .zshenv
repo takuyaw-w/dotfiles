@@ -54,4 +54,4 @@ fi
 
 export GOPATH=$HOME/.go
 export GHQ_ROOT=$GOPATH/src
-source /usr/share/nvm/init-nvm.sh
+source /opt/asdf-vm/asdf.sh
