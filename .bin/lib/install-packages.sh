@@ -49,6 +49,6 @@ yay -S --noconfirm --needed ghq-bin
 yay -S --noconfirm --needed peco-bin
 yay -S --noconfirm --needed visual-studio-code-bin
 yay -S --noconfirm --needed gitui-bin
-yay -S --noconfirm --needed asdf-vms
+yay -S --noconfirm --needed asdf-vm
 
 complete_message "Install packages done."
