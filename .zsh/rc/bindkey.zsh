@@ -1,12 +1,15 @@
 # Key Bindings
 
-function peco-src () {
-  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+function ghq-fzf() {
+  local selected_dir=$(ghq list | fzf --query="$LBUFFER" --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*")
+
   if [ -n "$selected_dir" ]; then
-    BUFFER="cd ${selected_dir}"
+    BUFFER="cd $(ghq root)/${selected_dir}"
     zle accept-line
   fi
-  zle clear-screen
+
+  zle reset-prompt
 }
-zle -N peco-src
-bindkey '^]' peco-src
+
+zle -N ghq-fzf
+bindkey "^]" ghq-fzf
