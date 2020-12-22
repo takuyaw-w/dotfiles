@@ -45,10 +45,10 @@ rustup install stable
 rustup component add rust-analysis rust-src rustfmt clippy
 
 # for yay
-yay -S --noconfirm --needed ghq-bin
-yay -S --noconfirm --needed peco-bin
+yay -S --noconfirm --needed ghq
+yay -S --noconfirm --needed peco
 yay -S --noconfirm --needed visual-studio-code-bin
-yay -S --noconfirm --needed gitui-bin
+yay -S --noconfirm --needed gitui
 yay -S --noconfirm --needed asdf-vm
 
 complete_message "Install packages done."
