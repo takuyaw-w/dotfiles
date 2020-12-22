@@ -2,17 +2,26 @@
 	path = ~/.gitconfig.local
 [core]
 	excludesfile = ~/.gitignore_global
-[push]
-	default = current
-[core]
+	pager = delta
 	ignorecase = false
 	editor = vim
 	quotepath = false
+[push]
+	default = current
+[pull]
+	rebase = false
 [color]
 	ui = true
 [credential]
 	helper = cache --timeout=86400
-[pull]
-	rebase = false
 [init]
 	defaultBranch = main
+[diff]
+	colorMoved = default
+[delta]
+	plus-color = "#012800"
+	minus-color = "#340001"
+	syntax-theme = Monokai Extended
+	line-numbers = true
+[interactive]
+	diffFilter = delta --color-only

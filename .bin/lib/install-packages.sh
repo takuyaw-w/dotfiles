@@ -48,6 +48,7 @@ rustup component add rust-analysis rust-src rustfmt clippy
 yay -S --noconfirm --needed ghq
 yay -S --noconfirm --needed visual-studio-code-bin
 yay -S --noconfirm --needed gitui
+yay -S --noconfirm --needed git-delta-git
 yay -S --noconfirm --needed asdf-vm
 
 complete_message "Install packages done."
