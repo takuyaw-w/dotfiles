@@ -4,6 +4,8 @@ export ZDOTDIR=$HOME
 export ZHOMEDIR=$ZDOTDIR/.zsh
 export ZRCDIR=$ZHOMEDIR/rc
 export XDG_HOME_CONFIG=$HOME/.config
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export ZDATADIR=$XDG_DATA_HOME/zsh
 
 typeset -fuz zkbd
 typeset -U path PATH manpath sudo_path
@@ -17,6 +19,7 @@ path=(
   $HOME/go/bin(N-/)
   $HOME/.go/bin(N-/)
   $HOME/.cargo/bin(N-/)
+  $HOME/.rustup/toolchains/*/bin(N-/)
   $path
 )
 
