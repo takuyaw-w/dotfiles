@@ -20,6 +20,7 @@ path=(
   $HOME/.go/bin(N-/)
   $HOME/.cargo/bin(N-/)
   $HOME/.rustup/toolchains/*/bin(N-/)
+  $HOME/.deno/bin(N-/)
   $path
 )
 
