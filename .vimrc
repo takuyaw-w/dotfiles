@@ -50,7 +50,7 @@ set smartindent
 set shiftwidth=4
 
 " クリップボードの同期
-set clipboard+=unnamed
+set clipboard=unnamedplus
 
 set showtabline=2
 set laststatus=2
