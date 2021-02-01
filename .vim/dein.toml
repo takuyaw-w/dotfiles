@@ -1,17 +1,5 @@
 [[plugins]]
-repo = 'skanehira/docker.vim'
-
-[[plugins]]
-repo = 'mattn/vim-maketable'
-
-[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
-
-[[plugins]]
-repo = 'skanehira/translate.vim'
-
-[[plugins]]
-repo = 'markonm/traces.vim'
 
 [[plugins]]
 repo = 'tomasr/molokai'
@@ -23,12 +11,30 @@ colorscheme molokai
 '''
 
 [[plugins]]
-repo = 'fatih/vim-go'
-
-[[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 '''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-icons'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
