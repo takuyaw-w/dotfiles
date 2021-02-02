@@ -8,7 +8,7 @@ info_message "Start install the packages."
 sudo pacman -S --noconfirm --needed base-devel
 sudo pacman -S --noconfirm --needed zsh
 sudo pacman -S --noconfirm --needed git
-sudo pacman -S --noconfirm --needed vim
+sudo pacman -S --noconfirm --needed gvim
 sudo pacman -S --noconfirm --needed tmux
 sudo pacman -S --noconfirm --needed ctags
 sudo pacman -S --noconfirm --needed bc
