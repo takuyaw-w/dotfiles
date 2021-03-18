@@ -22,7 +22,6 @@ sudo pacman -S --noconfirm --needed sqlite
 sudo pacman -S --noconfirm --needed gettext
 sudo pacman -S --noconfirm --needed procps
 sudo pacman -S --noconfirm --needed jq
-sudo pacman -S --noconfirm --needed chromium
 sudo pacman -S --noconfirm --needed docker
 sudo pacman -S --noconfirm --needed docker-compose
 sudo pacman -S --noconfirm --needed rustup
@@ -45,11 +44,12 @@ rustup install stable
 rustup component add rust-analysis rust-src rustfmt clippy
 
 # for yay
-yay -S --noconfirm --needed ghq
+yay -S --noconfirm --needed ghq-bin
 yay -S --noconfirm --needed visual-studio-code-bin
 yay -S --noconfirm --needed gitui
 yay -S --noconfirm --needed git-delta-git
 yay -S --noconfirm --needed boost-note-bin
 yay -S --noconfirm --needed asdf-vm
+yay -S --noconfirm --needed google-chrome
 
 complete_message "Install packages done."
