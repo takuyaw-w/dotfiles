@@ -33,7 +33,6 @@ sudo pacman -S --noconfirm --needed cmake
 sudo pacman -S --noconfirm --needed exa
 sudo pacman -S --noconfirm --needed bat
 sudo pacman -S --noconfirm --needed ripgrep
-sudo pacman -S --noconfirm --needed go
 sudo pacman -S --noconfirm --needed fzf
 sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed yay
