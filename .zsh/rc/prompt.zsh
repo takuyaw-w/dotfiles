@@ -31,8 +31,9 @@ function rprompt-git-current-branch {
 }
 
 # 左プロンプト
-PROMPT='[%F{green}%n:%.$(rprompt-git-current-branch)%f]${WINDOW:+"[$WINDOW]"}%# '
-RPROMPT='%D{%G/%m/%d} %T'
+NEWLINE=$'\n'
+PROMPT='[%F{green}%n:%.%f]${WINDOW:+"[$WINDOW]"}${NEWLINE}%# '
+RPROMPT='$(rprompt-git-current-branch) %D{%G/%m/%d} %T'
 
 ## <エスケープシーケンス>
 ## prompt_bang が有効な場合、!=現在の履歴イベント番号, !!='!' (リテラル)
