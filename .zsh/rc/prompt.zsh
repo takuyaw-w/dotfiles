@@ -30,34 +30,9 @@ function rprompt-git-current-branch {
   echo "($color$name$action%f%b)"
 }
 
-# 戻り値で%の色を変える
-function __show_status() {
-  exit_status=${pipestatus[*]}
-  local SETCOLOR_DEFAULT="%f"
-  local SETCOLOR=${SETCOLOR_DEFAULT}
-  local s
-  for s in $(echo -en "${exit_status}"); do
-    if [ "${s}" -eq 147 ] ; then
-      SETCOLOR=${SETCOLOR_DEFAULT}
-      break
-    elif [ "${s}" -gt 100 ] ; then
-      SETCOLOR="%F{red}"
-      break
-    elif [ "${s}" -gt 0 ] ; then
-      SETCOLOR="%F{yellow}"
-    fi
-  done
-  if [ "${SETCOLOR}" != "${SETCOLOR_DEFAULT}" ]; then
-    echo -ne "${SETCOLOR}(${exit_status// /|})%f%b"
-  else
-    echo -ne "${SETCOLOR}%f%b"
-  fi
-}
-#pct=$'%0(?||%147(?||%F{red}))%#%f'
-
-
 # 左プロンプト
-PROMPT='[%F{green}%n:%.$(rprompt-git-current-branch)%f]${WINDOW:+"[$WINDOW]"}$(__show_status)%# '
+PROMPT='[%F{green}%n:%.$(rprompt-git-current-branch)%f]${WINDOW:+"[$WINDOW]"}%# '
+RPROMPT='%D{%G/%m/%d} %T'
 
 ## <エスケープシーケンス>
 ## prompt_bang が有効な場合、!=現在の履歴イベント番号, !!='!' (リテラル)
@@ -94,10 +69,3 @@ PROMPT='[%F{green}%n:%.$(rprompt-git-current-branch)%f]${WINDOW:+"[$WINDOW]"}$(_
 # %<string<, %>string>, %[xstring] = プロンプトの残りの部分に対する, 切り詰めの振る舞い
 #         `<' の形式は文字列の左側を切り詰め, `>' の形式は文字列の右側を切り詰めます
 # %c, %., %C = $PWD の後ろ側の構成要素
-
-#PROMPT=ubst が必要
-# 右プロンプト
-
-# ShellScript Debug
-export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-export PROMPT4='+%N:%i> '
