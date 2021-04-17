@@ -58,4 +58,8 @@ volta install node@latest
 volta install yarn
 volta install @vue/cli
 
+# default settings
+xdg-mime default google-chrome.desktop x-scheme-handler/http
+xdg-mime default google-chrome.desktop x-scheme-handler/https
+
 complete_message "Install packages done."
