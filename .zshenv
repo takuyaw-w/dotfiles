@@ -21,6 +21,7 @@ path=(
   $HOME/.cargo/bin(N-/)
   $HOME/.rustup/toolchains/*/bin(N-/)
   $HOME/.deno/bin(N-/)
+  $HOME/.volta/bin(N-/)
   $path
 )
 
@@ -58,4 +59,3 @@ fi
 
 export GOPATH=$HOME/.go
 export GHQ_ROOT=$GOPATH/src
-source /opt/asdf-vm/asdf.sh

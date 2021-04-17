@@ -34,6 +34,8 @@ sudo pacman -S --noconfirm --needed exa
 sudo pacman -S --noconfirm --needed bat
 sudo pacman -S --noconfirm --needed ripgrep
 sudo pacman -S --noconfirm --needed fzf
+sudo pacman -S --noconfirm --needed go
+sudo pacmna -S --noconfirm --needed deno
 sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed yay
 sudo pacman -S --noconfirm --needed alacritty
@@ -48,7 +50,12 @@ yay -S --noconfirm --needed visual-studio-code-bin
 yay -S --noconfirm --needed gitui
 yay -S --noconfirm --needed git-delta-git
 yay -S --noconfirm --needed boost-note-bin
-yay -S --noconfirm --needed asdf-vm
 yay -S --noconfirm --needed google-chrome
+yay -S --noconfirm --needed volta
+
+# for volta
+volta install node@latest
+volta install yarn
+volta install @vue/cli
 
 complete_message "Install packages done."
