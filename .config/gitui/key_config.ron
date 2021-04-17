@@ -16,6 +16,7 @@
 
     tab_toggle: ( code: Tab, modifiers: ( bits: 0,),),
     tab_toggle_reverse: ( code: BackTab, modifiers: ( bits: 1,),),
+    toggle_workarea: ( code: Char('w'), modifiers: (bits: 0,),),
 
     focus_right: ( code: Char('l'), modifiers: ( bits: 0,),),
     focus_left: ( code: Char('h'), modifiers: ( bits: 0,),),
@@ -58,12 +59,13 @@
     stashing_toggle_untracked: ( code: Char('u'), modifiers: ( bits: 0,),),
     stashing_toggle_index: ( code: Char('m'), modifiers: ( bits: 0,),),
 
+    stash_apply: ( code: Char('a'), modifiers: ( bits: 0,),),
     stash_open: ( code: Char('l'), modifiers: ( bits: 0,),),
     stash_drop: ( code: Char('D'), modifiers: ( bits: 1,),),
 
     cmd_bar_toggle: ( code: Char('.'), modifiers: ( bits: 0,),),
     log_tag_commit: ( code: Char('t'), modifiers: ( bits: 0,),),
-    commit_amend: ( code: Char('A'), modifiers: ( bits: 1,),),
+    commit_amend: ( code: Char('a'), modifiers: ( bits: 2,),),
     copy: ( code: Char('y'), modifiers: ( bits: 0,),),
     create_branch: ( code: Char('c'), modifiers: ( bits: 0,),),
     rename_branch: ( code: Char('r'), modifiers: ( bits: 0,),),
