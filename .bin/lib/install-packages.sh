@@ -8,7 +8,7 @@ info_message "Start install the packages."
 sudo pacman -S --noconfirm --needed base-devel
 sudo pacman -S --noconfirm --needed zsh
 sudo pacman -S --noconfirm --needed git
-sudo pacman -S --noconfirm --needed gvim
+sudo pacman -S --noconfirm --needed neovim
 sudo pacman -S --noconfirm --needed tmux
 sudo pacman -S --noconfirm --needed ctags
 sudo pacman -S --noconfirm --needed bc
@@ -57,6 +57,7 @@ yay -S --noconfirm --needed volta
 volta install node@latest
 volta install yarn
 volta install @vue/cli
+volta install neovim
 
 # default settings
 xdg-mime default google-chrome.desktop x-scheme-handler/http

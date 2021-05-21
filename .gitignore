@@ -123,6 +123,7 @@
 
 
 # ignore #
+.config/nvim/.netrwhist
 
 # not ignore #
 
@@ -134,4 +135,3 @@
 !/LICENSE
 !.gitignore
 !.gitkeep
-
