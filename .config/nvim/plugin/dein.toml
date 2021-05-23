@@ -55,3 +55,12 @@ repo = 'editorconfig/editorconfig-vim'
 [[plugins]]
 repo = 'posva/vim-vue'
 
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+

@@ -28,6 +28,7 @@ set showcmd
 " set relativenumber
 set wrap
 set notitle
+set completeopt=menuone,noinsert
 
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -35,6 +36,9 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap gq <Cmd>nohlsearch<CR>
 inoremap <silent> jj <ESC>
+inoremap <expr><CR> pumvisible() ? "<C-y>" : "<CR>"
+inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
+inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 
 " dein.vim settings {{{
 " install dir {{{
