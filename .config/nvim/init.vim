@@ -18,7 +18,7 @@ set shiftwidth=2
 set softtabstop=0
 set expandtab
 set list
-set listchars=tab:»-
+set listchars=tab:»-,space:·
 set history=10000
 set shellslash
 set display=lastline
@@ -30,16 +30,22 @@ set wrap
 set notitle
 set completeopt=menuone,noinsert
 
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
 nnoremap gq <Cmd>nohlsearch<CR>
 inoremap <silent> jj <ESC>
 inoremap <expr><CR> pumvisible() ? "<C-y>" : "<CR>"
 inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
 inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
-
+" Split window
+nmap ss :split<Return><C-w>w
+nmap sv :vsplit<Return><C-w>w
+" Move window
+map sh <C-w>h
+map sk <C-w>k
+map sj <C-w>j
+map sl <C-w>l
+" Switch tab
+nmap <S-Tab> :tabprev<Return>
+nmap <Tab> :tabnext<Return>
 " dein.vim settings {{{
 " install dir {{{
 let s:dein_dir = expand('~/.cache/dein')
