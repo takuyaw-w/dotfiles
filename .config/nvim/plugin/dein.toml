@@ -51,3 +51,7 @@ repo = 'jiangmiao/auto-pairs'
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'posva/vim-vue'
+
