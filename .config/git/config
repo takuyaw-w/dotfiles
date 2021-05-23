@@ -1,7 +1,6 @@
 [include]
 	path = ~/.gitconfig.local
 [core]
-	excludesfile = ~/.gitignore_global
 	pager = delta
 	ignorecase = false
 	editor = vim
@@ -25,3 +24,7 @@
 	line-numbers = true
 [interactive]
 	diffFilter = delta --color-only
+[alias]
+	st = status
+	cm = commit
+	sw = switch
