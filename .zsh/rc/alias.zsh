@@ -12,7 +12,7 @@ else
 fi
 
 # cat command
-if command "bat" -v > /dev/null 2>&1; then
+if command "bat" --version > /dev/null 2>&1; then
   alias cat="bat"
 fi
 

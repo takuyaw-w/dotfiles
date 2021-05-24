@@ -8,15 +8,6 @@ colorscheme molokai
 '''
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = '''
-let g:NERDTreeWinSize=30
-let g:NERDTreeShowHidden=1
-let g:NERDTreeIgnore=['\.git$', '\.clean$', '\.swp$', '\.bak$', '\~$']
-map <C-n> :NERDTreeToggle<CR>
-'''
-
-[[plugins]]
 repo = 'neoclide/coc.nvim'
 
 [[plugins]]
@@ -63,4 +54,10 @@ repo = 'w0rp/ale'
 
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
 
