@@ -20,7 +20,6 @@ set expandtab
 set list
 set listchars=tab:»-,space:·
 set history=10000
-set shellslash
 set display=lastline
 set showmatch
 set matchtime=1
@@ -29,12 +28,19 @@ set showcmd
 set wrap
 set notitle
 set completeopt=menuone,noinsert
+set autoindent
+set smartindent
 
-nnoremap gq <Cmd>nohlsearch<CR>
+let g:mapleader = "\<Space>"
+" space + w = save file
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>re :%s;\<<C-R><C-W>\>;g<Left><Left>;
+nnoremap <Esc><Esc> :nohlsearch<CR>
 inoremap <silent> jj <ESC>
 inoremap <expr><CR> pumvisible() ? "<C-y>" : "<CR>"
 inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
 inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
+
 " Split window
 nmap ss :split<Return><C-w>w
 nmap sv :vsplit<Return><C-w>w

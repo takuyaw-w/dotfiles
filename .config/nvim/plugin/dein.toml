@@ -58,10 +58,16 @@ repo = 'osyo-manga/vim-anzu'
 
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
+hook_add = '''
+let g:fern#default_hidden = 1
+noremap <silent> <A-f> :Fern . -reveal=% -drawer -toggle -width=40 <CR>
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
 
 [[plugins]]
 repo = 'antoinemadec/FixCursorHold.nvim'
-
