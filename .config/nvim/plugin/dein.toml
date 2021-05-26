@@ -71,3 +71,4 @@ repo = 'vim-airline/vim-airline'
 
 [[plugins]]
 repo = 'antoinemadec/FixCursorHold.nvim'
+
