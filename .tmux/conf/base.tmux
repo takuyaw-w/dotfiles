@@ -22,6 +22,10 @@ set-option -g base-index 1
 set-window-option -g pane-base-index 1
 set-option -g renumber-windows on
 
+# アクティブなペインのみ白くする
+set -g window-style 'bg=colour239'
+set -g window-active-style 'bg=colour234'
+
 # ウィンドウ履歴の最大行数
 set-option -g history-limit 5000
 
