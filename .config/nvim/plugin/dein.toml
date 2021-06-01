@@ -72,3 +72,11 @@ repo = 'vim-airline/vim-airline'
 [[plugins]]
 repo = 'antoinemadec/FixCursorHold.nvim'
 
+[[plugins]]
+repo = 'alvan/vim-closetag'
+hook_add = '''
+let g:closetag_filenames = '*.html,*.vue,*.php,*.jsx,*.tsx'
+'''
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
