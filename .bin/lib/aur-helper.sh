@@ -11,3 +11,5 @@ if ! builtin command -v paru >/dev/null 2>&1; then
   sudo pacman -S --noconfirm --needed base-devel
   (cd /tmp/paru && makepkg si --noconfirm && paru -Syy)
 fi
+
+complete_message "Install AUR helper done."

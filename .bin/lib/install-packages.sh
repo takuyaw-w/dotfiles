@@ -50,6 +50,7 @@ paru -S --noconfirm --needed git-delta-git
 paru -S --noconfirm --needed boost-note-bin
 paru -S --noconfirm --needed google-chrome
 paru -S --noconfirm --needed volta
+paru -S --noconfirm --needed ranger
 
 # for volta
 volta install node@latest
