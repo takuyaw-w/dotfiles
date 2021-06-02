@@ -5,7 +5,6 @@ source $(dirname "${BASH_SOURCE[0]:-$0}")/utilfuncs.sh
 info_message "Start install the packages."
 
 # for pacman
-sudo pacman -S --noconfirm --needed base-devel
 sudo pacman -S --noconfirm --needed zsh
 sudo pacman -S --noconfirm --needed git
 sudo pacman -S --noconfirm --needed neovim
@@ -37,21 +36,20 @@ sudo pacman -S --noconfirm --needed fzf
 sudo pacman -S --noconfirm --needed go
 sudo pacmna -S --noconfirm --needed deno
 sudo pacman -S --noconfirm --needed github-cli
-sudo pacman -S --noconfirm --needed yay
 sudo pacman -S --noconfirm --needed alacritty
 
 # for rust
 rustup install stable
 rustup component add rust-analysis rust-src rustfmt clippy
 
-# for yay
-yay -S --noconfirm --needed ghq-bin
-yay -S --noconfirm --needed visual-studio-code-bin
-yay -S --noconfirm --needed gitui
-yay -S --noconfirm --needed git-delta-git
-yay -S --noconfirm --needed boost-note-bin
-yay -S --noconfirm --needed google-chrome
-yay -S --noconfirm --needed volta
+# for paru
+paru -S --noconfirm --needed ghq-bin
+paru -S --noconfirm --needed visual-studio-code-bin
+paru -S --noconfirm --needed gitui
+paru -S --noconfirm --needed git-delta-git
+paru -S --noconfirm --needed boost-note-bin
+paru -S --noconfirm --needed google-chrome
+paru -S --noconfirm --needed volta
 
 # for volta
 volta install node@latest
