@@ -32,6 +32,7 @@ function main() {
   confirm
 
   source $CURRENT_DIR/lib/link-to-homedir.sh
+  source $CURRENT_DIR/lib/aur-helper.sh
   source $CURRENT_DIR/lib/install-packages.sh
   source $CURRENT_DIR/lib/gitconfig.sh
   source $CURRENT_DIR/lib/input-method.sh
