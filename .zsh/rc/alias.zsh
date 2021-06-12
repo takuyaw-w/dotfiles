@@ -41,9 +41,3 @@ function extract() {
   esac
 }
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}="extract"
-
-# ghq command
-function ghq_create() {
-  ghq create $1
-}
-alias ghqc="ghq_create"
