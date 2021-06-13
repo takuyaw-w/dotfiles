@@ -76,7 +76,19 @@ noremap <silent> <A-f> :Fern . -reveal=% -drawer -toggle -width=40 <CR>
 '''
 
 [[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+
+[[plugins]]
 repo = 'lambdalisue/fern-git-status.vim'
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+hook_add = '''
+let g:fern#renderer = "nerdfont"
+'''
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
