@@ -38,6 +38,7 @@ sudo pacmna -S --noconfirm --needed deno
 sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed alacritty
 sudo pacman -S --noconfirm --needed trash-cli
+sudo pacman -S --noconfirm --needed rofi
 
 # for rust
 rustup install stable
