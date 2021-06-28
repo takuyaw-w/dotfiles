@@ -50,10 +50,10 @@ bind -n S-left select-pane -L
 bind -n S-down select-pane -D
 bind -n S-up select-pane -U
 bind -n S-right select-pane -R
-bind -n M-S-left select-pane -L
-bind -n M-S-down select-pane -D
-bind -n M-S-up select-pane -U
-bind -n M-S-right select-pane -R
+# bind -n M-S-left select-pane -L
+# bind -n M-S-down select-pane -D
+# bind -n M-S-up select-pane -U
+# bind -n M-S-right select-pane -R
 bind -n M-H select-pane -L
 bind -n M-J select-pane -D
 bind -n M-K select-pane -U
@@ -110,10 +110,10 @@ bind-key ! break-pane \; display "break-pane"
 bind-key @ choose-window 'join-pane -v -s "%%"'
 
 # Vimのキーバインドでペインをリサイズする
-bind -r H resize-pane -L 5
-bind -r J resize-pane -D 5
-bind -r K resize-pane -U 5
-bind -r L resize-pane -R 5
+bind -n S-M-left resize-pane -L 5
+bind -n S-M-down resize-pane -D 5
+bind -n S-M-up resize-pane -U 5
+bind -n S-M-right resize-pane -R 5
 
 # ペイン同時入力切り替え
 bind e set-window-option synchronize-panes on \;\
