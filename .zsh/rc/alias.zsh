@@ -25,6 +25,11 @@ else
   alias egrep="egrep --color=auto"
 fi
 
+# rm command
+if command "gomi" --help > /dev/null 2>&1; then
+  alias rm="gomi"
+fi
+
 function extract() {
   case $1 in
     *.tar.gz|*.tgz) tar xzvf "$1";;
