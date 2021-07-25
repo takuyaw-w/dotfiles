@@ -37,7 +37,6 @@ sudo pacman -S --noconfirm --needed go
 sudo pacmna -S --noconfirm --needed deno
 sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed alacritty
-sudo pacman -S --noconfirm --needed trash-cli
 sudo pacman -S --noconfirm --needed rofi
 
 # for rust
@@ -53,6 +52,7 @@ paru -S --noconfirm --needed boost-note-bin
 paru -S --noconfirm --needed google-chrome
 paru -S --noconfirm --needed volta
 paru -S --noconfirm --needed ranger
+paru -S --noconfirm --needed gomi
 
 # for volta
 volta install node@latest
