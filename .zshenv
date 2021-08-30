@@ -31,8 +31,8 @@ else
   unset SHELL
 fi
 
-if builtin command -v vim > /dev/null 2>&1; then
-  export EDITOR=vim
+if builtin command -v nvim > /dev/null 2>&1; then
+  export EDITOR=nvim
 else
   export EDITOR=nano
 fi
