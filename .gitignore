@@ -135,3 +135,4 @@
 !/LICENSE
 !.gitignore
 !.gitkeep
+!.bin.local/gitui-keyconfig-update.sh
