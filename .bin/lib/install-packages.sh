@@ -53,6 +53,7 @@ paru -S --noconfirm --needed google-chrome
 paru -S --noconfirm --needed volta
 paru -S --noconfirm --needed ranger
 paru -S --noconfirm --needed gomi
+paru -S --noconfirm --needed sysz
 
 # for volta
 volta install node@latest
