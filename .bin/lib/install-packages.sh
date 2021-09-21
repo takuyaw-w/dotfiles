@@ -50,7 +50,7 @@ paru -S --noconfirm --needed gitui-bin
 paru -S --noconfirm --needed git-delta-git
 paru -S --noconfirm --needed boost-note-bin
 paru -S --noconfirm --needed google-chrome
-paru -S --noconfirm --needed volta
+paru -S --noconfirm --needed volta-bin
 paru -S --noconfirm --needed ranger
 paru -S --noconfirm --needed gomi
 paru -S --noconfirm --needed sysz
