@@ -55,12 +55,6 @@ paru -S --noconfirm --needed ranger
 paru -S --noconfirm --needed gomi
 paru -S --noconfirm --needed sysz
 
-# for volta
-volta install node@latest
-volta install yarn
-volta install @vue/cli
-volta install neovim
-
 # default settings
 xdg-mime default google-chrome.desktop x-scheme-handler/http
 xdg-mime default google-chrome.desktop x-scheme-handler/https
