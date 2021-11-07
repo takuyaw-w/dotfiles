@@ -52,6 +52,7 @@ paru -S --noconfirm --needed boost-note-bin
 paru -S --noconfirm --needed google-chrome
 paru -S --noconfirm --needed fnm-bin
 paru -S --noconfirm --needed ranger
+paru -S --noconfirm --needed w3m
 paru -S --noconfirm --needed gomi
 paru -S --noconfirm --needed sysz
 
