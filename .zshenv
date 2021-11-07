@@ -21,6 +21,7 @@ path=(
   $HOME/.cargo/bin(N-/)
   $HOME/.rustup/toolchains/*/bin(N-/)
   $HOME/.deno/bin(N-/)
+  $HOME/.ghcup/bin(N-/)
   $path
 )
 
