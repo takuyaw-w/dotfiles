@@ -105,6 +105,11 @@
 !/.config/environment.d/
 !/.config/environment.d/**
 /.config/TabNine/registration_key
+/.config/fcitx5/**
+!/.config/fcitx5/config
+!/.config/fcitx5/conf/
+!/.config/fcitx5/conf/**
+/.config/fcitx5/conf/cached_layouts
 
 ## git
 !/.gitignore_global
