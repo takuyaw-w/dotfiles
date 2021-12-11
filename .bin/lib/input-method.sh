@@ -13,6 +13,7 @@ export XMODIFIER="@im=fcitx"
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export DefaultIMModule=fcitx
+export GLFW_IM_MODULE=ibus
 EOF
 
 complete_message "Package install and configuration is done."

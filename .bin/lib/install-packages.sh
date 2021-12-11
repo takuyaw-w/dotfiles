@@ -36,6 +36,7 @@ sudo pacman -S --noconfirm --needed fzf
 sudo pacman -S --noconfirm --needed go
 sudo pacmna -S --noconfirm --needed deno
 sudo pacman -S --noconfirm --needed github-cli
+sudo pacman -S --noconfirm --needed kitty
 sudo pacman -S --noconfirm --needed alacritty
 sudo pacman -S --noconfirm --needed rofi
 
