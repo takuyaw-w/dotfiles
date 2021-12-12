@@ -1,6 +1,10 @@
 [Hotkey]
 # トリガーキーを押すたびに切り替える
 EnumerateWithTriggerKeys=True
+# 次の入力メソッドに切り替える
+EnumerateForwardKeys=
+# 前の入力メソッドに切り替える
+EnumerateBackwardKeys=
 # 切り替え時は第1入力メソッドをスキップする
 EnumerateSkipFirst=False
 # 入力メソッドを有効にする
@@ -14,14 +18,8 @@ DeactivateKeys=
 [Hotkey/AltTriggerKeys]
 0=Shift_L
 
-[Hotkey/EnumerateForwardKeys]
-0=Control+Shift_L
-
-[Hotkey/EnumerateBackwardKeys]
-0=Control+Shift_R
-
 [Hotkey/EnumerateGroupForwardKeys]
-0=Super+space
+0=Control+Shift+space
 
 [Hotkey/EnumerateGroupBackwardKeys]
 0=Shift+Super+space
