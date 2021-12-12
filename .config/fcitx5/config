@@ -3,10 +3,13 @@
 EnumerateWithTriggerKeys=True
 # 切り替え時は第1入力メソッドをスキップする
 EnumerateSkipFirst=False
+# 入力メソッドを有効にする
+ActivateKeys=
+# 入力メソッドをオフにする
+DeactivateKeys=
 
 [Hotkey/TriggerKeys]
 0=Control+space
-1=Zenkaku_Hankaku
 
 [Hotkey/AltTriggerKeys]
 0=Shift_L
@@ -22,12 +25,6 @@ EnumerateSkipFirst=False
 
 [Hotkey/EnumerateGroupBackwardKeys]
 0=Shift+Super+space
-
-[Hotkey/ActivateKeys]
-0=j
-
-[Hotkey/DeactivateKeys]
-0=Hangul_Romaja
 
 [Hotkey/PrevPage]
 0=Up
