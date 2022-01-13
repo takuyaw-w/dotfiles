@@ -39,7 +39,7 @@ sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed kitty
 sudo pacman -S --noconfirm --needed alacritty
 sudo pacman -S --noconfirm --needed rofi
-
+sudo pacman -S --noconfirm --needed libsecret
 # for rust
 rustup install stable
 rustup component add rust-analysis rust-src rustfmt clippy
