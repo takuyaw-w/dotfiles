@@ -56,6 +56,10 @@ CompactInputMethodInformation=True
 ShowFirstInputMethodInformation=True
 # デフォルトのページサイズ
 DefaultPageSize=5
+# XKB オプションより優先する
+OverrideXkbOption=False
+# カスタム XKB オプション
+CustomXkbOption=
 # Force Enabled Addons
 EnabledAddons=
 # Force Disabled Addons

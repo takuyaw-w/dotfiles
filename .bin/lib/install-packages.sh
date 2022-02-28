@@ -23,7 +23,6 @@ sudo pacman -S --noconfirm --needed procps
 sudo pacman -S --noconfirm --needed jq
 sudo pacman -S --noconfirm --needed docker
 sudo pacman -S --noconfirm --needed docker-compose
-sudo pacman -S --noconfirm --needed rustup
 sudo pacman -S --noconfirm --needed clang
 sudo pacman -S --noconfirm --needed gcc
 sudo pacman -S --noconfirm --needed gdb
@@ -34,21 +33,18 @@ sudo pacman -S --noconfirm --needed bat
 sudo pacman -S --noconfirm --needed ripgrep
 sudo pacman -S --noconfirm --needed fzf
 sudo pacman -S --noconfirm --needed go
-sudo pacmna -S --noconfirm --needed deno
+sudo pacman -S --noconfirm --needed deno
 sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed kitty
 sudo pacman -S --noconfirm --needed alacritty
 sudo pacman -S --noconfirm --needed rofi
 sudo pacman -S --noconfirm --needed libsecret
 
-# for rust
-rustup install stable
-rustup component add rust-analysis rust-src rustfmt clippy
 
 # for paru
 paru -S --noconfirm --needed ghq-bin
 paru -S --noconfirm --needed visual-studio-code-bin
-paru -S --noconfirm --needed gitui-bin
+paru -S --noconfirm --needed gitui
 paru -S --noconfirm --needed git-delta-git
 paru -S --noconfirm --needed google-chrome
 paru -S --noconfirm --needed fnm-bin
