@@ -58,5 +58,4 @@ if [ -f "$ZHOMEDIR/.zshenv.local" ]; then
 fi
 
 export GOPATH=$HOME/.go
-export GHQ_ROOT=$GOPATH/src
 eval "$(fnm env)"
