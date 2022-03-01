@@ -28,3 +28,6 @@
 	st = status
 	cm = commit
 	sw = switch
+[ghq]
+	root = ~/dev
+	user = takuyaw-w
