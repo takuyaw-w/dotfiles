@@ -39,6 +39,10 @@ source "$ZRCDIR/alias.zsh"
 
 source "$ZRCDIR/bindkey.zsh"
 
+# Plugins
+
+source "$ZRCDIR/pluginlist.zsh"
+
 # Command Config
 
 source "$ZRCDIR/command_config.zsh"
