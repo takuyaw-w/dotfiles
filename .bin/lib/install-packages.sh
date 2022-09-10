@@ -36,6 +36,7 @@ sudo pacman -S --noconfirm --needed go
 sudo pacman -S --noconfirm --needed deno
 sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed alacritty
+sudo pacman -S --noconfirm --needed wezterm
 sudo pacman -S --noconfirm --needed rofi
 sudo pacman -S --noconfirm --needed libsecret
 
