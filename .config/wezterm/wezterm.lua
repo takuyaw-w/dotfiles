@@ -13,6 +13,10 @@ local config = {
     font_size = 12.0,
     adjust_window_size_when_changing_font_size = false,
     tab_bar_at_bottom = true,
+    inactive_pane_hsb = {
+      saturation = 0.5,
+      brightness = 0.6,
+    },
 }
 
 return config
