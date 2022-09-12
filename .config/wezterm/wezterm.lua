@@ -1,14 +1,15 @@
-local wezterm = require("wezterm")
+local wezterm = require('wezterm')
+local mux = wezterm.mux
 
 local config = {
     check_for_updates = false,
     use_ime = true,
-    color_scheme = "nordfox",
+    color_scheme = 'Macintosh (base16)',
     font = wezterm.font_with_fallback {
         'Source Han Code JP',
         'ricty diminished',
-        'Cascadia Code', -- for windows
-        'Cascadia Mono' -- for windows
+        'Cascadia Code',
+        'Cascadia Mono'
     },
     font_size = 12.0,
     adjust_window_size_when_changing_font_size = false,
@@ -17,6 +18,7 @@ local config = {
       saturation = 0.5,
       brightness = 0.6,
     },
+    window_background_opacity = 0.6,
 }
 
 return config
