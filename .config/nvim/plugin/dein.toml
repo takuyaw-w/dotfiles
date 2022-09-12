@@ -1,39 +1,4 @@
 [[plugins]]
-repo = 'tomasr/molokai'
-hook_add = '''
-let g:molokai_original = 1
-let g:rehash256 = 1
-syntax enable
-colorscheme molokai
-highlight Normal ctermbg=none
-highlight NonText ctermbg=none
-highlight LineNr ctermbg=none
-highlight Folded ctermbg=none
-highlight EndOfBuffer ctermbg=none
-'''
-
-[[plugins]]
-repo = 'neoclide/coc.nvim'
-
-[[plugins]]
-repo = 'terryma/vim-multiple-cursors'
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'tpope/vim-fugitive'
-
-[[plugins]]
-repo = 'tpope/vim-surround'
-
-[[plugins]]
-repo = 'airblade/vim-gitgutter'
-
-[[plugins]]
 repo = 'junegunn/fzf'
 
 [[plugins]]
@@ -51,27 +16,6 @@ nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>h :History<CR>
 nnoremap <silent> <leader>r :Rg<CR>
 '''
-
-[[plugins]]
-repo = 'tpope/vim-commentary'
-
-[[plugins]]
-repo = 'jiangmiao/auto-pairs'
-
-[[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-
-[[plugins]]
-repo = 'posva/vim-vue'
-
-[[plugins]]
-repo = 'tpope/vim-surround'
-
-[[plugins]]
-repo = 'w0rp/ale'
-
-[[plugins]]
-repo = 'osyo-manga/vim-anzu'
 
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
@@ -102,22 +46,4 @@ repo = 'vim-airline/vim-airline'
 repo = 'antoinemadec/FixCursorHold.nvim'
 
 [[plugins]]
-repo = 'alvan/vim-closetag'
-hook_add = '''
-let g:closetag_filenames = '*.html,*.vue,*.php,*.jsx,*.tsx'
-'''
-
-[[plugins]]
-repo = 'mattn/emmet-vim'
-
-[[plugins]]
-repo = 'leafgarland/typescript-vim'
-
-[[plugins]]
-repo = 'peitalin/vim-jsx-typescript'
-hook_add = '''
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
-'''
-
-[[plugins]]
-repo = 'fatih/vim-go'
+repo = 'williamboman/mason.nvim'
