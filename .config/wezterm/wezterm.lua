@@ -18,7 +18,7 @@ local config = {
       saturation = 0.5,
       brightness = 0.6,
     },
-    window_background_opacity = 0.6,
+    window_background_opacity = 0.8,
 }
 
 return config
