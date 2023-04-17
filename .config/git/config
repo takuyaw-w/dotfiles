@@ -5,6 +5,11 @@
 	ignorecase = false
 	editor = vim
 	quotepath = false
+	autoCRLF = false
+	pager = delta
+	fsmonitor = true
+[fetch]
+	prune = true
 [push]
 	default = current
 [pull]
@@ -17,17 +22,31 @@
 	defaultBranch = main
 [diff]
 	colorMoved = default
+[merge]
+	conflictstyle = diff3
 [delta]
-	plus-color = "#012800"
-	minus-color = "#340001"
-	syntax-theme = Monokai Extended
-	line-numbers = true
+	navigate = true
+	light = false
 [interactive]
 	diffFilter = delta --color-only
 [alias]
 	st = status
 	cm = commit
 	sw = switch
+	new = switch -c
+	cp = cherry-pick
+	cm = commit -m
+	br = branch
+	rbr = branch -a
+	save = stash save -u
+	la = log --oneline --decorate --graph --branches --tags --remotes --all
+	wip = !"git commit -m 'wip'"
+	aliases = !"git config --get-regexp '^alias\\.' | colrm 1 6 | sed 's/[ ]/ = /'"
+	merged = branch --merged
+	delete = branch -d
+	last = log -1 HEAD --stat
+	current = !"git rev-parse --abbrev-ref HEAD"
+	fixit = commit --amend --no-edit
 [ghq]
 	root = ~/dev
 	user = takuyaw-w
