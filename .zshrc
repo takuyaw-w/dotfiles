@@ -1,5 +1,7 @@
 # ZSHRC
 
+eval "$(sheldon source)"
+
 # profile
 if [ "$ZSHRC_PROFILE" != "" ]; then
   zmodload zsh/zprof && zprof >/dev/null
@@ -14,10 +16,6 @@ source-safe() {
 }
 
 source "$ZRCDIR/base.zsh"
-
-# Options
-
-source "$ZRCDIR/option.zsh"
 
 # Completion
 
@@ -38,10 +36,6 @@ source "$ZRCDIR/alias.zsh"
 # BindKeys
 
 source "$ZRCDIR/bindkey.zsh"
-
-# Plugins
-
-source "$ZRCDIR/pluginlist.zsh"
 
 # Command Config
 

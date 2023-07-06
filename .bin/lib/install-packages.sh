@@ -8,7 +8,6 @@ info_message "Start install the packages."
 sudo pacman -S --noconfirm --needed zsh
 sudo pacman -S --noconfirm --needed git
 sudo pacman -S --noconfirm --needed neovim
-sudo pacman -S --noconfirm --needed tmux
 sudo pacman -S --noconfirm --needed ctags
 sudo pacman -S --noconfirm --needed bc
 sudo pacman -S --noconfirm --needed curl
@@ -35,7 +34,6 @@ sudo pacman -S --noconfirm --needed fzf
 sudo pacman -S --noconfirm --needed go
 sudo pacman -S --noconfirm --needed deno
 sudo pacman -S --noconfirm --needed github-cli
-sudo pacman -S --noconfirm --needed alacritty
 sudo pacman -S --noconfirm --needed wezterm
 sudo pacman -S --noconfirm --needed rofi
 sudo pacman -S --noconfirm --needed libsecret

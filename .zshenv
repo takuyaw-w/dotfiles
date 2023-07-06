@@ -56,5 +56,4 @@ if [ -f "$ZHOMEDIR/.zshenv.local" ]; then
   source "$ZHOMEDIR/.zshenv.local"
 fi
 
-export GOPATH=$HOME/.go
 eval "$(fnm env)"
