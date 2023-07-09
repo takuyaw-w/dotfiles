@@ -57,3 +57,4 @@ if [ -f "$ZHOMEDIR/.zshenv.local" ]; then
 fi
 
 eval "$(fnm env)"
+
