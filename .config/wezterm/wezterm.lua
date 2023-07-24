@@ -4,9 +4,9 @@ local mux = wezterm.mux
 local config = {
     check_for_updates = false,
     use_ime = true,
-    color_scheme = 'Macintosh (base16)',
+    color_scheme = 'Monokai Pro (Gogh)',
     font = wezterm.font_with_fallback {
-        'Source Han Code JP',
+        {family="Source Han Code JP", weight="Light", stretch="Normal", style="Normal"},
         'ricty diminished',
         'Cascadia Code',
         'Cascadia Mono'
@@ -18,7 +18,8 @@ local config = {
       saturation = 0.5,
       brightness = 0.6,
     },
-    window_background_opacity = 0.8,
+    window_background_opacity = 0.9,
+    warn_about_missing_glyphs = false
 }
 
 return config
