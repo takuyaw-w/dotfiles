@@ -19,7 +19,14 @@ local config = {
       brightness = 0.6,
     },
     window_background_opacity = 0.9,
-    warn_about_missing_glyphs = false
+    warn_about_missing_glyphs = false,
+    keys = {
+      {
+        key = 'P',
+        mods = 'CTRL',
+        action = wezterm.action.ActivateCommandPalette,
+      },
+    },
 }
 
 return config
