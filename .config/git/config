@@ -10,6 +10,7 @@
 	fsmonitor = true
 [fetch]
 	prune = true
+	prunetags = true
 [push]
 	default = current
 [pull]
@@ -22,8 +23,10 @@
 	defaultBranch = main
 [diff]
 	colorMoved = default
+	algorithm = histogram
+	context = 10
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 [delta]
 	navigate = true
 	light = false
@@ -47,6 +50,17 @@
 	last = log -1 HEAD --stat
 	current = !"git rev-parse --abbrev-ref HEAD"
 	fixit = commit --amend --no-edit
+	please = push --force-with-lease --force-if-includes
 [ghq]
 	root = ~/dev
 	user = takuyaw-w
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+[help]
+	autocorrect = 10
