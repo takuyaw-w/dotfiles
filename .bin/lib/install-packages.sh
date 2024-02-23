@@ -42,12 +42,10 @@ sudo pacman -S --noconfirm --needed libsecret
 paru -S --noconfirm --needed ghq-bin
 paru -S --noconfirm --needed visual-studio-code-bin
 paru -S --noconfirm --needed gitui
-paru -S --noconfirm --needed git-delta-git
+paru -S --noconfirm --needed git-delta
 paru -S --noconfirm --needed google-chrome
 paru -S --noconfirm --needed fnm-bin
-paru -S --noconfirm --needed ranger
-paru -S --noconfirm --needed w3m
-paru -S --noconfirm --needed gomi
+paru -S --noconfirm --needed sheldon
 paru -S --noconfirm --needed sysz
 
 # default settings
