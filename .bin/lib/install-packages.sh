@@ -37,6 +37,9 @@ sudo pacman -S --noconfirm --needed github-cli
 sudo pacman -S --noconfirm --needed wezterm
 sudo pacman -S --noconfirm --needed rofi
 sudo pacman -S --noconfirm --needed libsecret
+sudo pacman -S --noconfirm --needed rustup
+rustup install stable
+rustup component add rust-analysis rust-src rustfmt clippy
 
 # for paru
 paru -S --noconfirm --needed ghq-bin

@@ -8,9 +8,7 @@ if ! builtin command -v paru >/dev/null 2>&1; then
   if [ ! -d /tmp/paru ]; then
     (cd /tmp && git clone https://aur.archlinux.org/paru.git)
   fi
-  sudo pacman -S --noconfirm --needed base-devel rustup
-  rustup install stable
-  rustup component add rust-analysis rust-src rustfmt clippy
+  sudo pacman -S --noconfirm --needed base-devel 
   (cd /tmp/paru && makepkg -sif --noconfirm && paru -Syy)
 fi
 
