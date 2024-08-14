@@ -42,11 +42,13 @@
 	br = branch
 	rbr = branch -a
 	save = stash save -u
+	load = stash pop
 	la = log --oneline --decorate --graph --branches --tags --remotes --all
 	wip = !"git commit -m 'wip'"
 	aliases = !"git config --get-regexp '^alias\\.' | colrm 1 6 | sed 's/[ ]/ = /'"
 	merged = branch --merged
 	delete = branch -d
+	force-delete = branch -D
 	last = log -1 HEAD --stat
 	current = !"git rev-parse --abbrev-ref HEAD"
 	fixit = commit --amend --no-edit
