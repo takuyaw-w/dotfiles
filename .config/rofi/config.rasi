@@ -1,6 +1,6 @@
 configuration {
-/*	modi: "window,run,ssh";*/
-	font: "mono 12";
+  modi: "window,run,ssh";
+	font: "mono 16";
 	location: 6;
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/
@@ -144,4 +144,4 @@ configuration {
       sorting-method:    "name";
   }
 }
-@theme "/usr/share/rofi/themes/DarkBlue.rasi"
+@theme "/usr/share/rofi/themes/android_notification.rasi"

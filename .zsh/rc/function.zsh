@@ -22,10 +22,6 @@ function ghq-import() {
   cat $1 | ghq get --parallel
 }
 
-function reboot-fcitx5() {
-  kill `ps -A | grep fcitx5 | awk '{print $1}'` && fcitx5&
-}
-
 function tmux-ide() {
   tmux
   if [ "$#" -eq 0 ]; then
