@@ -41,8 +41,8 @@
 	cm = commit -m
 	br = branch
 	rbr = branch -a
-	save = stash save -u
-	load = stash pop
+	stash-save = stash push -u
+	stash-load = stash pop
 	la = log --oneline --decorate --graph --branches --tags --remotes --all
 	wip = !"git commit -m 'wip'"
 	aliases = !"git config --get-regexp '^alias\\.' | colrm 1 6 | sed 's/[ ]/ = /'"
@@ -53,6 +53,7 @@
 	current = !"git rev-parse --abbrev-ref HEAD"
 	fixit = commit --amend --no-edit
 	please = push --force-with-lease --force-if-includes
+	root = !git show-branch | grep \"*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n 1 | sed \"s/.*\\\\[\\\\([^]]*\\\\)\\\\].*/\\\\1/\"
 [ghq]
 	root = ~/dev
 	user = takuyaw-w

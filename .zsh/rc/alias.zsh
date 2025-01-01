@@ -69,6 +69,7 @@ if command -v "docker" >/dev/null 2>&1; then
   alias drm_all='docker rm $(docker ps -aq)'
   alias drmi_all='docker rmi $(docker images -q)'
   alias dclean='docker system prune -af'
+  alias dvclean='docker volume prune -af'
 fi
 
 if command -v "docker-compose" >/dev/null 2>&1; then
