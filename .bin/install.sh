@@ -6,16 +6,23 @@ set -ue
 #   main   #
 ############
 function main() {
-  readonly CURRENT_DIR=$(dirname "${BASH_SOURCE[0]:-$0}")
-  source $CURRENT_DIR/lib/utilfuncs.sh
+  local current_dir
+  current_dir=$(dirname "${BASH_SOURCE[0]:-$0}")
 
-  source $CURRENT_DIR/lib/link-to-homedir.sh
-  source $CURRENT_DIR/lib/aur-helper.sh
-  source $CURRENT_DIR/lib/install-packages.sh
-  source $CURRENT_DIR/lib/gitconfig.sh
-  source $CURRENT_DIR/lib/input-method.sh
-  source $CURRENT_DIR/lib/install-fonts.sh
-  source $CURRENT_DIR/lib/setup-terminal.sh
+  source "$current_dir/lib/utilfuncs.sh"
+
+  source "$current_dir/lib/link-to-homedir.sh"
+  source "$current_dir/lib/bootstrap.sh"
+  run_bootstrap
+
+  source "$current_dir/lib/gitconfig.sh"
+
+  source "$current_dir/lib/nix-home-manager.sh"
+  switch_home_manager
+
+  print_default ""
+  print_default "Desktop-specific setup is intentionally separate."
+  print_default "A dedicated desktop setup step will add that flow later."
 }
 
 main "$@"
