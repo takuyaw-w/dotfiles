@@ -15,6 +15,7 @@ path=(
   $HOME/.bin(N-/)
   $HOME/bin(N-/)
   $HOME/.bin.local(N-/)
+  $HOME/.local/share/mise/shims(N-/)
   $HOME/.local/bin(N-/)
   $HOME/go/bin(N-/)
   $HOME/.go/bin(N-/)

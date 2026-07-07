@@ -158,6 +158,16 @@ test_zshrc_autostarts_herdr_for_local_interactive_terminals() {
   assert_file_contains "$repo_dir/.zshrc" "exec herdr"
 }
 
+test_zshenv_prefers_mise_shims_for_tool_commands() {
+  local home_dir="$tmp_dir/zshenv-home"
+  local output="$tmp_dir/zshenv-path.out"
+  mkdir -p "$home_dir/.local/share/mise/shims" "$home_dir/.local/bin"
+
+  HOME="$home_dir" zsh -fc "source '$repo_dir/.zshenv'; print -r -- \${path[1]}" >"$output"
+
+  assert_file_contains "$output" "$home_dir/.local/share/mise/shims"
+}
+
 test_home_manager_manages_gui_apps() {
   assert_file_contains "$repo_dir/home-manager/gui.nix" "google-chrome"
   assert_file_contains "$repo_dir/home-manager/gui.nix" "vscode"
@@ -175,6 +185,7 @@ test_install_sh_delegates_to_dotfiles_install
 test_link_command_is_removed
 test_home_manager_manages_git_and_shell_files
 test_zshrc_autostarts_herdr_for_local_interactive_terminals
+test_zshenv_prefers_mise_shims_for_tool_commands
 test_home_manager_manages_gui_apps
 test_home_manager_manages_local_tools
 
