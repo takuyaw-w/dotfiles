@@ -1,0 +1,9 @@
+[tools]
+deno = "latest"
+ghq = "latest"
+node = "latest"
+pnpm = "latest"
+
+[tools."npm:@openai/codex"]
+version = "latest"
+minimum_release_age = "0s"

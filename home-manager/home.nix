@@ -16,6 +16,19 @@
     source = ../.zsh;
     recursive = true;
   };
+  home.file.".local/bin/wezterm" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env sh
+      set -eu
+
+      if command -v nixGL >/dev/null 2>&1; then
+        exec nixGL ${pkgs.wezterm}/bin/wezterm "$@"
+      fi
+
+      exec ${pkgs.wezterm}/bin/wezterm "$@"
+    '';
+  };
 
   xdg.configFile."fcitx5" = {
     source = ../.config/fcitx5;
@@ -27,6 +40,7 @@
     source = ../.config/gitui;
     recursive = true;
   };
+  xdg.configFile."mise/config.toml".source = ../.config/mise/config.toml;
   xdg.configFile."nvim" = {
     source = ../.config/nvim;
     recursive = true;

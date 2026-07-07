@@ -85,5 +85,3 @@ if command -v "docker-compose" >/dev/null 2>&1; then
   alias dcp='docker compose ps'
   alias dcrebuild='docker-compose down && docker-compose up --build'
 fi
-
-alias wezterm='nixGL wezterm'

@@ -168,6 +168,20 @@ test_zshenv_prefers_mise_shims_for_tool_commands() {
   assert_file_contains "$output" "$home_dir/.local/share/mise/shims"
 }
 
+test_home_manager_manages_mise_config() {
+  assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."mise/config.toml"'
+  assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/mise/config.toml;"
+  assert_file_contains "$repo_dir/.config/mise/config.toml" '[tools."npm:@openai/codex"]'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'minimum_release_age = "0s"'
+}
+
+test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias() {
+  assert_file_not_contains "$repo_dir/.zsh/rc/alias.zsh" "alias wezterm="
+  assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".local/bin/wezterm"'
+  assert_file_contains "$repo_dir/home-manager/home.nix" "nixGL"
+  assert_file_contains "$repo_dir/home-manager/home.nix" "\${pkgs.wezterm}/bin/wezterm"
+}
+
 test_home_manager_manages_gui_apps() {
   assert_file_contains "$repo_dir/home-manager/gui.nix" "google-chrome"
   assert_file_contains "$repo_dir/home-manager/gui.nix" "vscode"
@@ -186,6 +200,8 @@ test_link_command_is_removed
 test_home_manager_manages_git_and_shell_files
 test_zshrc_autostarts_herdr_for_local_interactive_terminals
 test_zshenv_prefers_mise_shims_for_tool_commands
+test_home_manager_manages_mise_config
+test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias
 test_home_manager_manages_gui_apps
 test_home_manager_manages_local_tools
 
