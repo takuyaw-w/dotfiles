@@ -55,7 +55,3 @@ fi
 if [ -f "$ZHOMEDIR/.zshenv.local" ]; then
   source "$ZHOMEDIR/.zshenv.local"
 fi
-
-if builtin command -v fnm >/dev/null 2>&1; then
-  eval "$(fnm env)"
-fi

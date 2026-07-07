@@ -10,7 +10,6 @@
     deno
     eza
     fd
-    fnm
     fzf
     gcc
     gdb
@@ -22,6 +21,7 @@
     gnumake
     go
     jq
+    mise
     neovim
     ripgrep
     rofi
