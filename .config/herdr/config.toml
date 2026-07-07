@@ -1,0 +1,66 @@
+onboarding = false
+
+[terminal]
+shell_mode = "non_login"
+new_cwd = "follow"
+
+[update]
+channel = "stable"
+version_check = true
+manifest_check = true
+
+[keys]
+# Keep the daily Herdr controls explicit so they are easy to discover/edit.
+prefix = "ctrl+b"
+help = "prefix+?"
+settings = "prefix+s"
+detach = "prefix+q"
+reload_config = "prefix+shift+r"
+new_tab = "prefix+c"
+rename_tab = "prefix+shift+t"
+close_tab = "prefix+shift+x"
+split_vertical = "prefix+v"
+split_horizontal = "prefix+minus"
+close_pane = "prefix+x"
+edit_scrollback = "prefix+e"
+toggle_sidebar = "prefix+b"
+workspace_picker = "prefix+w"
+
+[ui]
+sidebar_width = 28
+sidebar_min_width = 20
+sidebar_max_width = 42
+mouse_capture = true
+confirm_close = true
+prompt_new_tab_name = false
+pane_borders = true
+pane_gaps = true
+show_agent_labels_on_pane_borders = true
+agent_panel_sort = "priority"
+accent = "cyan"
+
+[ui.toast]
+delivery = "system"
+delay_seconds = 1
+
+[ui.toast.herdr]
+position = "bottom-right"
+
+[ui.toast.clipboard]
+enabled = true
+position = "bottom-center"
+
+[ui.sound]
+enabled = false
+
+[session]
+resume_agents_on_restore = true
+
+[remote]
+manage_ssh_config = true
+
+[experimental]
+pane_history = false
+
+[advanced]
+scrollback_limit_bytes = 50000000

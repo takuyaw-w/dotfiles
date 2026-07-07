@@ -40,6 +40,7 @@
     source = ../.config/gitui;
     recursive = true;
   };
+  xdg.configFile."herdr/config.toml".source = ../.config/herdr/config.toml;
   xdg.configFile."mise/config.toml".source = ../.config/mise/config.toml;
   xdg.configFile."nvim" = {
     source = ../.config/nvim;
@@ -56,5 +57,12 @@
   xdg.configFile."wezterm" = {
     source = ../.config/wezterm;
     recursive = true;
+  };
+
+  xdg.mimeApps.enable = true;
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/http" = "google-chrome.desktop";
+    "x-scheme-handler/https" = "google-chrome.desktop";
+    "text/html" = "google-chrome.desktop";
   };
 }
