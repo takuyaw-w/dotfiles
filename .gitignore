@@ -134,6 +134,11 @@
 # not ignore #
 
 # not ignore #
+!/flake.nix
+!/flake.lock
+!/home.nix
+!/nix/
+!/nix/**
 !/docs/
 !/docs/**
 !/_config.yml
