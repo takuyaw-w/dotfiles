@@ -1,6 +1,8 @@
 # ZSHRC
 
-eval "$(sheldon source)"
+if builtin command -v sheldon >/dev/null 2>&1; then
+  eval "$(sheldon source)"
+fi
 
 # profile
 if [ "$ZSHRC_PROFILE" != "" ]; then
