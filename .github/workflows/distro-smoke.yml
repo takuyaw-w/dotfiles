@@ -23,6 +23,17 @@ jobs:
       - name: Run Docker runner tests
         run: bash tests/docker-runner-test.sh
 
+  nix-flake-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Nix flake check
+        run: nix flake check
+
   distro-smoke:
     runs-on: ubuntu-latest
     strategy:
@@ -38,3 +49,48 @@ jobs:
 
       - name: Run ${{ matrix.distro }} smoke test
         run: tests/docker/run.sh "${{ matrix.distro }}"
+
+  home-manager-switch:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - distro: ubuntu
+            image: ubuntu:latest
+            install: apt-get update && apt-get install -y ca-certificates curl git sudo xz-utils
+          - distro: fedora
+            image: fedora:latest
+            install: dnf clean all && dnf install -y ca-certificates curl git sudo xz
+    container: ${{ matrix.image }}
+    steps:
+      - name: Install required packages
+        run: ${{ matrix.install }}
+
+      - name: Setup test user
+        run: |
+          useradd -m -s /bin/bash test
+          echo 'test ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+      - name: Clone repository
+        run: |
+          git clone --no-single-branch https://github.com/${{ github.repository }} /home/test/dotfiles
+          cd /home/test/dotfiles
+          git fetch origin ${{ github.sha }}
+          git checkout ${{ github.sha }}
+          git config --global --add safe.directory /home/test/dotfiles
+          chown -R test:test /home/test/dotfiles
+
+      - name: Install Nix and switch Home Manager test profile
+        run: |
+          sudo -u test bash -c '
+            set -euo pipefail
+            curl -L https://nixos.org/nix/install | sh -s -- --no-daemon
+            . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+            export NIX_CONFIG="experimental-features = nix-command flakes"
+            nix profile install github:nix-community/home-manager
+            cd /home/test/dotfiles
+            home-manager switch --flake .#test
+          '
+        timeout-minutes: 25

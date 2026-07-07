@@ -5,6 +5,8 @@ set -euo pipefail
 repo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT
+bash_bin=${BASH:-bash}
+test_command_path="$(dirname "$bash_bin"):$PATH"
 
 fail() {
   printf 'not ok - %s\n' "$*" >&2
@@ -29,7 +31,7 @@ test_gitconfig_warns_without_creating_local_config() {
   mkdir -p "$home_dir"
 
   HOME="$home_dir" \
-    bash -c "source '$repo_dir/scripts/lib/gitconfig.sh'" >"$output" </dev/null
+    "$bash_bin" -c "source '$repo_dir/scripts/lib/gitconfig.sh'" >"$output" </dev/null
 
   [[ ! -e "$home_dir/.gitconfig.local" ]] || fail ".gitconfig.local was created"
   assert_file_contains "$output" "Git user.name / user.email are not configured."
@@ -46,7 +48,7 @@ test_gitconfig_keeps_existing_local_config() {
     email = existing@example.invalid
 GITCONFIG
 
-  HOME="$home_dir" bash -c "source '$repo_dir/scripts/lib/gitconfig.sh'" </dev/null
+  HOME="$home_dir" "$bash_bin" -c "source '$repo_dir/scripts/lib/gitconfig.sh'" </dev/null
 
   assert_file_contains "$home_dir/.gitconfig.local" "name = Existing User"
   assert_file_contains "$home_dir/.gitconfig.local" "email = existing@example.invalid"
@@ -58,7 +60,7 @@ test_home_manager_can_be_skipped_for_smoke_tests() {
 
   HOME="$home_dir" \
     DOTFILES_SKIP_HOME_MANAGER=1 \
-    bash -c "source '$repo_dir/scripts/lib/nix-home-manager.sh'; switch_home_manager" </dev/null
+    "$bash_bin" -c "source '$repo_dir/scripts/lib/nix-home-manager.sh'; switch_home_manager" </dev/null
 }
 
 test_bootstrap_can_run_without_sudo_in_container() {
@@ -66,16 +68,16 @@ test_bootstrap_can_run_without_sudo_in_container() {
   local command_log="$tmp_dir/bootstrap-commands.log"
   mkdir -p "$bin_dir"
 
-  cat >"$bin_dir/apt-get" <<'SCRIPT'
-#!/usr/bin/env bash
-printf 'apt-get %s\n' "$*" >>"$COMMAND_LOG"
+  cat >"$bin_dir/apt-get" <<SCRIPT
+#!$bash_bin
+printf 'apt-get %s\n' "\$*" >>"\$COMMAND_LOG"
 SCRIPT
   chmod +x "$bin_dir/apt-get"
 
-  PATH="$bin_dir:/usr/bin:/bin" \
+  PATH="$bin_dir:$test_command_path" \
     COMMAND_LOG="$command_log" \
     DOTFILES_USE_SUDO=0 \
-    bash -c "source '$repo_dir/scripts/lib/utilfuncs.sh'; source '$repo_dir/scripts/lib/bootstrap-ubuntu.sh'; bootstrap_ubuntu" </dev/null
+    "$bash_bin" -c "source '$repo_dir/scripts/lib/utilfuncs.sh'; source '$repo_dir/scripts/lib/bootstrap-ubuntu.sh'; bootstrap_ubuntu" </dev/null
 
   assert_file_contains "$command_log" "apt-get update"
   assert_file_contains "$command_log" "apt-get install -y ca-certificates curl git passwd sudo xz-utils zsh"
@@ -86,16 +88,16 @@ test_arch_bootstrap_refreshes_package_database() {
   local command_log="$tmp_dir/arch-bootstrap-commands.log"
   mkdir -p "$bin_dir"
 
-  cat >"$bin_dir/pacman" <<'SCRIPT'
-#!/usr/bin/env bash
-printf 'pacman %s\n' "$*" >>"$COMMAND_LOG"
+  cat >"$bin_dir/pacman" <<SCRIPT
+#!$bash_bin
+printf 'pacman %s\n' "\$*" >>"\$COMMAND_LOG"
 SCRIPT
   chmod +x "$bin_dir/pacman"
 
-  PATH="$bin_dir:/usr/bin:/bin" \
+  PATH="$bin_dir:$test_command_path" \
     COMMAND_LOG="$command_log" \
     DOTFILES_USE_SUDO=0 \
-    bash -c "source '$repo_dir/scripts/lib/utilfuncs.sh'; source '$repo_dir/scripts/lib/bootstrap-arch.sh'; bootstrap_arch" </dev/null
+    "$bash_bin" -c "source '$repo_dir/scripts/lib/utilfuncs.sh'; source '$repo_dir/scripts/lib/bootstrap-arch.sh'; bootstrap_arch" </dev/null
 
   assert_file_contains "$command_log" "pacman -Syu --noconfirm --needed ca-certificates curl git shadow sudo xz zsh"
 }
@@ -111,16 +113,16 @@ ID=ubuntu
 ID_LIKE=debian
 EOF_OS_RELEASE
 
-  cat >"$bin_dir/apt-get" <<'SCRIPT'
-#!/usr/bin/env bash
-if [[ "$1" == "install" ]]; then
-  touch "$GIT_READY_FILE"
+  cat >"$bin_dir/apt-get" <<SCRIPT
+#!$bash_bin
+if [[ "\$1" == "install" ]]; then
+  touch "\$GIT_READY_FILE"
 fi
 SCRIPT
   chmod +x "$bin_dir/apt-get"
 
   cat >"$bin_dir/git" <<SCRIPT
-#!/usr/bin/env bash
+#!$bash_bin
 if [[ ! -e "\$GIT_READY_FILE" ]]; then
   printf 'git is not available before bootstrap\n' >&2
   exit 127
@@ -137,12 +139,12 @@ SCRIPT
   chmod +x "$bin_dir/git"
 
   HOME="$home_dir" \
-    PATH="$bin_dir:/usr/bin:/bin" \
+    PATH="$bin_dir:$test_command_path" \
     DOTFILES_OS_RELEASE_FILE="$os_release" \
     DOTFILES_SKIP_HOME_MANAGER=1 \
     DOTFILES_USE_SUDO=0 \
     GIT_READY_FILE="$tmp_dir/git-ready" \
-    bash "$repo_dir/install.sh" </dev/null
+    "$bash_bin" "$repo_dir/install.sh" </dev/null
 
   [[ ! -e "$home_dir/.zshrc" ]] || fail ".zshrc should be managed by Home Manager"
 }
@@ -158,25 +160,25 @@ ID=ubuntu
 ID_LIKE=debian
 EOF_OS_RELEASE
 
-  cat >"$bin_dir/apt-get" <<'SCRIPT'
-#!/usr/bin/env bash
+  cat >"$bin_dir/apt-get" <<SCRIPT
+#!$bash_bin
 exit 0
 SCRIPT
   chmod +x "$bin_dir/apt-get"
 
-  cat >"$bin_dir/git" <<'SCRIPT'
-#!/usr/bin/env bash
+  cat >"$bin_dir/git" <<SCRIPT
+#!$bash_bin
 printf 'git must not be required for Home Manager managed files\n' >&2
 exit 1
 SCRIPT
   chmod +x "$bin_dir/git"
 
   HOME="$home_dir" \
-    PATH="$bin_dir:/usr/bin:/bin" \
+    PATH="$bin_dir:$test_command_path" \
     DOTFILES_OS_RELEASE_FILE="$os_release" \
     DOTFILES_SKIP_HOME_MANAGER=1 \
     DOTFILES_USE_SUDO=0 \
-    bash "$repo_dir/install.sh" </dev/null
+    "$bash_bin" "$repo_dir/install.sh" </dev/null
 
   [[ ! -e "$home_dir/.zshrc" ]] || fail ".zshrc should be managed by Home Manager"
 }

@@ -53,7 +53,8 @@ cd ~/.dotfiles
 `home-manager` コマンド自体が PATH にない場合は、Nix から直接実行する。
 
 ```sh
-nix run github:nix-community/home-manager -- switch --flake ~/.dotfiles#takuya-x86_64-linux
+NIX_USERNAME="$(id -un)" NIX_HOME_DIRECTORY="$HOME" \
+  nix run github:nix-community/home-manager -- switch --impure --flake ~/.dotfiles#desktop-x86_64-linux
 ```
 
 `.zshenv` / `.zshrc` / PATH に関わる変更を反映したあとは、開いている shell を
@@ -173,5 +174,5 @@ nix flake check
 Home Manager activation package の build。
 
 ```sh
-nix build .#homeConfigurations.takuya-x86_64-linux.activationPackage --no-link
+nix build .#homeConfigurations.desktop-x86_64-linux.activationPackage --no-link
 ```

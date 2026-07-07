@@ -1,13 +1,27 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  username ? "dotfiles",
+  homeDirectory ? "/home/${username}",
+  enableGui ? true,
+  ...
+}:
 
+let
+  browserCommand =
+    if enableGui then
+      "${pkgs.google-chrome}/bin/google-chrome-stable"
+    else
+      "/usr/bin/google-chrome-stable";
+in
 {
   imports = [
     ../nix/packages.nix
-    ./gui.nix
-  ];
+  ] ++ lib.optionals enableGui [ ./gui.nix ];
 
-  home.username = "takuya";
-  home.homeDirectory = "/home/takuya";
+  home.username = username;
+  home.homeDirectory = homeDirectory;
   home.stateVersion = "24.05";
 
   home.file.".zshrc".source = ../.zshrc;
@@ -27,6 +41,24 @@
       fi
 
       exec ${pkgs.wezterm}/bin/wezterm "$@"
+    '';
+  };
+  home.file.".local/bin/x-terminal-emulator" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env sh
+      set -eu
+
+      exec "${homeDirectory}/.local/bin/wezterm" "$@"
+    '';
+  };
+  home.file.".local/bin/x-www-browser" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env sh
+      set -eu
+
+      exec ${browserCommand} "$@"
     '';
   };
 

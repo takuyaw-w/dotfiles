@@ -40,7 +40,7 @@ function home_manager_target() {
   local system
 
   system=$(nix eval --impure --raw --expr 'builtins.currentSystem')
-  echo "takuya-${system}"
+  echo "${DOTFILES_HOME_MANAGER_PROFILE:-desktop-${system}}"
 }
 
 function switch_home_manager() {
@@ -64,12 +64,18 @@ function switch_home_manager() {
   fi
 
   local dotfiles_dir
+  local home_directory
   local target
+  local username
 
   dotfiles_dir=$(git -C "$(dirname "${BASH_SOURCE[0]:-$0}")" rev-parse --show-toplevel)
+  username="${NIX_USERNAME:-${USER:-$(id -un)}}"
+  home_directory="${NIX_HOME_DIRECTORY:-$HOME}"
   target=$(home_manager_target)
+  export NIX_HOME_DIRECTORY="$home_directory"
+  export NIX_USERNAME="$username"
 
   info_message "Switch Home Manager profile: ${target}"
-  home-manager switch --flake "${dotfiles_dir}#${target}" || return $?
+  home-manager switch --impure --flake "${dotfiles_dir}#${target}" || return $?
   complete_message "Home Manager switch is done."
 }

@@ -5,6 +5,8 @@ set -euo pipefail
 repo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT
+bash_bin=${BASH:-bash}
+test_command_path="$(dirname "$bash_bin"):$PATH"
 
 fail() {
   printf 'not ok - %s\n' "$*" >&2
@@ -38,7 +40,7 @@ assert_file_not_contains() {
 test_help_lists_subcommands() {
   local output="$tmp_dir/help.out"
 
-  "$repo_dir/dotfiles.sh" help >"$output"
+  "$bash_bin" "$repo_dir/dotfiles.sh" help >"$output"
 
   assert_file_contains "$output" "Usage:"
   assert_file_contains "$output" "doctor"
@@ -62,19 +64,19 @@ ID=ubuntu
 ID_LIKE=debian
 EOF_OS_RELEASE
 
-  cat >"$bin_dir/apt-get" <<'SCRIPT'
-#!/usr/bin/env bash
-printf 'apt-get %s\n' "$*" >>"$COMMAND_LOG"
+  cat >"$bin_dir/apt-get" <<SCRIPT
+#!$bash_bin
+printf 'apt-get %s\n' "\$*" >>"\$COMMAND_LOG"
 SCRIPT
   chmod +x "$bin_dir/apt-get"
 
   HOME="$home_dir" \
-    PATH="$bin_dir:/usr/bin:/bin" \
+    PATH="$bin_dir:$test_command_path" \
     COMMAND_LOG="$command_log" \
     DOTFILES_OS_RELEASE_FILE="$os_release" \
     DOTFILES_SKIP_HOME_MANAGER=1 \
     DOTFILES_USE_SUDO=0 \
-    "$repo_dir/dotfiles.sh" install >"$output" </dev/null
+    "$bash_bin" "$repo_dir/dotfiles.sh" install >"$output" </dev/null
 
   assert_file_contains "$command_log" "apt-get update"
   [[ ! -e "$home_dir/.zshrc" ]] || fail ".zshrc should be managed by Home Manager"
@@ -98,19 +100,19 @@ ID=ubuntu
 ID_LIKE=debian
 EOF_OS_RELEASE
 
-  cat >"$bin_dir/apt-get" <<'SCRIPT'
-#!/usr/bin/env bash
-printf 'apt-get %s\n' "$*" >>"$COMMAND_LOG"
+  cat >"$bin_dir/apt-get" <<SCRIPT
+#!$bash_bin
+printf 'apt-get %s\n' "\$*" >>"\$COMMAND_LOG"
 SCRIPT
   chmod +x "$bin_dir/apt-get"
 
   HOME="$home_dir" \
-    PATH="$bin_dir:/usr/bin:/bin" \
+    PATH="$bin_dir:$test_command_path" \
     COMMAND_LOG="$command_log" \
     DOTFILES_OS_RELEASE_FILE="$os_release" \
     DOTFILES_SKIP_HOME_MANAGER=1 \
     DOTFILES_USE_SUDO=0 \
-    "$repo_dir/install.sh" >"$output" </dev/null
+    "$bash_bin" "$repo_dir/install.sh" >"$output" </dev/null
 
   assert_file_contains "$output" "install.sh is a convenience wrapper."
   assert_file_contains "$output" "For explicit setup, run:"
@@ -121,7 +123,7 @@ SCRIPT
 test_link_command_is_removed() {
   local output="$tmp_dir/link-removed.out"
 
-  if "$repo_dir/dotfiles.sh" link >"$output" 2>&1; then
+  if "$bash_bin" "$repo_dir/dotfiles.sh" link >"$output" 2>&1; then
     fail "link command should be removed"
   fi
 
@@ -148,6 +150,43 @@ test_home_manager_manages_git_and_shell_files() {
   assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.zsh;"
   assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."nvim"'
   assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/nvim;"
+}
+
+test_flake_exposes_test_profile_and_checks() {
+  assert_file_contains "$repo_dir/flake.nix" "profiles = {"
+  assert_file_contains "$repo_dir/flake.nix" "desktop-x86_64-linux ="
+  assert_file_contains "$repo_dir/flake.nix" "desktop-aarch64-linux ="
+  assert_file_contains "$repo_dir/flake.nix" "NIX_USERNAME"
+  assert_file_contains "$repo_dir/flake.nix" "NIX_HOME_DIRECTORY"
+  assert_file_contains "$repo_dir/flake.nix" "test ="
+  assert_file_contains "$repo_dir/flake.nix" 'username = "test";'
+  assert_file_contains "$repo_dir/flake.nix" 'homeDirectory = "/home/test";'
+  assert_file_contains "$repo_dir/flake.nix" "enableGui = false;"
+  assert_file_contains "$repo_dir/flake.nix" "checks = forAllSystems"
+  assert_file_contains "$repo_dir/flake.nix" "home-activation"
+  assert_file_contains "$repo_dir/flake.nix" "shell-tests"
+}
+
+test_home_manager_switch_uses_generic_profile_and_runtime_user() {
+  assert_file_contains "$repo_dir/scripts/lib/nix-home-manager.sh" "DOTFILES_HOME_MANAGER_PROFILE"
+  assert_file_contains "$repo_dir/scripts/lib/nix-home-manager.sh" "desktop-\${system}"
+  assert_file_contains "$repo_dir/scripts/lib/nix-home-manager.sh" "NIX_USERNAME"
+  assert_file_contains "$repo_dir/scripts/lib/nix-home-manager.sh" "NIX_HOME_DIRECTORY"
+  assert_file_contains "$repo_dir/scripts/lib/nix-home-manager.sh" "switch --impure --flake"
+  assert_file_not_contains "$repo_dir/scripts/lib/nix-home-manager.sh" "takuya-"
+  assert_file_not_contains "$repo_dir/home-manager/home.nix" 'username ? "takuya"'
+}
+
+test_github_actions_run_flake_check_and_manual_home_manager_switch() {
+  local workflow="$repo_dir/.github/workflows/distro-smoke.yml"
+
+  assert_file_contains "$workflow" "name: Nix flake check"
+  assert_file_contains "$workflow" "nix flake check"
+  assert_file_contains "$workflow" "home-manager-switch"
+  assert_file_contains "$workflow" "if: github.event_name == 'workflow_dispatch'"
+  assert_file_contains "$workflow" "ubuntu:latest"
+  assert_file_contains "$workflow" "fedora:latest"
+  assert_file_contains "$workflow" "home-manager switch --flake .#test"
 }
 
 test_zshrc_autostarts_herdr_for_local_interactive_terminals() {
@@ -201,6 +240,10 @@ test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias() {
   assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".local/bin/wezterm"'
   assert_file_contains "$repo_dir/home-manager/home.nix" "nixGL"
   assert_file_contains "$repo_dir/home-manager/home.nix" "\${pkgs.wezterm}/bin/wezterm"
+  assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".local/bin/x-terminal-emulator"'
+  assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".local/bin/x-www-browser"'
+  assert_file_contains "$repo_dir/home-manager/home.nix" '.local/bin/wezterm'
+  assert_file_contains "$repo_dir/home-manager/home.nix" "google-chrome-stable"
 }
 
 test_home_manager_manages_gui_apps() {
@@ -219,6 +262,9 @@ test_install_runs_bootstrap_gitconfig_and_switch
 test_install_sh_delegates_to_dotfiles_install
 test_link_command_is_removed
 test_home_manager_manages_git_and_shell_files
+test_flake_exposes_test_profile_and_checks
+test_home_manager_switch_uses_generic_profile_and_runtime_user
+test_github_actions_run_flake_check_and_manual_home_manager_switch
 test_zshrc_autostarts_herdr_for_local_interactive_terminals
 test_zshenv_prefers_mise_shims_for_tool_commands
 test_home_manager_manages_mise_config

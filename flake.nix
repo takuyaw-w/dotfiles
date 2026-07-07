@@ -10,28 +10,94 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, hunk, ... }:
+  outputs = { self, nixpkgs, home-manager, hunk, ... }:
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      mkHome = system:
+      envUsername = builtins.getEnv "NIX_USERNAME";
+      envHomeDirectory = builtins.getEnv "NIX_HOME_DIRECTORY";
+      runtimeUsername = if envUsername != "" then envUsername else "dotfiles";
+      runtimeHomeDirectory =
+        if envHomeDirectory != "" then
+          envHomeDirectory
+        else if runtimeUsername == "root" then
+          "/root"
+        else
+          "/home/${runtimeUsername}";
+      profiles = {
+        desktop-x86_64-linux = {
+          system = "x86_64-linux";
+          username = runtimeUsername;
+          homeDirectory = runtimeHomeDirectory;
+          enableGui = true;
+        };
+        desktop-aarch64-linux = {
+          system = "aarch64-linux";
+          username = runtimeUsername;
+          homeDirectory = runtimeHomeDirectory;
+          enableGui = true;
+        };
+        test = {
+          system = "x86_64-linux";
+          username = "test";
+          homeDirectory = "/home/test";
+          enableGui = false;
+        };
+      };
+      mkHome = profile:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
-            inherit system;
+            inherit (profile) system;
             config.allowUnfree = true;
           };
-          extraSpecialArgs = { inherit hunk; };
+          extraSpecialArgs = {
+            inherit hunk;
+            inherit (profile) username homeDirectory enableGui;
+          };
           modules = [ ./home-manager/home.nix ];
         };
     in
     {
-      homeConfigurations = {
-        takuya-x86_64-linux = mkHome "x86_64-linux";
-        takuya-aarch64-linux = mkHome "aarch64-linux";
-      };
+      homeConfigurations = nixpkgs.lib.mapAttrs (_: mkHome) profiles;
 
       formatter = forAllSystems (system:
         nixpkgs.legacyPackages.${system}.nixpkgs-fmt
+      );
+
+      checks = forAllSystems (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          profileNames = builtins.filter
+            (name: profiles.${name}.system == system)
+            (builtins.attrNames profiles);
+        in
+        {
+          home-activation = pkgs.linkFarm "home-activation-checks"
+            (map
+              (name: {
+                inherit name;
+                path = self.homeConfigurations.${name}.activationPackage;
+              })
+              profileNames);
+
+          shell-tests = pkgs.runCommand "dotfiles-shell-tests"
+            {
+              nativeBuildInputs = with pkgs; [
+                bash
+                coreutils
+                findutils
+                gawk
+                gnugrep
+                gnused
+              ];
+            } ''
+            cd ${self}
+            bash tests/install-ci-control.sh
+            bash tests/docker-runner-test.sh
+            bash tests/dotfiles-cli-test.sh
+            touch $out
+          '';
+        }
       );
     };
 }

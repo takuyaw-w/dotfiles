@@ -14,4 +14,4 @@ print_default "  ~/.dotfiles/dotfiles.sh gitconfig"
 print_default "  ~/.dotfiles/dotfiles.sh switch"
 print_default ""
 
-"$current_dir/dotfiles.sh" install
+"${BASH:-bash}" "$current_dir/dotfiles.sh" install
