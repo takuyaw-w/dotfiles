@@ -150,6 +150,14 @@ test_home_manager_manages_git_and_shell_files() {
   assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/nvim;"
 }
 
+test_zshrc_autostarts_herdr_for_local_interactive_terminals() {
+  assert_file_contains "$repo_dir/.zshrc" "HERDR_AUTO_START"
+  assert_file_contains "$repo_dir/.zshrc" "HERDR_SOCKET_PATH"
+  assert_file_contains "$repo_dir/.zshrc" "SSH_CONNECTION"
+  assert_file_contains "$repo_dir/.zshrc" "builtin command -v herdr"
+  assert_file_contains "$repo_dir/.zshrc" "exec herdr"
+}
+
 test_home_manager_manages_gui_apps() {
   assert_file_contains "$repo_dir/home-manager/gui.nix" "google-chrome"
   assert_file_contains "$repo_dir/home-manager/gui.nix" "vscode"
@@ -166,6 +174,7 @@ test_install_runs_bootstrap_gitconfig_and_switch
 test_install_sh_delegates_to_dotfiles_install
 test_link_command_is_removed
 test_home_manager_manages_git_and_shell_files
+test_zshrc_autostarts_herdr_for_local_interactive_terminals
 test_home_manager_manages_gui_apps
 test_home_manager_manages_local_tools
 
