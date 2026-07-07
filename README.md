@@ -42,6 +42,27 @@ nix profile install github:nix-community/home-manager
 ~/.dotfiles/dotfiles.sh install
 ```
 
+dotfiles を変更したあと、現在のマシンに反映し直す場合。
+再インストールではなく、Home Manager の switch だけを実行する。
+
+```sh
+cd ~/.dotfiles
+~/.dotfiles/dotfiles.sh switch
+```
+
+`home-manager` コマンド自体が PATH にない場合は、Nix から直接実行する。
+
+```sh
+nix run github:nix-community/home-manager -- switch --flake ~/.dotfiles#takuya-x86_64-linux
+```
+
+`.zshenv` / `.zshrc` / PATH に関わる変更を反映したあとは、開いている shell を
+起動し直す。
+
+```sh
+exec zsh
+```
+
 desktop 固有設定は別で実行する。
 
 ```sh
