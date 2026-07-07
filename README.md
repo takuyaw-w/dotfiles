@@ -70,6 +70,12 @@ desktop 固有設定は別で実行する。
 ~/.dotfiles/dotfiles.sh desktop
 ```
 
+flake.lock を更新して、Nix / Home Manager 評価と shell tests を確認する。
+
+```sh
+~/.dotfiles/dotfiles.sh update
+```
+
 ## コマンド
 
 ```text
@@ -79,6 +85,34 @@ dotfiles.sh gitconfig  ~/.gitconfig.local の状態を確認する
 dotfiles.sh switch     Home Manager を switch する
 dotfiles.sh install    bootstrap / gitconfig / switch を実行する
 dotfiles.sh desktop    desktop 固有設定を実行する
+dotfiles.sh update     flake.lock を更新して nix flake check を実行する
+```
+
+## Home Manager profiles
+
+通常の実機では `dotfiles.sh switch` を使う。内部では現在の system に合わせて
+`desktop-x86_64-linux` または `desktop-aarch64-linux` を選び、現在の user /
+home directory を `NIX_USERNAME` / `NIX_HOME_DIRECTORY` として Home Manager に渡す。
+
+直接 `home-manager` を実行する場合は、実行時の user / home directory を渡すため
+`--impure` を使う。
+
+```sh
+NIX_USERNAME="$(id -un)" NIX_HOME_DIRECTORY="$HOME" \
+  home-manager switch --impure --flake ~/.dotfiles#desktop-x86_64-linux
+```
+
+別 profile を試す場合は `DOTFILES_HOME_MANAGER_PROFILE` で上書きできる。
+
+```sh
+DOTFILES_HOME_MANAGER_PROFILE=desktop-x86_64-linux ~/.dotfiles/dotfiles.sh switch
+```
+
+CI / container 確認用には `test profile` として `test` を使う。これは GUI package を
+含めず、`/home/test` を前提にした軽い Home Manager profile。
+
+```sh
+nix build .#homeConfigurations.test.activationPackage --no-link
 ```
 
 ## 設定ファイル
@@ -90,6 +124,12 @@ dotfiles.sh desktop    desktop 固有設定を実行する
 反映する。
 
 Home Manager の設定は `home-manager/` に置く。
+
+- `home-manager/home.nix`: profile 共通の基本設定と module import
+- `home-manager/shell.nix`: zsh startup files
+- `home-manager/xdg.nix`: XDG config files と MIME default
+- `home-manager/launchers.nix`: wezterm / x-terminal-emulator / x-www-browser
+- `home-manager/gui.nix`: desktop GUI packages
 
 この repository 独自の symlink script は使わない。
 
@@ -169,6 +209,19 @@ Nix flake の確認。
 
 ```sh
 nix flake check
+```
+
+flake.lock の更新は、更新と検証をまとめた wrapper を使う。
+
+```sh
+~/.dotfiles/dotfiles.sh update
+```
+
+中身は以下を順に実行する。
+
+```sh
+nix flake update --flake ~/.dotfiles
+nix flake check ~/.dotfiles
 ```
 
 Home Manager activation package の build。

@@ -48,6 +48,7 @@ test_help_lists_subcommands() {
   assert_file_contains "$output" "switch"
   assert_file_contains "$output" "install"
   assert_file_contains "$output" "desktop"
+  assert_file_contains "$output" "update"
   assert_file_not_contains "$output" "link"
 }
 
@@ -135,21 +136,24 @@ test_home_manager_manages_git_and_shell_files() {
   assert_file_contains "$repo_dir/flake.nix" "./home-manager/home.nix"
   assert_file_contains "$repo_dir/home-manager/home.nix" "../nix/packages.nix"
   assert_file_contains "$repo_dir/home-manager/home.nix" "./gui.nix"
+  assert_file_contains "$repo_dir/home-manager/home.nix" "./shell.nix"
+  assert_file_contains "$repo_dir/home-manager/home.nix" "./xdg.nix"
+  assert_file_contains "$repo_dir/home-manager/home.nix" "./launchers.nix"
   assert_file_not_contains "$repo_dir/home-manager/home.nix" "./git.nix"
   assert_file_not_contains "$repo_dir/home-manager/home.nix" "programs.home-manager.enable"
   [[ ! -e "$repo_dir/home-manager/git.nix" ]] || fail "git.nix should not manage git config"
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."git/config"'
-  assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/git/config;"
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" 'xdg.configFile."git/config"'
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" "source = ../.config/git/config;"
   assert_file_contains "$repo_dir/.config/git/config" "path = ~/.gitconfig.local"
   assert_file_not_contains "$repo_dir/.config/git/config" "git-credential-libsecret"
   assert_file_contains "$repo_dir/.config/git/config" '[credential "https://github.com"]'
   assert_file_contains "$repo_dir/.config/git/config" "helper = !/usr/bin/gh auth git-credential"
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".zshrc".source'
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".zshenv".source'
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".zsh"'
-  assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.zsh;"
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."nvim"'
-  assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/nvim;"
+  assert_file_contains "$repo_dir/home-manager/shell.nix" 'home.file.".zshrc".source'
+  assert_file_contains "$repo_dir/home-manager/shell.nix" 'home.file.".zshenv".source'
+  assert_file_contains "$repo_dir/home-manager/shell.nix" 'home.file.".zsh"'
+  assert_file_contains "$repo_dir/home-manager/shell.nix" "source = ../.zsh;"
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" 'xdg.configFile."nvim"'
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" "source = ../.config/nvim;"
 }
 
 test_flake_exposes_test_profile_and_checks() {
@@ -218,32 +222,67 @@ test_zshenv_prefers_mise_shims_for_tool_commands() {
 }
 
 test_home_manager_manages_mise_config() {
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."mise/config.toml"'
-  assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/mise/config.toml;"
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" 'xdg.configFile."mise/config.toml"'
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" "source = ../.config/mise/config.toml;"
   assert_file_contains "$repo_dir/.config/mise/config.toml" '[tools."npm:@openai/codex"]'
   assert_file_contains "$repo_dir/.config/mise/config.toml" 'minimum_release_age = "0s"'
 }
 
 test_home_manager_manages_herdr_config_and_mimeapps() {
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."herdr/config.toml"'
-  assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/herdr/config.toml;"
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" 'xdg.configFile."herdr/config.toml"'
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" "source = ../.config/herdr/config.toml;"
   assert_file_contains "$repo_dir/.config/herdr/config.toml" '[terminal]'
   assert_file_contains "$repo_dir/.config/herdr/config.toml" 'shell_mode = "non_login"'
-  assert_file_contains "$repo_dir/home-manager/home.nix" "xdg.mimeApps.enable = true;"
-  assert_file_contains "$repo_dir/home-manager/home.nix" '"x-scheme-handler/http" = "google-chrome.desktop";'
-  assert_file_contains "$repo_dir/home-manager/home.nix" '"x-scheme-handler/https" = "google-chrome.desktop";'
-  assert_file_contains "$repo_dir/home-manager/home.nix" '"text/html" = "google-chrome.desktop";'
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" "xdg.mimeApps.enable = true;"
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" '"x-scheme-handler/http" = "google-chrome.desktop";'
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" '"x-scheme-handler/https" = "google-chrome.desktop";'
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" '"text/html" = "google-chrome.desktop";'
 }
 
 test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias() {
   assert_file_not_contains "$repo_dir/.zsh/rc/alias.zsh" "alias wezterm="
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".local/bin/wezterm"'
-  assert_file_contains "$repo_dir/home-manager/home.nix" "nixGL"
-  assert_file_contains "$repo_dir/home-manager/home.nix" "\${pkgs.wezterm}/bin/wezterm"
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".local/bin/x-terminal-emulator"'
-  assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".local/bin/x-www-browser"'
-  assert_file_contains "$repo_dir/home-manager/home.nix" '.local/bin/wezterm'
-  assert_file_contains "$repo_dir/home-manager/home.nix" "google-chrome-stable"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/wezterm"'
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "nixGL"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "\${pkgs.wezterm}/bin/wezterm"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/x-terminal-emulator"'
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/x-www-browser"'
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" '.local/bin/wezterm'
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "google-chrome-stable"
+}
+
+test_update_command_runs_flake_update_then_check() {
+  local bin_dir="$tmp_dir/update-bin"
+  local command_log="$tmp_dir/update-commands.log"
+  local output="$tmp_dir/update.out"
+  mkdir -p "$bin_dir"
+
+  cat >"$bin_dir/nix" <<SCRIPT
+#!$bash_bin
+printf 'nix %s\n' "\$*" >>"\$COMMAND_LOG"
+SCRIPT
+  chmod +x "$bin_dir/nix"
+
+  HOME="$tmp_dir/update-home" \
+    PATH="$bin_dir:$test_command_path" \
+    COMMAND_LOG="$command_log" \
+    "$bash_bin" "$repo_dir/dotfiles.sh" update >"$output" </dev/null
+
+  assert_file_contains "$command_log" "nix flake update"
+  assert_file_contains "$command_log" "nix flake check"
+  assert_file_contains "$output" "Update flake.lock"
+  assert_file_contains "$output" "flake.lock update is done."
+  assert_file_not_contains "$repo_dir/scripts/lib/flake-update.sh" "git -C"
+}
+
+test_readme_documents_profiles_and_flake_lock_update() {
+  assert_file_contains "$repo_dir/README.md" "desktop-x86_64-linux"
+  assert_file_contains "$repo_dir/README.md" "DOTFILES_HOME_MANAGER_PROFILE"
+  assert_file_contains "$repo_dir/README.md" "NIX_USERNAME"
+  assert_file_contains "$repo_dir/README.md" "NIX_HOME_DIRECTORY"
+  assert_file_contains "$repo_dir/README.md" "test profile"
+  assert_file_contains "$repo_dir/README.md" "dotfiles.sh update"
+  assert_file_contains "$repo_dir/README.md" "nix flake update"
+  assert_file_contains "$repo_dir/README.md" "nix flake check"
 }
 
 test_home_manager_manages_gui_apps() {
@@ -272,5 +311,7 @@ test_home_manager_manages_herdr_config_and_mimeapps
 test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias
 test_home_manager_manages_gui_apps
 test_home_manager_manages_local_tools
+test_update_command_runs_flake_update_then_check
+test_readme_documents_profiles_and_flake_lock_update
 
 printf 'ok - dotfiles cli\n'

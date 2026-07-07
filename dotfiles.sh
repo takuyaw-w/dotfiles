@@ -18,6 +18,7 @@ Commands:
   switch     Switch Home Manager profile
   install    Run bootstrap, gitconfig, and switch
   desktop    Run desktop-specific setup
+  update     Update flake.lock and run nix flake check
   help       Show this help
 USAGE
 }
@@ -80,6 +81,11 @@ function dotfiles_desktop() {
   "$lib_dir/desktop-setup.sh"
 }
 
+function dotfiles_update() {
+  source "$lib_dir/flake-update.sh"
+  update_flake_lock
+}
+
 case "${1:-help}" in
   doctor)
     dotfiles_doctor
@@ -98,6 +104,9 @@ case "${1:-help}" in
     ;;
   desktop)
     dotfiles_desktop
+    ;;
+  update)
+    dotfiles_update
     ;;
   help|-h|--help)
     usage
