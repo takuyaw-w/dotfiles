@@ -139,6 +139,9 @@ test_home_manager_manages_git_and_shell_files() {
   assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."git/config"'
   assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/git/config;"
   assert_file_contains "$repo_dir/.config/git/config" "path = ~/.gitconfig.local"
+  assert_file_not_contains "$repo_dir/.config/git/config" "git-credential-libsecret"
+  assert_file_contains "$repo_dir/.config/git/config" '[credential "https://github.com"]'
+  assert_file_contains "$repo_dir/.config/git/config" "helper = !/usr/bin/gh auth git-credential"
   assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".zshrc".source'
   assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".zshenv".source'
   assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".zsh"'
