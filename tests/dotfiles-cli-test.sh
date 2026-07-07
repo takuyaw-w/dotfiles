@@ -159,13 +159,23 @@ test_zshrc_autostarts_herdr_for_local_interactive_terminals() {
 }
 
 test_zshenv_prefers_mise_shims_for_tool_commands() {
-  local home_dir="$tmp_dir/zshenv-home"
-  local output="$tmp_dir/zshenv-path.out"
-  mkdir -p "$home_dir/.local/share/mise/shims" "$home_dir/.local/bin"
+  local mise_shims_line
+  local local_bin_line
+  local inherited_path_line
 
-  HOME="$home_dir" zsh -fc "source '$repo_dir/.zshenv'; print -r -- \${path[1]}" >"$output"
+  assert_file_contains "$repo_dir/.zshenv" '$HOME/.local/share/mise/shims(N-/)'
+  assert_file_contains "$repo_dir/.zshenv" '$HOME/.local/bin(N-/)'
+  assert_file_contains "$repo_dir/.zshenv" '  $path'
 
-  assert_file_contains "$output" "$home_dir/.local/share/mise/shims"
+  mise_shims_line=$(grep -nF '  $HOME/.local/share/mise/shims(N-/)' "$repo_dir/.zshenv" | cut -d: -f1)
+  local_bin_line=$(grep -nF '  $HOME/.local/bin(N-/)' "$repo_dir/.zshenv" | cut -d: -f1)
+  inherited_path_line=$(grep -nF '  $path' "$repo_dir/.zshenv" | cut -d: -f1)
+
+  [[ -n "$mise_shims_line" ]] || fail "mise shims path entry was not found"
+  [[ -n "$local_bin_line" ]] || fail ".local/bin path entry was not found"
+  [[ -n "$inherited_path_line" ]] || fail "inherited path entry was not found"
+  ((mise_shims_line < local_bin_line)) || fail "mise shims should precede .local/bin"
+  ((mise_shims_line < inherited_path_line)) || fail "mise shims should precede inherited path"
 }
 
 test_home_manager_manages_mise_config() {
