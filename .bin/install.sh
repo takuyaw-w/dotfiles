@@ -22,7 +22,7 @@ function main() {
 
   print_default ""
   print_default "Desktop-specific setup is intentionally separate."
-  print_default "A dedicated desktop setup step will add that flow later."
+  print_default "Run ~/.dotfiles/.bin/lib/desktop-setup.sh for desktop package and setting setup."
 }
 
 main "$@"

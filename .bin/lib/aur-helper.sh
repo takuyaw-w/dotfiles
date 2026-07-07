@@ -1,15 +1,29 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
-source $(dirname "${BASH_SOURCE[0]:-$0}")/utilfuncs.sh
+set -ue
 
-info_message "Start install AUR helper"
+CURRENT_DIR=$(dirname "${BASH_SOURCE[0]:-$0}")
+source "$CURRENT_DIR/utilfuncs.sh"
+source "$CURRENT_DIR/os-release.sh"
 
-if ! builtin command -v paru >/dev/null 2>&1; then
-  if [ ! -d /tmp/paru ]; then
-    (cd /tmp && git clone https://aur.archlinux.org/paru-bin.git)
+function install_aur_helper() {
+  local distro
+  distro=$(detect_distro_family)
+
+  if [[ "$distro" != "arch" ]]; then
+    print_warning "AUR helper is only supported on Arch/Manjaro."
+    return 0
   fi
-  sudo pacman -S --noconfirm --needed base-devel 
-  (cd /tmp/paru-bin && makepkg -sif --noconfirm && paru -Syy)
-fi
 
-complete_message "Install AUR helper done."
+  info_message "Start install AUR helper."
+
+  if ! builtin command -v paru >/dev/null 2>&1; then
+    if [[ ! -d /tmp/paru-bin ]]; then
+      git clone https://aur.archlinux.org/paru-bin.git /tmp/paru-bin
+    fi
+    sudo pacman -S --noconfirm --needed base-devel
+    (cd /tmp/paru-bin && makepkg -sif --noconfirm && paru -Syy)
+  fi
+
+  complete_message "Install AUR helper done."
+}

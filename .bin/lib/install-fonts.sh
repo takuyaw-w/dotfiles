@@ -1,11 +1,31 @@
 #!/usr/bin/env bash
 
-source $(dirname "${BASH_SOURCE[0]:-$0}")/utilfuncs.sh
+set -ue
 
-info_message "Start install fonts."
+CURRENT_DIR=$(dirname "${BASH_SOURCE[0]:-$0}")
+source "$CURRENT_DIR/utilfuncs.sh"
+source "$CURRENT_DIR/os-release.sh"
 
-paru -S --noconfirm --needed otf-source-han-code-jp
-paru -S --noconfirm --needed ttf-cica
-paru -S --noconfirm --needed ttf-ricty-diminished
+function install_fonts() {
+  local distro
+  distro=$(detect_distro_family)
 
-complete_message "Install fonts is done."
+  info_message "Install desktop fonts."
+
+  case "$distro" in
+    arch)
+      source "$CURRENT_DIR/aur-helper.sh"
+      install_aur_helper
+      paru -S --noconfirm --needed otf-source-han-code-jp ttf-cica ttf-ricty-diminished
+      ;;
+    ubuntu)
+      sudo apt-get update
+      sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra
+      ;;
+    fedora)
+      sudo dnf install -y google-noto-sans-cjk-fonts google-noto-serif-cjk-fonts
+      ;;
+  esac
+
+  complete_message "Font setup is done."
+}

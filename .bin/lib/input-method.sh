@@ -1,19 +1,50 @@
 #!/usr/bin/env bash
 
-source $(dirname "${BASH_SOURCE[0]:-$0}")/utilfuncs.sh
+set -ue
 
-info_message "Install and configure the packages required for the input method."
+CURRENT_DIR=$(dirname "${BASH_SOURCE[0]:-$0}")
+source "$CURRENT_DIR/utilfuncs.sh"
+source "$CURRENT_DIR/os-release.sh"
 
-sudo pacman -S --noconfirm --needed fcitx5-im fcitx5-mozc
+function configure_xprofile_fcitx() {
+  local xprofile="$HOME/.xprofile"
+  touch "$xprofile"
 
-cat << EOF >> ~/.xprofile
-export LANG="ja_JP.UTF-8"
-export XMODIFIERS="@im=fcitx"
-export XMODIFIER="@im=fcitx"
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export DefaultIMModule=fcitx
-export GLFW_IM_MODULE=ibus
-EOF
+  local required_lines=(
+    'export LANG="ja_JP.UTF-8"'
+    'export XMODIFIERS="@im=fcitx"'
+    'export XMODIFIER="@im=fcitx"'
+    'export GTK_IM_MODULE=fcitx'
+    'export QT_IM_MODULE=fcitx'
+    'export DefaultIMModule=fcitx'
+    'export GLFW_IM_MODULE=ibus'
+  )
+  local line
 
-complete_message "Package install and configuration is done."
+  for line in "${required_lines[@]}"; do
+    grep -qxF "$line" "$xprofile" || printf '%s\n' "$line" >> "$xprofile"
+  done
+}
+
+function install_input_method() {
+  local distro
+  distro=$(detect_distro_family)
+
+  info_message "Install and configure Japanese input method."
+
+  case "$distro" in
+    arch)
+      sudo pacman -S --noconfirm --needed fcitx5-im fcitx5-mozc
+      ;;
+    ubuntu)
+      sudo apt-get update
+      sudo apt-get install -y fcitx5 fcitx5-mozc
+      ;;
+    fedora)
+      sudo dnf install -y fcitx5 fcitx5-mozc
+      ;;
+  esac
+
+  configure_xprofile_fcitx
+  complete_message "Input method setup is done."
+}
