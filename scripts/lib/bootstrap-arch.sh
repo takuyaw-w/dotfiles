@@ -4,7 +4,7 @@ set -ue
 
 function bootstrap_arch() {
   info_message "Install minimal bootstrap packages for Arch/Manjaro."
-  sudo pacman -S --noconfirm --needed \
+  run_privileged pacman -Syu --noconfirm --needed \
     ca-certificates \
     curl \
     git \

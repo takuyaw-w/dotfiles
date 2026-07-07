@@ -44,6 +44,11 @@ function home_manager_target() {
 }
 
 function switch_home_manager() {
+  if [[ "${DOTFILES_SKIP_HOME_MANAGER:-}" == "1" ]]; then
+    print_warning "Skip Home Manager switch because DOTFILES_SKIP_HOME_MANAGER=1."
+    return 0
+  fi
+
   load_nix_profile
 
   if ! builtin command -v nix >/dev/null 2>&1; then

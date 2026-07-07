@@ -4,10 +4,13 @@
   home.packages = with pkgs; [
     bat
     bc
+    btop
     cmake
     curl
     delta
-    deno
+    direnv
+    duf
+    dust
     eza
     fd
     fzf
@@ -19,19 +22,26 @@
     git
     gitui
     gnumake
-    go
+    hyperfine
     jq
+    just
     mise
     neovim
+    nil
+    nix-output-monitor
+    nix-tree
     ripgrep
     rofi
-    rustup
     sheldon
+    shellcheck
+    shfmt
     sqlite
     unzip
     wget
     wezterm
     xsel
+    yazi
+    zoxide
     zsh
   ];
 }

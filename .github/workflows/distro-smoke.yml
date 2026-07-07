@@ -1,0 +1,40 @@
+name: Distro smoke
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  shell-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check shell syntax
+        run: bash -n dotfiles.sh install.sh scripts/lib/*.sh tests/*.sh tests/docker/*.sh
+
+      - name: Run installer control tests
+        run: bash tests/install-ci-control.sh
+
+      - name: Run dotfiles CLI tests
+        run: bash tests/dotfiles-cli-test.sh
+
+      - name: Run Docker runner tests
+        run: bash tests/docker-runner-test.sh
+
+  distro-smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        distro:
+          - ubuntu
+          - fedora
+          - manjaro
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Run ${{ matrix.distro }} smoke test
+        run: tests/docker/run.sh "${{ matrix.distro }}"

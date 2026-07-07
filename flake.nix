@@ -19,7 +19,7 @@
             inherit system;
             config.allowUnfree = true;
           };
-          modules = [ ./home.nix ];
+          modules = [ ./home-manager/home.nix ];
         };
     in
     {

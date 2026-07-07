@@ -2,7 +2,7 @@
 
 load_os_release() {
   local fixture="$BATS_TEST_DIRNAME/os-release/$1.env"
-  local library="$BATS_TEST_DIRNAME/../.bin/lib/os-release.sh"
+  local library="$BATS_TEST_DIRNAME/../scripts/lib/os-release.sh"
 
   DOTFILES_OS_RELEASE_FILE="$fixture" \
     bash -c 'source "$1"; detect_distro_family' bash "$library"

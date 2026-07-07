@@ -1,91 +1,158 @@
 # dotfiles
 
-Cross-distro dotfiles for Manjaro Linux, Ubuntu, and Fedora.
+Manjaro Linux / Ubuntu / Fedora で使うための dotfiles。
 
-The common user environment is managed by the Nix package manager and Home
-Manager. Distro package managers are used only for minimal bootstrap and
-OS-integrated desktop setup.
+基本方針は、共通の CLI / 開発環境を Nix + Home Manager に寄せること。
+各 distro のパッケージマネージャーは、最小限の bootstrap と desktop 固有設定だけで使う。
 
-## Policy
+## Usage
 
-- Common CLI and development tools are installed through Nix/Home Manager.
-- `mise` is the tool/runtime manager package. `fnm` is not used.
-- Chrome and VS Code are not installed through Nix.
-- `.bin/lib/desktop-setup.sh` covers Japanese input, fonts, and browser MIME
-  defaults only.
-- Docker daemon setup, Chrome installation, and VS Code installation are manual
-  distro-specific steps.
-- Existing dotfiles are linked into home by `.bin/install.sh`.
+初回セットアップ。
 
-## Install
-
-Clone this repository:
-
-```
+```sh
 git clone https://github.com/takuyaw-w/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+./install.sh
 ```
 
-Install Nix if needed:
+Nix がまだ入っていない場合。
 
-```
+```sh
 sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
-Install the Home Manager command if needed:
+Home Manager コマンドがまだない場合。
 
-```
+```sh
 nix profile install github:nix-community/home-manager
 ```
 
-Run the installer:
+中で何をやるか分けて実行したい場合。
 
-```
-~/.dotfiles/.bin/install.sh
-```
-
-The installer links dotfiles, runs bootstrap setup, applies gitconfig, switches
-Home Manager, and then prints the desktop setup command.
-
-## Desktop setup
-
-Run OS/desktop-specific setup separately:
-
-```
-~/.dotfiles/.bin/lib/desktop-setup.sh
+```sh
+~/.dotfiles/dotfiles.sh doctor
+~/.dotfiles/dotfiles.sh bootstrap
+~/.dotfiles/dotfiles.sh gitconfig
+~/.dotfiles/dotfiles.sh switch
 ```
 
-This currently covers Japanese input, fonts, and browser MIME defaults only.
-Docker daemon setup, Chrome installation, and VS Code installation are not
-performed by this script.
+まとめて実行する場合。
 
-## Verification
-
-Syntax-check shell scripts:
-
-```
-bash -n .bin/install.sh .bin/lib/*.sh
+```sh
+~/.dotfiles/dotfiles.sh install
 ```
 
-Run shell tests if `bats` is available:
+desktop 固有設定は別で実行する。
 
-```
-bats tests/os-release.bats
+```sh
+~/.dotfiles/dotfiles.sh desktop
 ```
 
-Check the flake:
+## コマンド
 
+```text
+dotfiles.sh doctor     現在の環境を確認する
+dotfiles.sh bootstrap  distro 側の最小パッケージを入れる
+dotfiles.sh gitconfig  ~/.gitconfig.local の状態を確認する
+dotfiles.sh switch     Home Manager を switch する
+dotfiles.sh install    bootstrap / gitconfig / switch を実行する
+dotfiles.sh desktop    desktop 固有設定を実行する
 ```
+
+## 設定ファイル
+
+`.zshrc` / `.zshenv` / `.zsh` / `.config/*` は Home Manager
+で配置する。
+
+`dotfiles.sh switch` を実行すると、Home Manager が `$HOME` に設定ファイルを
+反映する。
+
+Home Manager の設定は `home-manager/` に置く。
+
+この repository 独自の symlink script は使わない。
+
+## Gitconfig
+
+Git config 本体は `.config/git/config` を Home Manager で `$HOME` に配置する。
+Nix の `programs.git` では管理しない。
+
+Git の `user.name` / `user.email` は `~/.gitconfig.local` から読む。
+installer と Home Manager はこのファイルを作らない。
+
+ない場合は対象マシンで作る。
+
+```ini
+[user]
+    name = Your Name
+    email = you@example.com
+```
+
+最後に成功したら、ちゃんと自分で Gitconfig は設定する。
+
+## Desktop
+
+`dotfiles.sh desktop` で扱うもの。
+
+- 日本語入力
+- フォント
+- ブラウザの MIME default
+
+ここでは扱わないもの。
+
+- Docker daemon の有効化
+- Chrome の install
+- VS Code の install
+
+Chrome / VS Code は Nix 管理に寄せない。
+
+## 方針
+
+- 共通の CLI / 開発ツールは Nix + Home Manager で管理する
+- 設定ファイルも可能な限り Home Manager で管理する
+- `mise` を runtime / tool manager として使う
+- `fnm` は使わない
+- Chrome / VS Code は `home-manager/gui.nix` で管理する
+- distro の package manager は最小限にする
+- desktop 固有の設定は `dotfiles.sh desktop` に分ける
+
+## Test
+
+shell script の syntax check。
+
+```sh
+bash -n dotfiles.sh install.sh scripts/lib/*.sh
+```
+
+installer 周りのテスト。
+
+```sh
+bash tests/install-ci-control.sh
+bash tests/dotfiles-cli-test.sh
+bash tests/docker-runner-test.sh
+```
+
+Docker で Ubuntu / Fedora / Manjaro をまとめて確認する。
+
+```sh
+tests/docker/run.sh all
+```
+
+個別に確認する。
+
+```sh
+tests/docker/run.sh ubuntu
+tests/docker/run.sh fedora
+tests/docker/run.sh manjaro
+```
+
+Nix flake の確認。
+
+```sh
 nix flake check
 ```
 
-Build the Linux Home Manager activation package:
+Home Manager activation package の build。
 
-```
+```sh
 nix build .#homeConfigurations.takuya-x86_64-linux.activationPackage --no-link
-```
-
-Optionally build with the Home Manager command if it is available:
-
-```
-home-manager build --flake ~/.dotfiles#takuya-x86_64-linux
 ```

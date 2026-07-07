@@ -38,13 +38,6 @@
 !/.vim/init.vim
 !/.vim/coc-settings.json
 
-## tmux
-!/.tmux.conf
-!/.tmux/
-!/.tmux/conf/
-!/.tmux/conf/**
-!/.tmux/log/
-
 ## desktop environment
 ### i3
 !/.i3/
@@ -72,8 +65,6 @@
 !/.autokey/**
 
 ## etc
-!/.bin/
-!/.bin/**
 !/.bin.local
 !/.ideavimrc
 !/.gdbinit
@@ -136,9 +127,16 @@
 # not ignore #
 !/flake.nix
 !/flake.lock
-!/home.nix
+!/install.sh
+!/dotfiles.sh
+!/home-manager/
+!/home-manager/**
 !/nix/
 !/nix/**
+!/scripts/
+!/scripts/**
+!/tests/
+!/tests/**
 !/docs/
 !/docs/**
 !/_config.yml

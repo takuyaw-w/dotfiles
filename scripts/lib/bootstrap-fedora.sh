@@ -4,7 +4,7 @@ set -ue
 
 function bootstrap_fedora() {
   info_message "Install minimal bootstrap packages for Fedora."
-  sudo dnf install -y \
+  run_privileged dnf install -y \
     ca-certificates \
     curl \
     git \

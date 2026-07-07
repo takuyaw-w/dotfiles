@@ -61,6 +61,15 @@ function mkdir_not_exist() {
   fi
 }
 
+function run_privileged() {
+  if [[ "${DOTFILES_USE_SUDO:-}" == "0" || "${EUID:-$(id -u)}" == "0" ]]; then
+    command "$@"
+    return $?
+  fi
+
+  sudo "$@"
+}
+
 function delay() {
   sleep 0.03
 }
