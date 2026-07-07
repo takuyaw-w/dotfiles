@@ -28,6 +28,9 @@ function dotfiles_doctor() {
   source "$lib_dir/nix-home-manager.sh"
 
   local distro
+  local git_identity_missing=0
+  local home_manager_missing=0
+  local nix_missing=0
   distro=$(detect_distro_family)
   print_default "Distro family: $distro"
 
@@ -35,18 +38,42 @@ function dotfiles_doctor() {
     print_default "Git identity: configured by ~/.gitconfig.local"
   else
     print_warning "Git identity: missing ~/.gitconfig.local"
+    git_identity_missing=1
   fi
 
   if builtin command -v nix >/dev/null 2>&1 || nix_profile_script >/dev/null 2>&1; then
     print_default "Nix: available or installed profile detected"
   else
     print_warning "Nix: not found"
+    nix_missing=1
   fi
 
   if builtin command -v home-manager >/dev/null 2>&1; then
     print_default "Home Manager: available"
   else
     print_warning "Home Manager: not found"
+    home_manager_missing=1
+  fi
+
+  if ((git_identity_missing || nix_missing || home_manager_missing)); then
+    print_default ""
+    print_default "Next steps:"
+  fi
+
+  if ((git_identity_missing)); then
+    print_default "  Create ~/.gitconfig.local on this machine."
+  fi
+
+  if ((nix_missing)); then
+    print_default "  sh <(curl -L https://nixos.org/nix/install) --daemon"
+  fi
+
+  if ((home_manager_missing)); then
+    print_default "  nix profile install github:nix-community/home-manager"
+  fi
+
+  if ((git_identity_missing || nix_missing || home_manager_missing)); then
+    print_default "  ~/.dotfiles/dotfiles.sh install"
   fi
 }
 

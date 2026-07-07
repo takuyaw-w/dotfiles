@@ -127,7 +127,6 @@
 # not ignore #
 !/flake.nix
 !/flake.lock
-!/install.sh
 !/dotfiles.sh
 !/home-manager/
 !/home-manager/**

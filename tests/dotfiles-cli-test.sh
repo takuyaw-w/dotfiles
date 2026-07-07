@@ -88,12 +88,11 @@ SCRIPT
   assert_file_contains "$output" "Run ~/.dotfiles/dotfiles.sh desktop"
 }
 
-test_install_sh_delegates_to_dotfiles_install() {
-  local home_dir="$tmp_dir/install-home"
-  local bin_dir="$tmp_dir/install-bin"
-  local os_release="$tmp_dir/install-os-release"
-  local command_log="$tmp_dir/install-commands.log"
-  local output="$tmp_dir/install.out"
+test_doctor_prints_next_steps_for_missing_prerequisites() {
+  local home_dir="$tmp_dir/doctor-home"
+  local bin_dir="$tmp_dir/doctor-bin"
+  local os_release="$tmp_dir/doctor-os-release"
+  local output="$tmp_dir/doctor.out"
   mkdir -p "$home_dir" "$bin_dir"
 
   cat >"$os_release" <<'EOF_OS_RELEASE'
@@ -101,24 +100,27 @@ ID=ubuntu
 ID_LIKE=debian
 EOF_OS_RELEASE
 
-  cat >"$bin_dir/apt-get" <<SCRIPT
+  cat >"$bin_dir/nix" <<SCRIPT
 #!$bash_bin
-printf 'apt-get %s\n' "\$*" >>"\$COMMAND_LOG"
+exit 0
 SCRIPT
-  chmod +x "$bin_dir/apt-get"
+  chmod +x "$bin_dir/nix"
 
   HOME="$home_dir" \
-    PATH="$bin_dir:$test_command_path" \
-    COMMAND_LOG="$command_log" \
+    PATH="$bin_dir:$(dirname "$bash_bin"):$(dirname "$(command -v dirname)"):$(dirname "$(command -v awk)")" \
     DOTFILES_OS_RELEASE_FILE="$os_release" \
-    DOTFILES_SKIP_HOME_MANAGER=1 \
-    DOTFILES_USE_SUDO=0 \
-    "$bash_bin" "$repo_dir/install.sh" >"$output" </dev/null
+    "$bash_bin" "$repo_dir/dotfiles.sh" doctor >"$output" </dev/null
 
-  assert_file_contains "$output" "install.sh is a convenience wrapper."
-  assert_file_contains "$output" "For explicit setup, run:"
-  assert_file_contains "$output" "~/.dotfiles/dotfiles.sh doctor"
-  [[ ! -e "$home_dir/.zshrc" ]] || fail ".zshrc should be managed by Home Manager"
+  assert_file_contains "$output" "Git identity: missing ~/.gitconfig.local"
+  assert_file_contains "$output" "Home Manager: not found"
+  assert_file_contains "$output" "Next steps:"
+  assert_file_contains "$output" "Create ~/.gitconfig.local on this machine."
+  assert_file_contains "$output" "nix profile install github:nix-community/home-manager"
+  assert_file_contains "$output" "~/.dotfiles/dotfiles.sh install"
+}
+
+test_install_sh_entrypoint_is_removed() {
+  [[ ! -e "$repo_dir/install.sh" ]] || fail "install.sh should be removed to avoid duplicate setup entrypoints"
 }
 
 test_link_command_is_removed() {
@@ -130,6 +132,18 @@ test_link_command_is_removed() {
 
   assert_file_contains "$output" "Usage:"
   assert_file_not_contains "$output" "link"
+}
+
+test_readme_starts_setup_with_doctor() {
+  assert_file_contains "$repo_dir/README.md" "git clone https://github.com/takuyaw-w/dotfiles.git ~/.dotfiles"
+  assert_file_contains "$repo_dir/README.md" "~/.dotfiles/dotfiles.sh doctor"
+  assert_file_contains "$repo_dir/README.md" "sh <(curl -L https://nixos.org/nix/install) --daemon"
+  assert_file_contains "$repo_dir/README.md" "nix profile install github:nix-community/home-manager"
+  assert_file_contains "$repo_dir/README.md" "cat >~/.gitconfig.local <<'GITCONFIG'"
+  assert_file_contains "$repo_dir/README.md" "~/.dotfiles/dotfiles.sh install"
+  assert_file_not_contains "$repo_dir/README.md" "まず現在のマシンを確認する。"
+  assert_file_not_contains "$repo_dir/README.md" "推奨 CLI / 前提を入れたら、もう一度 install を実行する。"
+  assert_file_not_contains "$repo_dir/README.md" "./install.sh"
 }
 
 test_home_manager_manages_git_and_shell_files() {
@@ -298,8 +312,10 @@ test_home_manager_manages_local_tools() {
 
 test_help_lists_subcommands
 test_install_runs_bootstrap_gitconfig_and_switch
-test_install_sh_delegates_to_dotfiles_install
+test_doctor_prints_next_steps_for_missing_prerequisites
+test_install_sh_entrypoint_is_removed
 test_link_command_is_removed
+test_readme_starts_setup_with_doctor
 test_home_manager_manages_git_and_shell_files
 test_flake_exposes_test_profile_and_checks
 test_home_manager_switch_uses_generic_profile_and_runtime_user

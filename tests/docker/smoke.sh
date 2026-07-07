@@ -9,7 +9,7 @@ export DOTFILES_USE_SUDO=${DOTFILES_USE_SUDO:-0}
 mkdir -p "$HOME"
 cd /workspace
 
-bash -n dotfiles.sh install.sh scripts/lib/*.sh tests/*.sh tests/docker/*.sh
+bash -n dotfiles.sh scripts/lib/*.sh tests/*.sh tests/docker/*.sh
 bash tests/install-ci-control.sh
 bash tests/docker-runner-test.sh
 bash tests/dotfiles-cli-test.sh

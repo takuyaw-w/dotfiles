@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Check shell syntax
-        run: bash -n dotfiles.sh install.sh scripts/lib/*.sh tests/*.sh tests/docker/*.sh
+        run: bash -n dotfiles.sh scripts/lib/*.sh tests/*.sh tests/docker/*.sh
 
       - name: Run installer control tests
         run: bash tests/install-ci-control.sh

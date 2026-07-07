@@ -7,72 +7,70 @@ Manjaro Linux / Ubuntu / Fedora で使うための dotfiles。
 
 ## Usage
 
-初回セットアップ。
-
 ```sh
+# initial check
 git clone https://github.com/takuyaw-w/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-./install.sh
+~/.dotfiles/dotfiles.sh doctor
 ```
 
-Nix がまだ入っていない場合。
-
 ```sh
+# if Nix is missing
 sh <(curl -L https://nixos.org/nix/install) --daemon
+exec "$SHELL" -l
 ```
 
-Home Manager コマンドがまだない場合。
-
 ```sh
+# if Home Manager is missing
 nix profile install github:nix-community/home-manager
 ```
 
-中で何をやるか分けて実行したい場合。
+```sh
+# if ~/.gitconfig.local is missing
+cat >~/.gitconfig.local <<'GITCONFIG'
+[user]
+    name = Your Name
+    email = you@example.com
+GITCONFIG
+```
 
 ```sh
+# check again, then apply
 ~/.dotfiles/dotfiles.sh doctor
+~/.dotfiles/dotfiles.sh install
+```
+
+```sh
+# equivalent explicit steps
 ~/.dotfiles/dotfiles.sh bootstrap
 ~/.dotfiles/dotfiles.sh gitconfig
 ~/.dotfiles/dotfiles.sh switch
 ```
 
-まとめて実行する場合。
-
 ```sh
-~/.dotfiles/dotfiles.sh install
-```
-
-dotfiles を変更したあと、現在のマシンに反映し直す場合。
-再インストールではなく、Home Manager の switch だけを実行する。
-
-```sh
+# reapply after changing dotfiles
 cd ~/.dotfiles
 ~/.dotfiles/dotfiles.sh switch
 ```
 
-`home-manager` コマンド自体が PATH にない場合は、Nix から直接実行する。
-
 ```sh
+# reapply without home-manager on PATH
 NIX_USERNAME="$(id -un)" NIX_HOME_DIRECTORY="$HOME" \
   nix run github:nix-community/home-manager -- switch --impure --flake ~/.dotfiles#desktop-x86_64-linux
 ```
 
-`.zshenv` / `.zshrc` / PATH に関わる変更を反映したあとは、開いている shell を
-起動し直す。
-
 ```sh
+# reload shell after PATH / zsh startup changes
 exec zsh
 ```
 
-desktop 固有設定は別で実行する。
-
 ```sh
+# desktop setup
 ~/.dotfiles/dotfiles.sh desktop
 ```
 
-flake.lock を更新して、Nix / Home Manager 評価と shell tests を確認する。
-
 ```sh
+# update flake.lock
 ~/.dotfiles/dotfiles.sh update
 ```
 
@@ -180,7 +178,7 @@ Chrome / VS Code は `home-manager/gui.nix` で管理する。
 shell script の syntax check。
 
 ```sh
-bash -n dotfiles.sh install.sh scripts/lib/*.sh
+bash -n dotfiles.sh scripts/lib/*.sh
 ```
 
 installer 周りのテスト。

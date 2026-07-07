@@ -144,7 +144,7 @@ SCRIPT
     DOTFILES_SKIP_HOME_MANAGER=1 \
     DOTFILES_USE_SUDO=0 \
     GIT_READY_FILE="$tmp_dir/git-ready" \
-    "$bash_bin" "$repo_dir/install.sh" </dev/null
+    "$bash_bin" "$repo_dir/dotfiles.sh" install </dev/null
 
   [[ ! -e "$home_dir/.zshrc" ]] || fail ".zshrc should be managed by Home Manager"
 }
@@ -178,7 +178,7 @@ SCRIPT
     DOTFILES_OS_RELEASE_FILE="$os_release" \
     DOTFILES_SKIP_HOME_MANAGER=1 \
     DOTFILES_USE_SUDO=0 \
-    "$bash_bin" "$repo_dir/install.sh" </dev/null
+    "$bash_bin" "$repo_dir/dotfiles.sh" install </dev/null
 
   [[ ! -e "$home_dir/.zshrc" ]] || fail ".zshrc should be managed by Home Manager"
 }
