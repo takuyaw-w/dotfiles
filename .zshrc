@@ -51,3 +51,14 @@ source "$ZRCDIR/post_load.zsh"
 
 source-safe "$ZDOTDIR/.zshrc.local"
 source-safe "$ZHOMEDIR/.zshrc.local"
+
+# Herdr auto-start
+if [[ -o interactive ]] &&
+  [[ -t 1 ]] &&
+  [[ "${HERDR_AUTO_START:-1}" != "0" ]] &&
+  [[ -z "${HERDR_SOCKET_PATH:-}" ]] &&
+  [[ -z "${SSH_CONNECTION:-}" ]] &&
+  builtin command -v herdr >/dev/null 2>&1
+then
+  exec herdr
+fi

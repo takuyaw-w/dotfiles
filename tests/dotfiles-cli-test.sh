@@ -139,12 +139,23 @@ test_home_manager_manages_git_and_shell_files() {
   assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."git/config"'
   assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/git/config;"
   assert_file_contains "$repo_dir/.config/git/config" "path = ~/.gitconfig.local"
+  assert_file_not_contains "$repo_dir/.config/git/config" "git-credential-libsecret"
+  assert_file_contains "$repo_dir/.config/git/config" '[credential "https://github.com"]'
+  assert_file_contains "$repo_dir/.config/git/config" "helper = !/usr/bin/gh auth git-credential"
   assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".zshrc".source'
   assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".zshenv".source'
   assert_file_contains "$repo_dir/home-manager/home.nix" 'home.file.".zsh"'
   assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.zsh;"
   assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."nvim"'
   assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/nvim;"
+}
+
+test_zshrc_autostarts_herdr_for_local_interactive_terminals() {
+  assert_file_contains "$repo_dir/.zshrc" "HERDR_AUTO_START"
+  assert_file_contains "$repo_dir/.zshrc" "HERDR_SOCKET_PATH"
+  assert_file_contains "$repo_dir/.zshrc" "SSH_CONNECTION"
+  assert_file_contains "$repo_dir/.zshrc" "builtin command -v herdr"
+  assert_file_contains "$repo_dir/.zshrc" "exec herdr"
 }
 
 test_home_manager_manages_gui_apps() {
@@ -163,6 +174,7 @@ test_install_runs_bootstrap_gitconfig_and_switch
 test_install_sh_delegates_to_dotfiles_install
 test_link_command_is_removed
 test_home_manager_manages_git_and_shell_files
+test_zshrc_autostarts_herdr_for_local_interactive_terminals
 test_home_manager_manages_gui_apps
 test_home_manager_manages_local_tools
 
