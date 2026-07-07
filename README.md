@@ -100,10 +100,8 @@ installer と Home Manager はこのファイルを作らない。
 ここでは扱わないもの。
 
 - Docker daemon の有効化
-- Chrome の install
-- VS Code の install
 
-Chrome / VS Code は Nix 管理に寄せない。
+Chrome / VS Code は `home-manager/gui.nix` で管理する。
 
 ## 方針
 

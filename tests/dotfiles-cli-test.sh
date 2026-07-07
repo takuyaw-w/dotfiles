@@ -134,6 +134,7 @@ test_home_manager_manages_git_and_shell_files() {
   assert_file_contains "$repo_dir/home-manager/home.nix" "../nix/packages.nix"
   assert_file_contains "$repo_dir/home-manager/home.nix" "./gui.nix"
   assert_file_not_contains "$repo_dir/home-manager/home.nix" "./git.nix"
+  assert_file_not_contains "$repo_dir/home-manager/home.nix" "programs.home-manager.enable"
   [[ ! -e "$repo_dir/home-manager/git.nix" ]] || fail "git.nix should not manage git config"
   assert_file_contains "$repo_dir/home-manager/home.nix" 'xdg.configFile."git/config"'
   assert_file_contains "$repo_dir/home-manager/home.nix" "source = ../.config/git/config;"
@@ -151,11 +152,18 @@ test_home_manager_manages_gui_apps() {
   assert_file_contains "$repo_dir/home-manager/gui.nix" "vscode"
 }
 
+test_home_manager_manages_local_tools() {
+  assert_file_contains "$repo_dir/flake.nix" "github:modem-dev/hunk"
+  assert_file_contains "$repo_dir/nix/packages.nix" "herdr"
+  assert_file_contains "$repo_dir/nix/packages.nix" "hunk.packages"
+}
+
 test_help_lists_subcommands
 test_install_runs_bootstrap_gitconfig_and_switch
 test_install_sh_delegates_to_dotfiles_install
 test_link_command_is_removed
 test_home_manager_manages_git_and_shell_files
 test_home_manager_manages_gui_apps
+test_home_manager_manages_local_tools
 
 printf 'ok - dotfiles cli\n'
