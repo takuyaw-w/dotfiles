@@ -10,8 +10,6 @@
   home.homeDirectory = "/home/takuya";
   home.stateVersion = "24.05";
 
-  programs.home-manager.enable = true;
-
   home.file.".zshrc".source = ../.zshrc;
   home.file.".zshenv".source = ../.zshenv;
   home.file.".zsh" = {
