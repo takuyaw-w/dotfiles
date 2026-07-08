@@ -1,0 +1,96 @@
+model = "gpt-5.5"
+model_reasoning_effort = "high"
+model_reasoning_summary = "auto"
+model_verbosity = "medium"
+
+# 通常運用は安全寄り。
+# goal 実行時に承認で止まる場合は、後述の profile を使う。
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "cached"
+service_tier = "default"
+
+[tui]
+pet = "seedy"
+status_line = ["model-with-reasoning", "current-dir"]
+status_line_use_colors = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."canva@openai-curated"]
+enabled = true
+
+[plugins."figma@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."google-drive@openai-curated"]
+enabled = true
+
+[plugins."codex-security@openai-curated"]
+enabled = true
+
+[plugins."superpowers@openai-curated"]
+enabled = true
+
+[features]
+terminal_resize_reflow = true
+goals = true
+prevent_idle_sleep = true
+memories = true
+
+# goal 用。長時間実行で承認待ちを減らしたい場合のみ使う。
+[profiles.goal]
+model = "gpt-5.5"
+model_reasoning_effort = "high"
+approval_policy = "never"
+sandbox_mode = "workspace-write"
+
+[mcp_servers.codegraph]
+command = "codegraph"
+args = ["serve", "--mcp"]
+
+[mcp_servers.codegraph.tools.codegraph_callers]
+approval_mode = "approve"
+
+[mcp_servers.codegraph.tools.codegraph_context]
+approval_mode = "approve"
+
+[mcp_servers.codegraph.tools.codegraph_explore]
+approval_mode = "approve"
+
+[mcp_servers.codegraph.tools.codegraph_files]
+approval_mode = "approve"
+
+[mcp_servers.codegraph.tools.codegraph_impact]
+approval_mode = "approve"
+
+[mcp_servers.codegraph.tools.codegraph_node]
+approval_mode = "approve"
+
+[mcp_servers.codegraph.tools.codegraph_search]
+approval_mode = "approve"
+
+[mcp_servers.codegraph.tools.codegraph_status]
+approval_mode = "approve"
+
+[mcp_servers.astro-docs]
+command = "npx"
+args = ["-y", "mcp-remote", "https://mcp.docs.astro.build/mcp"]
+
+[mcp_servers.astro-docs.tools.search_astro_docs]
+approval_mode = "approve"
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]

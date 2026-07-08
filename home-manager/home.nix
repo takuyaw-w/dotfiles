@@ -10,6 +10,7 @@
 {
   imports = [
     ../nix/packages.nix
+    ./codex.nix
     ./shell.nix
     ./xdg.nix
     ./launchers.nix

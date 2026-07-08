@@ -153,9 +153,17 @@ test_home_manager_manages_git_and_shell_files() {
   assert_file_contains "$repo_dir/home-manager/home.nix" "./shell.nix"
   assert_file_contains "$repo_dir/home-manager/home.nix" "./xdg.nix"
   assert_file_contains "$repo_dir/home-manager/home.nix" "./launchers.nix"
+  assert_file_contains "$repo_dir/home-manager/home.nix" "./codex.nix"
   assert_file_not_contains "$repo_dir/home-manager/home.nix" "./git.nix"
   assert_file_not_contains "$repo_dir/home-manager/home.nix" "programs.home-manager.enable"
   [[ ! -e "$repo_dir/home-manager/git.nix" ]] || fail "git.nix should not manage git config"
+  assert_file_contains "$repo_dir/home-manager/codex.nix" 'home.file.".codex/config.toml".source'
+  assert_file_contains "$repo_dir/home-manager/codex.nix" "source = ../.codex/config.toml;"
+  assert_file_not_contains "$repo_dir/home-manager/codex.nix" 'home.file.".codex"'
+  assert_file_contains "$repo_dir/.codex/config.toml" 'sandbox_mode = "workspace-write"'
+  assert_file_not_contains "$repo_dir/.codex/config.toml" "[projects."
+  assert_file_contains "$repo_dir/.gitignore" "!/.codex/"
+  assert_file_contains "$repo_dir/.gitignore" "!/.codex/config.toml"
   assert_file_contains "$repo_dir/home-manager/xdg.nix" 'xdg.configFile."git/config"'
   assert_file_contains "$repo_dir/home-manager/xdg.nix" "source = ../.config/git/config;"
   assert_file_contains "$repo_dir/.config/git/config" "path = ~/.gitconfig.local"
@@ -207,12 +215,10 @@ test_github_actions_run_flake_check_and_manual_home_manager_switch() {
   assert_file_contains "$workflow" "home-manager switch --flake .#test"
 }
 
-test_zshrc_autostarts_herdr_for_local_interactive_terminals() {
-  assert_file_contains "$repo_dir/.zshrc" "HERDR_AUTO_START"
-  assert_file_contains "$repo_dir/.zshrc" "HERDR_SOCKET_PATH"
-  assert_file_contains "$repo_dir/.zshrc" "SSH_CONNECTION"
-  assert_file_contains "$repo_dir/.zshrc" "builtin command -v herdr"
-  assert_file_contains "$repo_dir/.zshrc" "exec herdr"
+test_zshrc_does_not_autostart_herdr() {
+  assert_file_not_contains "$repo_dir/.zshrc" "HERDR_AUTO_START"
+  assert_file_not_contains "$repo_dir/.zshrc" "HERDR_SOCKET_PATH"
+  assert_file_not_contains "$repo_dir/.zshrc" "exec herdr"
 }
 
 test_zshenv_prefers_mise_shims_for_tool_commands() {
@@ -255,8 +261,16 @@ test_home_manager_manages_herdr_config_and_mimeapps() {
 
 test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias() {
   assert_file_not_contains "$repo_dir/.zsh/rc/alias.zsh" "alias wezterm="
+  assert_file_contains "$repo_dir/.config/wezterm/wezterm.lua" "Noto Sans Mono CJK JP"
+  assert_file_contains "$repo_dir/flake.nix" "nixGL = {"
+  assert_file_contains "$repo_dir/flake.nix" "github:nix-community/nixGL"
+  assert_file_contains "$repo_dir/flake.nix" "inherit hunk nixGL;"
   assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/wezterm"'
-  assert_file_contains "$repo_dir/home-manager/launchers.nix" "nixGL"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "nixGLIntel"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "nixGL.packages.\${pkgs.stdenv.hostPlatform.system}.nixGLIntel"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "\${nixGLIntel}/bin/nixGLIntel"
+  assert_file_not_contains "$repo_dir/home-manager/launchers.nix" "command -v nixGL"
+  assert_file_not_contains "$repo_dir/home-manager/launchers.nix" "exec nixGL "
   assert_file_contains "$repo_dir/home-manager/launchers.nix" "\${pkgs.wezterm}/bin/wezterm"
   assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/x-terminal-emulator"'
   assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/x-www-browser"'
@@ -320,7 +334,7 @@ test_home_manager_manages_git_and_shell_files
 test_flake_exposes_test_profile_and_checks
 test_home_manager_switch_uses_generic_profile_and_runtime_user
 test_github_actions_run_flake_check_and_manual_home_manager_switch
-test_zshrc_autostarts_herdr_for_local_interactive_terminals
+test_zshrc_does_not_autostart_herdr
 test_zshenv_prefers_mise_shims_for_tool_commands
 test_home_manager_manages_mise_config
 test_home_manager_manages_herdr_config_and_mimeapps

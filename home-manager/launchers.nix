@@ -1,11 +1,13 @@
 {
   pkgs,
+  nixGL,
   enableGui ? true,
   homeDirectory ? "/home/dotfiles",
   ...
 }:
 
 let
+  nixGLIntel = nixGL.packages.${pkgs.stdenv.hostPlatform.system}.nixGLIntel;
   browserCommand =
     if enableGui then
       "${pkgs.google-chrome}/bin/google-chrome-stable"
@@ -19,11 +21,7 @@ in
       #!/usr/bin/env sh
       set -eu
 
-      if command -v nixGL >/dev/null 2>&1; then
-        exec nixGL ${pkgs.wezterm}/bin/wezterm "$@"
-      fi
-
-      exec ${pkgs.wezterm}/bin/wezterm "$@"
+      exec ${nixGLIntel}/bin/nixGLIntel ${pkgs.wezterm}/bin/wezterm "$@"
     '';
   };
   home.file.".local/bin/x-terminal-emulator" = {

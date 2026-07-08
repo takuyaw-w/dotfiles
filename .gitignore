@@ -102,6 +102,10 @@
 !/.config/fcitx5/conf/**
 /.config/fcitx5/conf/cached_layouts
 
+## codex
+!/.codex/
+!/.codex/config.toml
+
 ## git
 !/.gitignore_global
 !/.gitconfig

@@ -28,10 +28,10 @@ local config = {
     use_ime = true,
     color_scheme = select_color_scheme(),
     font = wezterm.font_with_fallback {
-        { family = "Source Han Code JP", weight = "Light", stretch = "Normal", style = "Normal" },
-        'ricty diminished',
+        'JetBrains Mono',
+        { family = 'Noto Sans Mono CJK JP', weight = 'Regular' },
         'Cascadia Code',
-        'Cascadia Mono'
+        'Cascadia Mono',
     },
     font_size = 12.0,
     adjust_window_size_when_changing_font_size = false,
