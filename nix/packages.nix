@@ -39,7 +39,6 @@
     sqlite
     unzip
     wget
-    wezterm
     xsel
     yazi
     zoxide

@@ -269,9 +269,12 @@ test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias() {
   assert_file_contains "$repo_dir/home-manager/launchers.nix" "nixGLIntel"
   assert_file_contains "$repo_dir/home-manager/launchers.nix" "nixGL.packages.\${pkgs.stdenv.hostPlatform.system}.nixGLIntel"
   assert_file_contains "$repo_dir/home-manager/launchers.nix" "\${nixGLIntel}/bin/nixGLIntel"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "wrappedWezterm = pkgs.symlinkJoin"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "home.packages = lib.optionals enableGui [ wrappedWezterm ];"
+  assert_file_not_contains "$repo_dir/nix/packages.nix" "    wezterm"
   assert_file_not_contains "$repo_dir/home-manager/launchers.nix" "command -v nixGL"
   assert_file_not_contains "$repo_dir/home-manager/launchers.nix" "exec nixGL "
-  assert_file_contains "$repo_dir/home-manager/launchers.nix" "\${pkgs.wezterm}/bin/wezterm"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "\${wrappedWezterm}/bin/wezterm"
   assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/x-terminal-emulator"'
   assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/x-www-browser"'
   assert_file_contains "$repo_dir/home-manager/launchers.nix" '.local/bin/wezterm'
