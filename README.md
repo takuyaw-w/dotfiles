@@ -45,6 +45,7 @@ GITCONFIG
 ~/.dotfiles/dotfiles.sh bootstrap
 ~/.dotfiles/dotfiles.sh gitconfig
 ~/.dotfiles/dotfiles.sh switch
+~/.dotfiles/dotfiles.sh mise
 ```
 
 ```sh
@@ -81,7 +82,8 @@ dotfiles.sh doctor     現在の環境を確認する
 dotfiles.sh bootstrap  distro 側の最小パッケージを入れる
 dotfiles.sh gitconfig  ~/.gitconfig.local の状態を確認する
 dotfiles.sh switch     Home Manager を switch する
-dotfiles.sh install    bootstrap / gitconfig / switch を実行する
+dotfiles.sh mise       mise-managed tools を入れる
+dotfiles.sh install    bootstrap / gitconfig / switch / mise を実行する
 dotfiles.sh desktop    desktop 固有設定を実行する
 dotfiles.sh update     flake.lock を更新して nix flake check を実行する
 ```
@@ -130,6 +132,43 @@ Home Manager の設定は `home-manager/` に置く。
 - `home-manager/gui.nix`: desktop GUI packages
 
 この repository 独自の symlink script は使わない。
+
+## mise
+
+`mise` 本体と `~/.config/mise/config.toml` は Home Manager で管理する。
+`dotfiles.sh install` は Home Manager switch 後に `mise install` を実行して、
+config に書かれた runtime / tool を初期構築時に入れる。
+
+現在 `mise` で入れるもの。
+
+- `actionlint`
+- `biome`
+- `bun`
+- `cloudflared`
+- `deno`
+- `go`
+- `helm`
+- `java`
+- `kubectl`
+- `kustomize`
+- `node`
+- `pnpm`
+- `python`
+- `ruby`
+- `rust`
+- `taplo`
+- `terraform`
+- `uv`
+- `wrangler`
+- `npm:@openai/codex`
+
+後から入れ直す場合は、以下を実行する。
+
+```sh
+~/.dotfiles/dotfiles.sh mise
+```
+
+CI や smoke test で実体の download を避ける場合は `DOTFILES_SKIP_MISE=1` を使う。
 
 ## Gitconfig
 

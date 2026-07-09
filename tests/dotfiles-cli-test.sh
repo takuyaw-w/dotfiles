@@ -46,6 +46,7 @@ test_help_lists_subcommands() {
   assert_file_contains "$output" "doctor"
   assert_file_contains "$output" "bootstrap"
   assert_file_contains "$output" "switch"
+  assert_file_contains "$output" "mise"
   assert_file_contains "$output" "install"
   assert_file_contains "$output" "desktop"
   assert_file_contains "$output" "update"
@@ -85,6 +86,7 @@ SCRIPT
   [[ ! -e "$home_dir/.gitconfig.local" ]] || fail ".gitconfig.local was created"
   assert_file_contains "$output" "Git user.name / user.email are not configured."
   assert_file_contains "$output" "Skip Home Manager switch because DOTFILES_SKIP_HOME_MANAGER=1."
+  assert_file_contains "$output" "Skip mise install because DOTFILES_SKIP_HOME_MANAGER=1."
   assert_file_contains "$output" "Run ~/.dotfiles/dotfiles.sh desktop"
 }
 
@@ -141,6 +143,7 @@ test_readme_starts_setup_with_doctor() {
   assert_file_contains "$repo_dir/README.md" "nix profile install github:nix-community/home-manager"
   assert_file_contains "$repo_dir/README.md" "cat >~/.gitconfig.local <<'GITCONFIG'"
   assert_file_contains "$repo_dir/README.md" "~/.dotfiles/dotfiles.sh install"
+  assert_file_contains "$repo_dir/README.md" "~/.dotfiles/dotfiles.sh mise"
   assert_file_not_contains "$repo_dir/README.md" "まず現在のマシンを確認する。"
   assert_file_not_contains "$repo_dir/README.md" "推奨 CLI / 前提を入れたら、もう一度 install を実行する。"
   assert_file_not_contains "$repo_dir/README.md" "./install.sh"
@@ -253,8 +256,32 @@ test_zshenv_prefers_mise_shims_for_tool_commands() {
 test_home_manager_manages_mise_config() {
   assert_file_contains "$repo_dir/home-manager/xdg.nix" 'xdg.configFile."mise/config.toml"'
   assert_file_contains "$repo_dir/home-manager/xdg.nix" "source = ../.config/mise/config.toml;"
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'actionlint = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'biome = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'bun = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'cloudflared = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'deno = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'go = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'helm = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'java = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'kubectl = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'kustomize = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'node = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'pnpm = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'python = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'ruby = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'rust = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'taplo = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'terraform = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'uv = "latest"'
+  assert_file_contains "$repo_dir/.config/mise/config.toml" 'wrangler = "latest"'
   assert_file_contains "$repo_dir/.config/mise/config.toml" '[tools."npm:@openai/codex"]'
   assert_file_contains "$repo_dir/.config/mise/config.toml" 'minimum_release_age = "0s"'
+  assert_file_contains "$repo_dir/dotfiles.sh" "dotfiles_mise"
+  assert_file_contains "$repo_dir/dotfiles.sh" "install_mise_tools"
+  assert_file_contains "$repo_dir/scripts/lib/mise-tools.sh" '"$mise_command" install'
+  assert_file_contains "$repo_dir/scripts/lib/mise-tools.sh" "DOTFILES_SKIP_MISE"
+  assert_file_contains "$repo_dir/scripts/lib/mise-tools.sh" "DOTFILES_SKIP_HOME_MANAGER"
 }
 
 test_home_manager_manages_herdr_config_and_mimeapps() {

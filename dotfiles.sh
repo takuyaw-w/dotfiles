@@ -16,7 +16,8 @@ Commands:
   bootstrap  Install minimal distro packages
   gitconfig  Check ~/.gitconfig.local
   switch     Switch Home Manager profile
-  install    Run bootstrap, gitconfig, and switch
+  mise       Install mise-managed tools
+  install    Run bootstrap, gitconfig, switch, and mise
   desktop    Run desktop-specific setup
   update     Update flake.lock and run nix flake check
   help       Show this help
@@ -91,6 +92,11 @@ function dotfiles_switch() {
   switch_home_manager
 }
 
+function dotfiles_mise() {
+  source "$lib_dir/mise-tools.sh"
+  install_mise_tools
+}
+
 function print_desktop_hint() {
   print_default ""
   print_default "Desktop-specific setup is intentionally separate."
@@ -101,6 +107,7 @@ function dotfiles_install() {
   dotfiles_bootstrap
   dotfiles_gitconfig
   dotfiles_switch
+  dotfiles_mise
   print_desktop_hint
 }
 
@@ -125,6 +132,9 @@ case "${1:-help}" in
     ;;
   switch)
     dotfiles_switch
+    ;;
+  mise)
+    dotfiles_mise
     ;;
   install|apply)
     dotfiles_install

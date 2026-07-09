@@ -183,6 +183,26 @@ SCRIPT
   [[ ! -e "$home_dir/.zshrc" ]] || fail ".zshrc should be managed by Home Manager"
 }
 
+test_mise_install_runs_configured_tools() {
+  local home_dir="$tmp_dir/mise-home"
+  local bin_dir="$tmp_dir/mise-bin"
+  local command_log="$tmp_dir/mise-commands.log"
+  mkdir -p "$home_dir" "$bin_dir"
+
+  cat >"$bin_dir/mise" <<SCRIPT
+#!$bash_bin
+printf 'mise %s\n' "\$*" >>"\$COMMAND_LOG"
+SCRIPT
+  chmod +x "$bin_dir/mise"
+
+  HOME="$home_dir" \
+    PATH="$bin_dir:$test_command_path" \
+    COMMAND_LOG="$command_log" \
+    "$bash_bin" -c "source '$repo_dir/scripts/lib/mise-tools.sh'; install_mise_tools" </dev/null
+
+  assert_file_contains "$command_log" "mise install"
+}
+
 test_gitconfig_warns_without_creating_local_config
 test_gitconfig_keeps_existing_local_config
 test_home_manager_can_be_skipped_for_smoke_tests
@@ -190,5 +210,6 @@ test_bootstrap_can_run_without_sudo_in_container
 test_arch_bootstrap_refreshes_package_database
 test_install_bootstraps_before_home_manager_setup
 test_install_does_not_require_git_for_home_manager_managed_files
+test_mise_install_runs_configured_tools
 
 printf 'ok - installer CI controls\n'

@@ -31,16 +31,23 @@
     nil
     nix-output-monitor
     nix-tree
+    ouch
+    procs
     ripgrep
     rofi
+    sd
     sheldon
     shellcheck
     shfmt
     sqlite
+    tokei
     unzip
+    watchexec
     wget
+    xh
     xsel
     yazi
+    yq-go
     zoxide
     zsh
   ] ++ [
