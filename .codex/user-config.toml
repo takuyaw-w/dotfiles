@@ -4,7 +4,7 @@ model_reasoning_summary = "auto"
 model_verbosity = "medium"
 
 # 通常運用は安全寄り。
-# goal 実行時の profile は user-level config 用テンプレートで配布する。
+# goal 実行時に承認で止まる場合は、後述の profile を使う。
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 web_search = "cached"
@@ -44,6 +44,13 @@ terminal_resize_reflow = true
 goals = true
 prevent_idle_sleep = true
 memories = true
+
+# goal 用。長時間実行で承認待ちを減らしたい場合のみ使う。
+[profiles.goal]
+model = "gpt-5.5"
+model_reasoning_effort = "high"
+approval_policy = "never"
+sandbox_mode = "workspace-write"
 
 [mcp_servers.codegraph]
 command = "codegraph"

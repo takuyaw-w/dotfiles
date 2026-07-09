@@ -105,6 +105,7 @@
 ## codex
 !/.codex/
 !/.codex/config.toml
+!/.codex/user-config.toml
 
 ## git
 !/.gitignore_global

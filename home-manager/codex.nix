@@ -4,7 +4,7 @@
   home.activation.codexConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     codex_dir="$HOME/.codex"
     codex_config="$codex_dir/config.toml"
-    codex_template=${../.codex/config.toml}
+    codex_template=${../.codex/user-config.toml}
 
     mkdir -p "$codex_dir"
 
