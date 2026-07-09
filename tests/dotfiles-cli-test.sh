@@ -157,8 +157,13 @@ test_home_manager_manages_git_and_shell_files() {
   assert_file_not_contains "$repo_dir/home-manager/home.nix" "./git.nix"
   assert_file_not_contains "$repo_dir/home-manager/home.nix" "programs.home-manager.enable"
   [[ ! -e "$repo_dir/home-manager/git.nix" ]] || fail "git.nix should not manage git config"
-  assert_file_contains "$repo_dir/home-manager/codex.nix" 'home.file.".codex/config.toml".source'
-  assert_file_contains "$repo_dir/home-manager/codex.nix" "source = ../.codex/config.toml;"
+  assert_file_contains "$repo_dir/home-manager/codex.nix" "home.activation.codexConfig"
+  assert_file_contains "$repo_dir/home-manager/codex.nix" 'lib.hm.dag.entryAfter [ "writeBoundary" ]'
+  assert_file_contains "$repo_dir/home-manager/codex.nix" 'codex_template=${../.codex/config.toml}'
+  assert_file_contains "$repo_dir/home-manager/codex.nix" 'if [ -L "$codex_config" ]; then'
+  assert_file_contains "$repo_dir/home-manager/codex.nix" 'elif [ ! -e "$codex_config" ]; then'
+  assert_file_contains "$repo_dir/home-manager/codex.nix" 'chmod u+rw "$codex_config"'
+  assert_file_not_contains "$repo_dir/home-manager/codex.nix" 'home.file.".codex/config.toml"'
   assert_file_not_contains "$repo_dir/home-manager/codex.nix" 'home.file.".codex"'
   assert_file_contains "$repo_dir/.codex/config.toml" 'sandbox_mode = "workspace-write"'
   assert_file_not_contains "$repo_dir/.codex/config.toml" "[projects."
