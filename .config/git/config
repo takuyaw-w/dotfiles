@@ -35,16 +35,23 @@
 	diffFilter = delta --color-only
 [alias]
 	st = status
-	cm = commit
+	s = status --short --branch
+	ci = commit
 	sw = switch
 	new = switch -c
 	cp = cherry-pick
 	cm = commit -m
 	br = branch
 	rbr = branch -a
+	up = pull --ff-only
+	pub = push -u origin HEAD
 	stash-save = stash push -u
 	stash-load = stash pop
 	la = log --oneline --decorate --graph --branches --tags --remotes --all
+	lg = log --graph --date=short --pretty=format:'%C(auto)%h %C(bold blue)%ad %C(bold green)%<(18,trunc)%an%C(reset) %C(auto)%d %s'
+	recent = for-each-ref --sort=-committerdate --count=12 --format='%(color:cyan)%(refname:short)%(color:reset) %(color:yellow)%(committerdate:relative)%(color:reset) %(contents:subject)' refs/heads refs/remotes
+	today = log --since=midnight --oneline --decorate --all
+	unstage = restore --staged
 	wip = !"git commit -m 'wip'"
 	aliases = !"git config --get-regexp '^alias\\.' | colrm 1 6 | sed 's/[ ]/ = /'"
 	merged = branch --merged
