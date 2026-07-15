@@ -301,6 +301,17 @@ test_home_manager_manages_herdr_config_and_mimeapps() {
   assert_file_contains "$repo_dir/home-manager/xdg.nix" '"text/html" = "google-chrome.desktop";'
 }
 
+test_home_manager_manages_hunk_config() {
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" 'xdg.configFile."hunk/config.toml"'
+  assert_file_contains "$repo_dir/home-manager/xdg.nix" "source = ../.config/hunk/config.toml;"
+  assert_file_contains "$repo_dir/.config/hunk/config.toml" 'theme = "auto"'
+  assert_file_contains "$repo_dir/.config/hunk/config.toml" 'mode = "auto"'
+  assert_file_contains "$repo_dir/.config/hunk/config.toml" 'line_numbers = true'
+  assert_file_contains "$repo_dir/.config/hunk/config.toml" 'wrap_lines = false'
+  assert_file_contains "$repo_dir/.config/hunk/config.toml" 'agent_notes = false'
+  assert_file_not_contains "$repo_dir/home-manager/xdg.nix" 'xdg.configFile."hunk/state.json"'
+}
+
 test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias() {
   assert_file_not_contains "$repo_dir/.zsh/rc/alias.zsh" "alias wezterm="
   assert_file_contains "$repo_dir/.config/wezterm/wezterm.lua" "Noto Sans Mono CJK JP"
@@ -383,6 +394,7 @@ test_zshrc_does_not_autostart_herdr
 test_zshenv_prefers_mise_shims_for_tool_commands
 test_home_manager_manages_mise_config
 test_home_manager_manages_herdr_config_and_mimeapps
+test_home_manager_manages_hunk_config
 test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias
 test_home_manager_manages_gui_apps
 test_home_manager_manages_local_tools

@@ -12,6 +12,7 @@
     recursive = true;
   };
   xdg.configFile."herdr/config.toml".source = ../.config/herdr/config.toml;
+  xdg.configFile."hunk/config.toml".source = ../.config/hunk/config.toml;
   xdg.configFile."mise/config.toml".source = ../.config/mise/config.toml;
   xdg.configFile."nvim" = {
     source = ../.config/nvim;
