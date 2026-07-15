@@ -2,7 +2,7 @@
   description = "takuyaw-w dotfiles";
 
   inputs = {
-    hunk.url = "github:modem-dev/hunk/9ef9b2e7cad455056cfe1c10757815cb80c7d716";
+    hunk.url = "github:modem-dev/hunk";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
