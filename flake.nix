@@ -2,6 +2,10 @@
   description = "takuyaw-w dotfiles";
 
   inputs = {
+    herdr = {
+      url = "github:ogulcancelik/herdr/v0.7.5";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hunk.url = "github:modem-dev/hunk";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
@@ -14,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, hunk, nixGL, ... }:
+  outputs = { self, nixpkgs, home-manager, herdr, hunk, nixGL, ... }:
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -55,7 +59,7 @@
             config.allowUnfree = true;
           };
           extraSpecialArgs = {
-            inherit hunk nixGL;
+            inherit herdr hunk nixGL;
             inherit (profile) username homeDirectory enableGui;
           };
           modules = [ ./home-manager/home.nix ];

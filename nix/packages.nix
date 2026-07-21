@@ -1,4 +1,4 @@
-{ pkgs, hunk, ... }:
+{ pkgs, herdr, hunk, ... }:
 
 {
   home.packages = with pkgs; [
@@ -19,7 +19,6 @@
     gettext
     gh
     ghq
-    herdr
     git
     gitui
     gnumake
@@ -51,6 +50,7 @@
     zoxide
     zsh
   ] ++ [
+    herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
     hunk.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

@@ -317,7 +317,7 @@ test_wezterm_uses_home_manager_nixgl_wrapper_not_shell_alias() {
   assert_file_contains "$repo_dir/.config/wezterm/wezterm.lua" "Noto Sans Mono CJK JP"
   assert_file_contains "$repo_dir/flake.nix" "nixGL = {"
   assert_file_contains "$repo_dir/flake.nix" "github:nix-community/nixGL"
-  assert_file_contains "$repo_dir/flake.nix" "inherit hunk nixGL;"
+  assert_file_contains "$repo_dir/flake.nix" "inherit herdr hunk nixGL;"
   assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/wezterm"'
   assert_file_contains "$repo_dir/home-manager/launchers.nix" "nixGLIntel"
   assert_file_contains "$repo_dir/home-manager/launchers.nix" "nixGL.packages.\${pkgs.stdenv.hostPlatform.system}.nixGLIntel"
@@ -375,8 +375,9 @@ test_home_manager_manages_gui_apps() {
 }
 
 test_home_manager_manages_local_tools() {
+  assert_file_contains "$repo_dir/flake.nix" "github:ogulcancelik/herdr/v0.7.5"
   assert_file_contains "$repo_dir/flake.nix" "github:modem-dev/hunk"
-  assert_file_contains "$repo_dir/nix/packages.nix" "herdr"
+  assert_file_contains "$repo_dir/nix/packages.nix" "herdr.packages"
   assert_file_contains "$repo_dir/nix/packages.nix" "hunk.packages"
 }
 
