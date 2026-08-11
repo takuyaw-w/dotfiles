@@ -6,15 +6,22 @@
       url = "github:ogulcancelik/herdr/v0.7.5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hunk.url = "github:modem-dev/hunk";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    hunk = {
+      url = "github:modem-dev/hunk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixGL = {
+      url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, herdr, hunk, ... }:
+  outputs = { self, nixpkgs, home-manager, herdr, hunk, nixGL, ... }:
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -55,7 +62,7 @@
             config.allowUnfree = true;
           };
           extraSpecialArgs = {
-            inherit herdr hunk;
+            inherit herdr hunk nixGL;
             inherit (profile) username homeDirectory enableGui;
           };
           modules = [ ./home-manager/home.nix ];

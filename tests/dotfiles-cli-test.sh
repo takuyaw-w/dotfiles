@@ -197,6 +197,12 @@ test_home_manager_manages_git_and_shell_files() {
 }
 
 test_flake_exposes_test_profile_and_checks() {
+  assert_file_contains "$repo_dir/flake.nix" 'nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";'
+  assert_file_contains "$repo_dir/flake.nix" 'url = "github:nix-community/home-manager/release-26.05";'
+  assert_file_contains "$repo_dir/flake.nix" 'hunk = {'
+  assert_file_contains "$repo_dir/flake.nix" 'inputs.nixpkgs.follows = "nixpkgs";'
+  assert_file_contains "$repo_dir/flake.nix" 'nixGL = {'
+  assert_file_not_contains "$repo_dir/flake.lock" "nixos-unstable"
   assert_file_contains "$repo_dir/flake.nix" "profiles = {"
   assert_file_contains "$repo_dir/flake.nix" "desktop-x86_64-linux ="
   assert_file_contains "$repo_dir/flake.nix" "desktop-aarch64-linux ="
@@ -312,19 +318,19 @@ test_home_manager_manages_hunk_config() {
   assert_file_not_contains "$repo_dir/home-manager/xdg.nix" 'xdg.configFile."hunk/state.json"'
 }
 
-test_wezterm_uses_pinned_appimage_not_shell_alias() {
+test_wezterm_uses_stable_nixpkgs_package_not_shell_alias() {
   assert_file_not_contains "$repo_dir/.zsh/rc/alias.zsh" "alias wezterm="
   assert_file_contains "$repo_dir/.config/wezterm/wezterm.lua" "Noto Sans Mono CJK JP"
+  assert_file_contains "$repo_dir/flake.nix" "github:nix-community/nixGL"
   assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/wezterm"'
-  assert_file_contains "$repo_dir/home-manager/launchers.nix" "pkgs.fetchurl"
-  assert_file_contains "$repo_dir/home-manager/launchers.nix" "executable = true;"
-  assert_file_contains "$repo_dir/home-manager/launchers.nix" 'pkgs.writeShellScriptBin "wezterm"'
-  assert_file_contains "$repo_dir/home-manager/launchers.nix" "WezTerm-20240203-110809-5046fc22-Ubuntu20.04.AppImage"
-  assert_file_contains "$repo_dir/home-manager/launchers.nix" "home.packages = lib.optionals enableGui [ weztermStable ];"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "nixGL.packages.\${pkgs.stdenv.hostPlatform.system}.nixGLIntel"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "\${nixGLIntel}/bin/nixGLIntel"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "wrappedWezterm = pkgs.symlinkJoin"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "home.packages = lib.optionals enableGui [ wrappedWezterm ];"
+  assert_file_contains "$repo_dir/home-manager/launchers.nix" "\${pkgs.wezterm}/bin/wezterm"
   assert_file_not_contains "$repo_dir/nix/packages.nix" "    wezterm"
-  assert_file_not_contains "$repo_dir/home-manager/launchers.nix" "nixGL"
   assert_file_not_contains "$repo_dir/home-manager/launchers.nix" "appimageTools.wrapType2"
-  assert_file_contains "$repo_dir/home-manager/launchers.nix" "\${weztermStable}/bin/wezterm"
+  assert_file_not_contains "$repo_dir/home-manager/launchers.nix" "WezTerm-20240203-110809-5046fc22-Ubuntu20.04.AppImage"
   assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/x-terminal-emulator"'
   assert_file_contains "$repo_dir/home-manager/launchers.nix" 'home.file.".local/bin/x-www-browser"'
   assert_file_contains "$repo_dir/home-manager/launchers.nix" '.local/bin/wezterm'
@@ -393,7 +399,7 @@ test_zshenv_prefers_mise_shims_for_tool_commands
 test_home_manager_manages_mise_config
 test_home_manager_manages_herdr_config_and_mimeapps
 test_home_manager_manages_hunk_config
-test_wezterm_uses_pinned_appimage_not_shell_alias
+test_wezterm_uses_stable_nixpkgs_package_not_shell_alias
 test_home_manager_manages_gui_apps
 test_home_manager_manages_local_tools
 test_update_command_runs_flake_update_then_check
