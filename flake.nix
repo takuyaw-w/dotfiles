@@ -12,13 +12,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixGL = {
-      url = "github:nix-community/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, herdr, hunk, nixGL, ... }:
+  outputs = { self, nixpkgs, home-manager, herdr, hunk, ... }:
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -59,7 +55,7 @@
             config.allowUnfree = true;
           };
           extraSpecialArgs = {
-            inherit herdr hunk nixGL;
+            inherit herdr hunk;
             inherit (profile) username homeDirectory enableGui;
           };
           modules = [ ./home-manager/home.nix ];
